@@ -28,7 +28,6 @@ public class Movie {
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
     private Media media;
-    private ObservableList<String> categories = FXCollections.observableArrayList();
 
     public Movie()
     {
@@ -56,12 +55,7 @@ public class Movie {
         }
         
     }
-    public void addCategories(String category){
-        if(!categories.contains(category)){
-           categories.add(category);
-        }
-        
-    }
+   
     
      
     public String getPath() {

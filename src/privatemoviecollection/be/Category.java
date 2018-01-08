@@ -10,12 +10,12 @@ package privatemoviecollection.be;
  *
  * @author Bence
  */
-public class Categories {
+public class Category {
 
     private int id;
     private String categories;
 
-    public Categories(int id, String categories) {
+    public Category(int id, String categories) {
         this.id = id;
         this.categories = categories;
     }
