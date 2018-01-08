@@ -109,4 +109,27 @@ public class MovieDBManager
             throw new DAException(ex);
         }
     }
+    
+    /**
+     * Delete the specified movie from the database
+     * @param movie The movie that will be deleted
+     * @throws DAException If an error occurs during database access
+     */
+    public void delete(Movie movie) throws DAException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Movie WHERE id=?");
+            ps.setInt(1, movie.getId());
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DAException(String.format("Movie with the ID of %d could not be deleted", movie.getId()));
+            }
+        }
+        catch(SQLException ex)
+        {
+            throw new DAException(ex);
+        }
+    }
 }
