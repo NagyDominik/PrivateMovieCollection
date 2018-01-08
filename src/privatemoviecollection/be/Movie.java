@@ -5,6 +5,7 @@
  */
 package privatemoviecollection.be;
 
+import java.io.File;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -15,7 +16,7 @@ import javafx.scene.media.Media;
 
 /**
  *
- * @author Dominik
+ * @author Bence
  */
 public class Movie {
 
@@ -24,14 +25,35 @@ public class Movie {
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
+    private Media media;
 
-     public Movie(int id, String name, float imdbRating , float personalRating, String path) {
+    public Movie()
+    {
+    }
+    
+     public Movie(int id, String name, float imdbRating , float personalRating, String path, Media media) {
         this.id.set(id);
         this.name.set(name);
         this.imdbRating.set(imdbRating);
         this.personalRating.set(personalRating);
         this.path.set(path);
+        this.media = media;
+        
     }
+     
+    public void createMovieFromPath(){
+        try{
+        File f = new File(path.get());
+        this.media = new Media(f.toURI().toString());
+        }
+        catch (Exception ex) {
+            //If the save did not occure on the current machine, an error will occur, and the Media object will no be created
+            //The data, hovewer, will not be displayed (but it will appear on the tableView)
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+     
     public String getPath() {
         return path.get();
     }
