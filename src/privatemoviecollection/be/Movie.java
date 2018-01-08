@@ -25,6 +25,10 @@ public class Movie {
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
 
+    public Movie()
+    {
+    }
+    
      public Movie(int id, String name, float imdbRating , float personalRating, String path) {
         this.id.set(id);
         this.name.set(name);
@@ -32,6 +36,7 @@ public class Movie {
         this.personalRating.set(personalRating);
         this.path.set(path);
     }
+     
     public String getPath() {
         return path.get();
     }

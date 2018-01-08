@@ -16,6 +16,11 @@ public class MovieDBManager
 {
     private ConnectionManager cm = new ConnectionManager();
     
+    /**
+     * Return a the list of movies stored in the database
+     * @return A list of movies stored in the database
+     * @throws DAException If an error occurs during database access
+     */
     public List<Movie> getMoviesFromDatabase() throws DAException
     {
         List<Movie> movies = new ArrayList();
@@ -27,8 +32,12 @@ public class MovieDBManager
             while(rs.next())
             {
                 Movie tmp = new Movie();
-                
-                movies.add(tmp)
+                tmp.setId(rs.getInt("id"));
+                tmp.setImdbRating(rs.getFloat("imdb_rating"));
+                tmp.setPersonalRating(rs.getFloat("user_rating"));
+                tmp.setName(rs.getString("name"));
+                tmp.setPath(rs.getString("filelink"));
+                movies.add(tmp);
             }
         }
         catch (SQLException ex)

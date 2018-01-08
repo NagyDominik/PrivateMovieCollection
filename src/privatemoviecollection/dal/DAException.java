@@ -16,7 +16,7 @@ public class DAException extends Exception {
     
     /**
      * Construct a new DAException using a message from another exception
-     * @param ex 
+     * @param ex The exception from which the message will be retrieved
      */
     public DAException(Exception ex)
     {
