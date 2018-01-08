@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
@@ -58,8 +59,6 @@ public class MainWindowController implements Initializable {
     private Button searchBtn;
     @FXML
     private Label lastViewLbl;
-    
-    private Model model;
     @FXML
     private TableColumn<Movie, String> nameCol;
     @FXML
@@ -70,6 +69,8 @@ public class MainWindowController implements Initializable {
     private TableColumn<Movie, String> catCol;
     @FXML
     private TableColumn<Movie, String> lastViewedCol;
+        
+    private Model model;
 
     /**
      * Initializes the controller class.
@@ -79,11 +80,16 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
+        createCellValueFactories();
         listView.setItems(model.getMovies());
     }
     
     private void createCellValueFactories() {
-        
+        nameCol.setCellValueFactory(new PropertyValueFactory("name"));
+        imdbCol.setCellValueFactory(new PropertyValueFactory("imdbRating"));
+        pRatingCol.setCellValueFactory(new PropertyValueFactory("personalRating"));
+        catCol.setCellValueFactory(new PropertyValueFactory("categories"));
+        lastViewedCol.setCellValueFactory(new PropertyValueFactory(""));
     }
 
     @FXML
@@ -95,6 +101,7 @@ public class MainWindowController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Add Movie");
+            stage.setResizable(false);
             stage.show();
         }
         catch (IOException ex) {
