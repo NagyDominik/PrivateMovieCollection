@@ -13,7 +13,16 @@ public class DAException extends Exception {
     public DAException(String message) {
         super(message);
     }
-
+    
+    /**
+     * Construct a new DAException using a message from another exception
+     * @param ex 
+     */
+    public DAException(Exception ex)
+    {
+        super(ex.getMessage());
+    }
+    
     /**
      * Get the message of the exception
      * @return The message of the exception
