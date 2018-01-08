@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import privatemoviecollection.be.Category;
 
 /**
  * Handles operations such as saving and retrieving categories from the database
@@ -31,9 +32,8 @@ public class CategoryDBManager
             while(rs.next())
             {
                 Category tmp = new Category();
-                tmp.id = rs.getInt("id");
-                tmp.name = rs.getString("name");
-                categories.add(tmp);
+                tmp.setId(rs.getInt("id"));
+                tmp.setCategories(rs.getString("name"));
             }
         }
         catch(SQLException ex)
