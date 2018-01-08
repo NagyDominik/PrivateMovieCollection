@@ -10,12 +10,12 @@ package privatemoviecollection.gui.model;
  * @author Dominik
  */
 public class Model {
-    private Model instance;
+    private static Model instance;
 
     public Model() {
     }
     
-    public Model getInstance() {
+    public static Model getInstance() {
         if (instance == null) {
             instance = new Model();
         }
