@@ -9,10 +9,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="478.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.MainWindowController">
     <children>
-        <Button fx:id="addBtn" layoutX="19.0" layoutY="427.0" onAction="#addClicked" text="Add" />
-      <Button fx:id="removeBtn" layoutX="91.0" layoutY="427.0" mnemonicParsing="false" onAction="#removeClicked" text="Remove" />
-      <Button fx:id="categoriesBtn" layoutX="670.0" layoutY="427.0" mnemonicParsing="false" onAction="#editCatClicked" text=" Edit categories" />
-      <Button fx:id="ratingBtn" layoutX="476.0" layoutY="427.0" mnemonicParsing="false" onAction="#editPRatingClicked" text="Edit personal rating" />
+        <Button fx:id="addBtn" layoutX="19.0" layoutY="427.0" onAction="#addClicked" text="Add" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="10.0" />
+      <Button fx:id="removeBtn" layoutX="91.0" layoutY="427.0" mnemonicParsing="false" onAction="#removeClicked" text="Remove" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="70.0" />
+      <Button fx:id="categoriesBtn" layoutX="670.0" layoutY="427.0" mnemonicParsing="false" onAction="#editCatClicked" text=" Edit categories" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="25.0" />
+      <Button fx:id="ratingBtn" layoutX="476.0" layoutY="427.0" mnemonicParsing="false" onAction="#editPRatingClicked" text="Edit personal rating" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="200.0" />
       <TableView fx:id="listView" layoutX="10.0" layoutY="188.0" prefHeight="229.0" prefWidth="772.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <columns>
           <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
@@ -29,8 +29,8 @@
       <Label fx:id="nameLbl" layoutX="38.0" layoutY="32.0" text="Label" />
       <Label fx:id="personalLbl" layoutX="38.0" layoutY="81.0" text="Label" />
       <Label fx:id="categoriesLbl" layoutX="38.0" layoutY="107.0" text="Label" />
-      <TextField fx:id="searchBar" layoutX="556.0" layoutY="28.0" prefHeight="25.0" prefWidth="201.0" />
-      <Button fx:id="searchBtn" layoutX="705.0" layoutY="77.0" mnemonicParsing="false" text="Search" />
+      <TextField fx:id="searchBar" layoutX="556.0" layoutY="28.0" prefHeight="25.0" prefWidth="201.0" AnchorPane.bottomAnchor="430.0" AnchorPane.rightAnchor="25.0" />
+      <Button fx:id="searchBtn" layoutX="705.0" layoutY="77.0" mnemonicParsing="false" text="Search" AnchorPane.bottomAnchor="380.0" AnchorPane.rightAnchor="25.0" />
       <Label fx:id="lastViewLbl" layoutX="38.0" layoutY="133.0" text="Label" />
     </children>
 </AnchorPane>
