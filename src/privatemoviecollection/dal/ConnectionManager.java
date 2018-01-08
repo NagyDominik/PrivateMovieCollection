@@ -6,7 +6,7 @@ import java.sql.Connection;
 
 /**
  * This class handles the connection to the database
- * @author Dominik
+ * @author sebok
  */
 public class ConnectionManager {
     private SQLServerDataSource source = new SQLServerDataSource();
