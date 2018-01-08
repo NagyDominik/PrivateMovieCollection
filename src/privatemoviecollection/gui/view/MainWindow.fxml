@@ -9,10 +9,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="478.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.MainWindowController">
     <children>
-        <Button fx:id="addBtn" layoutX="19.0" layoutY="427.0" onAction="#handleButtonAction" text="Add" />
-      <Button fx:id="removeBtn" layoutX="91.0" layoutY="427.0" mnemonicParsing="false" text="Remove" />
-      <Button fx:id="categoriesBtn" layoutX="670.0" layoutY="427.0" mnemonicParsing="false" text=" Edit categories" />
-      <Button fx:id="ratingBtn" layoutX="476.0" layoutY="427.0" mnemonicParsing="false" text="Edit personal rating" />
+        <Button fx:id="addBtn" layoutX="19.0" layoutY="427.0" onAction="#addClicked" text="Add" />
+      <Button fx:id="removeBtn" layoutX="91.0" layoutY="427.0" mnemonicParsing="false" onAction="#removeClicked" text="Remove" />
+      <Button fx:id="categoriesBtn" layoutX="670.0" layoutY="427.0" mnemonicParsing="false" onAction="#editCatClicked" text=" Edit categories" />
+      <Button fx:id="ratingBtn" layoutX="476.0" layoutY="427.0" mnemonicParsing="false" onAction="#editPRatingClicked" text="Edit personal rating" />
       <TableView fx:id="listView" layoutX="10.0" layoutY="188.0" prefHeight="229.0" prefWidth="772.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Name" />

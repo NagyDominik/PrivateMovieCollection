@@ -32,9 +32,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="fileBtn" layoutX="351.0" layoutY="188.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="File..." />
-      <Button fx:id="saveBtn" layoutX="35.0" layoutY="267.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Save" />
-      <Button fx:id="cancelBtn" layoutX="338.0" layoutY="267.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Cancel" />
+      <Button fx:id="fileBtn" layoutX="351.0" layoutY="188.0" mnemonicParsing="false" onAction="#fileChooseClicked" prefHeight="25.0" prefWidth="75.0" text="File..." />
+      <Button fx:id="saveBtn" layoutX="35.0" layoutY="267.0" mnemonicParsing="false" onAction="#saveClicked" prefHeight="25.0" prefWidth="75.0" text="Save" />
+      <Button fx:id="cancelBtn" layoutX="338.0" layoutY="267.0" mnemonicParsing="false" onAction="#cancelClicked" prefHeight="25.0" prefWidth="75.0" text="Cancel" />
       <Label layoutX="177.0" layoutY="24.0" text="Add Movie">
          <font>
             <Font name="System Bold" size="18.0" />
