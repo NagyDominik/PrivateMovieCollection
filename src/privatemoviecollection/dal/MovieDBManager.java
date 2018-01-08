@@ -81,4 +81,55 @@ public class MovieDBManager
             throw new DAException(ex);
         }
     }
+    
+    /**
+     * Updates an already existing database entry using a Movie object
+     * @param movie The updated movie
+     * @throws DAException If an error occurs during database access
+     */
+    public void edit(Movie movie) throws DAException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("UPADTE Movie SET name=?, user_rating=?, imdb_rating=?, filelink=?, lastview=? WHERE id=?");
+            ps.setString(1, movie.getName());
+            ps.setFloat(2, movie.getPersonalRating());
+            ps.setFloat(3, movie.getImdbRating());
+            ps.setString(4, movie.getPath());
+            //ps.setDate(5, movie.getLastView());
+            ps.setInt(6, movie.getId());
+            int affected = ps.executeUpdate();
+            if (affected < 0)
+            {
+                throw new DAException("Movie could not be edited!");
+            }
+        }
+        catch(SQLException ex)
+        {
+            throw new DAException(ex);
+        }
+    }
+    
+    /**
+     * Delete the specified movie from the database
+     * @param movie The movie that will be deleted
+     * @throws DAException If an error occurs during database access
+     */
+    public void delete(Movie movie) throws DAException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Movie WHERE id=?");
+            ps.setInt(1, movie.getId());
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DAException(String.format("Movie with the ID of %d could not be deleted", movie.getId()));
+            }
+        }
+        catch(SQLException ex)
+        {
+            throw new DAException(ex);
+        }
+    }
 }
