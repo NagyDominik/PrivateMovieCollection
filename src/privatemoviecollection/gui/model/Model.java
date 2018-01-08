@@ -5,12 +5,17 @@
  */
 package privatemoviecollection.gui.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import privatemoviecollection.be.Movie;
+
 /**
  *
  * @author Dominik
  */
 public class Model {
     private static Model instance;
+    private ObservableList<Movie> movieList = FXCollections.observableArrayList();
 
     public Model() {
     }
@@ -20,5 +25,9 @@ public class Model {
             instance = new Model();
         }
         return instance;
+    }
+
+    public ObservableList<Movie> getMovies() {
+        return movieList;
     }
 }
