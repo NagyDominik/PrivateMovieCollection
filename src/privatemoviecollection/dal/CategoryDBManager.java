@@ -72,4 +72,28 @@ public class CategoryDBManager
             throw new DAException(ex);
         }
     }
+    
+    /**
+     * Delete the specified category from the database
+     * @param cat The category that will be deleted
+     * @throws DAException If an error occurs during database access
+     */
+    public void delete(Category cat) throws DAException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Category WHERE id=?");
+            ps.setInt(1, cat.getId());
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DAException(String.format("The Category with the ID of %d could not be deleted", cat.getId()));
+            }
+            
+        }
+        catch(SQLException ex)
+        {
+            throw new DAException(ex);
+        }
+    }
 }
