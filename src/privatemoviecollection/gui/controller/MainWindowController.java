@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -59,6 +60,16 @@ public class MainWindowController implements Initializable {
     private Label lastViewLbl;
     
     private Model model;
+    @FXML
+    private TableColumn<Movie, String> nameCol;
+    @FXML
+    private TableColumn<Movie, String> imdbCol;
+    @FXML
+    private TableColumn<Movie, String> pRatingCol;
+    @FXML
+    private TableColumn<Movie, String> catCol;
+    @FXML
+    private TableColumn<Movie, String> lastViewedCol;
 
     /**
      * Initializes the controller class.
