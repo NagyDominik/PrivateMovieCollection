@@ -66,6 +66,7 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = model.getInstance();
+        listView.setItems(model.getMovies());
     }    
 
     @FXML
