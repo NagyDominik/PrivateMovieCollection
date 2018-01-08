@@ -67,16 +67,20 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         listView.setItems(model.getMovies());
-    }    
+    }
+    
+    private void createCellValueFactories() {
+        
+    }
 
     @FXML
     private void addClicked(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/NewMovieController.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/NewMovie.fxml"));
+            Parent root = (Parent) loader.load();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
+            stage.setScene(new Scene(root));
             stage.setTitle("Add Movie");
             stage.show();
         }
