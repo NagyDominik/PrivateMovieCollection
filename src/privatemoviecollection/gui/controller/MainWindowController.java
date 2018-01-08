@@ -54,7 +54,6 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        listView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }    
 
     @FXML
