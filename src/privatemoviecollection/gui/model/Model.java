@@ -31,11 +31,20 @@ public class Model {
         return instance;
     }
 
-    public ObservableList<Movie> getMovies() {
+    public ObservableList<Movie> getMoviesFromList() {
         return movieList;
     }
+    
+    public void loadMovies() throws ModelException {
+        try {
+           movieList.addAll(bllm.loadMovies());
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
+    }
 
-    public void removeMedia(Movie selected) throws ModelException {
+    public void removeMovie(Movie selected) throws ModelException {
         for (int i = 0; i < movieList.size(); i++) {
             if (movieList.get(i).equals(selected)) {
                 try {

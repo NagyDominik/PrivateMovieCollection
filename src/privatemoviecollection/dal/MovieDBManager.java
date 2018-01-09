@@ -38,7 +38,7 @@ public class MovieDBManager
                 tmp.setPersonalRating(rs.getFloat("user_rating"));
                 tmp.setName(rs.getString("name"));
                 tmp.setPath(rs.getString("filelink"));
-                tmp.createMovieFromPath();
+                //tmp.createMovieFromPath();
                 movies.add(tmp);
             }
         }

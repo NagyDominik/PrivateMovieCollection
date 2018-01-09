@@ -5,7 +5,6 @@
  */
 package privatemoviecollection.be;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,6 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.media.Media;
 
 /**
@@ -59,9 +56,7 @@ public class Movie {
         }
         
     }
-   
     
-     
     public String getPath() {
         return path.get();
     }
@@ -122,6 +117,5 @@ public class Movie {
     public IntegerProperty idProperty() {
         return id;
     }
-    
     
 }

@@ -5,6 +5,9 @@
  */
 package privatemoviecollection.bll;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.dal.DAException;
 import privatemoviecollection.dal.DALManager;
@@ -36,6 +39,15 @@ public class BLLManager {
     public void deleteMovie(Movie selected) throws BLLException {
         try {
             dalm.deleteMovie(selected);
+        }
+        catch (DAException ex) {
+            throw new BLLException(ex);
+        }
+    }
+
+    public List<Movie> loadMovies() throws BLLException {
+        try {
+            return dalm.getMovies();
         }
         catch (DAException ex) {
             throw new BLLException(ex);

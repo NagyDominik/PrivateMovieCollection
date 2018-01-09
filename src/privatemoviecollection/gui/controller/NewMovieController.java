@@ -73,7 +73,8 @@ public class NewMovieController implements Initializable {
     private void cancelClicked(ActionEvent event) {
         closeStage();
     }
-
+    
+    @FXML
     private void onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             closeStage();
