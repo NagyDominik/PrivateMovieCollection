@@ -5,8 +5,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="505.0" prefWidth="750.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="privatemoviecollection.gui.controller.PlayerController">
+<AnchorPane id="AnchorPane" prefHeight="505.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PlayerController">
    <children>
       <Canvas height="450.0" layoutX="-14.0" layoutY="-10.0" width="800.0" />
       <Button layoutX="45.0" layoutY="463.0" mnemonicParsing="false" text="Play" />
