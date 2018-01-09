@@ -5,24 +5,25 @@
  */
 package privatemoviecollection.gui.model;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import privatemoviecollection.be.Movie;
-import privatemoviecollection.dal.DAException;
-import privatemoviecollection.dal.DALManager;
-
+import privatemoviecollection.bll.BLLException;
+import privatemoviecollection.bll.BLLManager;
 /**
  *
  * @author Dominik
  */
 public class Model {
-    DALManager dalManager = new DALManager();
     private static Model instance;
+    private BLLManager bllm = new BLLManager();
     private ObservableList<Movie> movieList = FXCollections.observableArrayList();
 
     public Model() {
     }
-    
+
     public static Model getInstance() {
         if (instance == null) {
             instance = new Model();
@@ -34,15 +35,27 @@ public class Model {
         return movieList;
     }
 
-    public void removeMedia(Movie selected) throws DAException {
+    public void removeMedia(Movie selected) throws ModelException {
         for (int i = 0; i < movieList.size(); i++) {
           if(movieList.get(i).equals(selected))
            {
-            movieList.remove(i);
-            dalManager.delet(selected);
+              try {
+                  movieList.remove(i);
+                  bllm.deletMovie(selected);
+              } catch (BLLException ex) {
+                 throw new ModelException(ex);
+              }
            }
         }
+    }
                 
                 
+    public void saveMovie(Movie newmovie) throws ModelException {
+        try {
+            bllm.saveMovie(newmovie);
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
     }
 }

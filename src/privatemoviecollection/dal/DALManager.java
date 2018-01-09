@@ -31,7 +31,7 @@ public class DALManager
      * @param movie The movie that will be saved
      * @throws DAException If an error occurs in the MovieDBManager, during database access
      */
-    public void save(Movie movie) throws DAException
+    public void saveMovie(Movie movie) throws DAException
     {
         movieDBManager.save(movie);
     }
@@ -41,7 +41,7 @@ public class DALManager
      * @param movie The movie that will be updated
      * @throws DAException If an error occurs in the MovieDBManager, during database access
      */
-    public void edit(Movie movie) throws DAException
+    public void editMovie(Movie movie) throws DAException
     {
         movieDBManager.edit(movie);
     }
@@ -51,7 +51,7 @@ public class DALManager
      * @param movie The movie that will be deleted
      * @throws DAException If an error occurs in the MovieDBManager, during database access
      */
-    public void delet(Movie movie) throws DAException
+    public void deleteMovie(Movie movie) throws DAException
     {
         movieDBManager.delete(movie);
     }
@@ -74,7 +74,7 @@ public class DALManager
      * @param category The category that will be saved
      * @throws DAException If an error occurs in the CategoryDBManager, during database access
      */
-    public void save(Category category) throws DAException
+    public void saveCategory(Category category) throws DAException
     {
         categoryDBManager.save(category);
     }
@@ -84,8 +84,9 @@ public class DALManager
      * @param category The category that will be deleted from the database
      * @throws DAException If an error occurs in the CategoryDBManager, during database access
      */
-    public void delete(Category category) throws DAException
+    public void deleteCategory(Category category) throws DAException
     {
         categoryDBManager.delete(category);
     }
+    
 }

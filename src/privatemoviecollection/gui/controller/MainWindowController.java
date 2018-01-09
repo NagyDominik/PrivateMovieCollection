@@ -27,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
+import privatemoviecollection.gui.model.ModelException;
 
 /**
  * FXML Controller class
@@ -85,7 +86,7 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         createCellValueFactories();
-        movieTable.setItems(model.getMovies());
+        //movieTable.setItems(model.getMovies());
     }
     
     private void createCellValueFactories() {
@@ -125,7 +126,7 @@ public class MainWindowController implements Initializable {
         }
         catch (ModelException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            showAlert(ex);
+            newAlert(ex);
         }
     }
 
