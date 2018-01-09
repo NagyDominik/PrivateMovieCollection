@@ -18,9 +18,11 @@ public class BLLManager {
     private DALManager dalm = new DALManager();
 
     /**
-     * Calls the method in the DALManager that saves 
+     * Calls the method in the DALManager that saves
+     *
      * @param newmovie A new movie to be saved
-     * @throws BLLException If an error occurs in the DALManager, during the method call
+     * @throws BLLException If an error occurs in the DALManager, during the
+     * method call
      */
     public void saveMovie(Movie newmovie) throws BLLException {
         try {
@@ -31,4 +33,12 @@ public class BLLManager {
         }
     }
 
+    public void deleteMovie(Movie selected) throws BLLException {
+        try {
+            dalm.deleteMovie(selected);
+        }
+        catch (DAException ex) {
+            throw new BLLException(ex);
+        }
+    }
 }
