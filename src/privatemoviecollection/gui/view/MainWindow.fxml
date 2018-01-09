@@ -31,9 +31,9 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label fx:id="nameLbl" layoutX="129.0" layoutY="19.0" text="Name" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="20.0">
+      <Label fx:id="nameLbl" layoutX="130.0" layoutY="14.0" text="Name" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="15.0">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="18.0" />
          </font></Label>
       <Label fx:id="personalLbl" layoutX="129.0" layoutY="68.0" text="Personal">
          <font>

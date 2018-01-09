@@ -34,7 +34,7 @@ public class CategoryDBManager
             {
                 Category tmp = new Category();
                 tmp.setId(rs.getInt("id"));
-                tmp.setCategories(rs.getString("name"));
+                tmp.setName(rs.getString("name"));
             }
         }
         catch(SQLException ex)
@@ -55,7 +55,7 @@ public class CategoryDBManager
         {
             PreparedStatement ps = con.prepareStatement("INSER INTO Category(id, name) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cat.getId());
-            ps.setString(2, cat.getCategories());
+            ps.setString(2, cat.getName());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
