@@ -14,16 +14,23 @@ import privatemoviecollection.dal.DALManager;
  * @author Dominik
  */
 public class BLLManager {
-    
+
     private DALManager dalm = new DALManager();
 
     public void saveMovie(Movie newmovie) throws BLLException {
         try {
-            dalm.save(newmovie);
-        }
-        catch (DAException ex) {
+            dalm.saveMovie(newmovie);
+        } catch (DAException ex) {
             throw new BLLException(ex);
         }
     }
-    
+
+    public void deletMovie(Movie selected) throws BLLException {
+        try {
+            dalm.deleteMovie(selected);
+        }
+        catch( DAException ex) {
+            throw new BLLException(ex);   
+        }
+    }
 }
