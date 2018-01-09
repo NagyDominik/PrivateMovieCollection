@@ -43,7 +43,6 @@ public class Movie {
         this.personalRating.set(personalRating);
         this.path.set(path);
         this.media = media;
-        
     }
     
     public void createMovieFromPath(){
@@ -56,7 +55,14 @@ public class Movie {
             //The data, hovewer, will not be displayed (but it will appear on the tableView)
             System.out.println(ex.getMessage());
         }
-        
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
     }
     
     public String getPath() {

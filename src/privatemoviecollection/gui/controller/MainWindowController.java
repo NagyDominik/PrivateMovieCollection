@@ -143,17 +143,18 @@ public class MainWindowController implements Initializable {
     private void editPRatingClicked(ActionEvent event) {
     }
 
-    private void newAlert(Exception ex) {
-        Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
-        a.show();
-    }
-
     @FXML
     private void searchClicked(ActionEvent event) {
     }
 
     @FXML
     private void playSysDef(ActionEvent event) {
+        try {
+            model.playSysDef(movieTable.getSelectionModel().getSelectedItem());
+        }
+        catch (ModelException ex) {
+            newAlert(ex);
+        }
     }
 
     @FXML
@@ -208,5 +209,10 @@ public class MainWindowController implements Initializable {
         personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
         categoriesLbl.setText("UNDER CONSTRUCTION! (Categories)");
         lastViewLbl.setText("Last Viewed: " + "UNDER CONSTRUCTION!");
+    }
+    
+    private void newAlert(Exception ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
+        a.show();
     }
 }
