@@ -5,7 +5,10 @@
  */
 package privatemoviecollection.be;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -27,6 +30,7 @@ public class Movie {
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
+    private List<Category> categories = new ArrayList();
     private Media media;
 
     public Movie()
