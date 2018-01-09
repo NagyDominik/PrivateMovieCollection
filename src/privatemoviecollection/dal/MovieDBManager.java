@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 
 /**
@@ -41,6 +42,21 @@ public class MovieDBManager
                 //tmp.createMovieFromPath();
                 movies.add(tmp);
             }
+            
+        PreparedStatement ps2 = con.prepareStatement("SELECT Movie.*, CatMovie.CategoryId FROM Movie, CatMovie WHERE CatMovie.MovieId = Movie.id");
+        ResultSet rs2 = ps2.executeQuery();
+        while(rs2.next())
+        {
+            for (Movie movie : movies)
+            {
+                if (movie.getId() == rs2.getInt("id"))
+                {
+                    Category tmp = new Category();
+                    tmp.setId(rs2.getInt(""));
+                }
+            }
+        }
+        
         }
         catch (SQLException ex)
         {

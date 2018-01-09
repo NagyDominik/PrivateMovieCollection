@@ -14,6 +14,8 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.media.Media;
 
 /**
@@ -27,7 +29,7 @@ public class Movie {
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
-    private List<Category> categories = new ArrayList();
+    private ObservableList<Category> categories = FXCollections.observableArrayList();
     private Media media;
 
     public Movie()
@@ -118,4 +120,13 @@ public class Movie {
         return id;
     }
     
+    public ObservableList<Category> getCategories()
+    {
+        return this.categories;
+    }
+    
+    public void addCategory(Category category)
+    {
+        this.categories.add(category);
+    }
 }
