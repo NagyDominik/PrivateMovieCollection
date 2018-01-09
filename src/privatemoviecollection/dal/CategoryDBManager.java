@@ -89,7 +89,6 @@ public class CategoryDBManager
             {
                 throw new DAException(String.format("The Category with the ID of %d could not be deleted", cat.getId()));
             }
-            
         }
         catch(SQLException ex)
         {
