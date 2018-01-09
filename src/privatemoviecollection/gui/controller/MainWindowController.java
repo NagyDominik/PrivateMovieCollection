@@ -71,6 +71,10 @@ public class MainWindowController implements Initializable {
     private TableColumn<Movie, String> lastViewedCol;
         
     private Model model;
+    @FXML
+    private Button sysdefBtn;
+    @FXML
+    private Button playhereBtn;
 
     /**
      * Initializes the controller class.
@@ -125,5 +129,17 @@ public class MainWindowController implements Initializable {
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
+    }
+
+    @FXML
+    private void searchClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void playSysDef(ActionEvent event) {
+    }
+
+    @FXML
+    private void playHere(ActionEvent event) {
     }
 }

@@ -5,9 +5,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="478.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.MainWindowController">
+<AnchorPane id="AnchorPane" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.MainWindowController">
     <children>
         <Button fx:id="addBtn" layoutX="19.0" layoutY="427.0" onAction="#addClicked" text="Add" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="10.0" />
       <Button fx:id="removeBtn" layoutX="91.0" layoutY="427.0" mnemonicParsing="false" onAction="#removeClicked" text="Remove" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="70.0" />
@@ -25,12 +27,27 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label fx:id="imdbLbl" layoutX="38.0" layoutY="56.0" text="Label" />
-      <Label fx:id="nameLbl" layoutX="38.0" layoutY="32.0" text="Label" />
-      <Label fx:id="personalLbl" layoutX="38.0" layoutY="81.0" text="Label" />
-      <Label fx:id="categoriesLbl" layoutX="38.0" layoutY="107.0" text="Label" />
-      <TextField fx:id="searchBar" layoutX="556.0" layoutY="28.0" prefHeight="25.0" prefWidth="201.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="20.0" />
-      <Button fx:id="searchBtn" layoutX="705.0" layoutY="77.0" mnemonicParsing="false" text="Search" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="60.0" />
-      <Label fx:id="lastViewLbl" layoutX="38.0" layoutY="133.0" text="Label" />
+      <Label fx:id="imdbLbl" layoutX="129.0" layoutY="43.0" text="IMDb" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="45.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="nameLbl" layoutX="129.0" layoutY="19.0" text="Name" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="personalLbl" layoutX="129.0" layoutY="68.0" text="Personal">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="categoriesLbl" layoutX="129.0" layoutY="94.0" text="Categories">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <TextField fx:id="searchBar" layoutX="492.0" layoutY="150.0" prefHeight="25.0" prefWidth="201.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0" />
+      <Button fx:id="searchBtn" layoutX="715.0" layoutY="150.0" mnemonicParsing="false" onAction="#searchClicked" prefHeight="25.0" prefWidth="75.0" text="Search" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" />
+      <Label fx:id="lastViewLbl" layoutX="129.0" layoutY="120.0" text="Last Viewed" />
+      <Button fx:id="sysdefBtn" layoutX="140.0" layoutY="150.0" mnemonicParsing="false" onAction="#playSysDef" prefHeight="25.0" prefWidth="140.0" text="Play with default player" textAlignment="CENTER" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="150.0" />
+      <Button fx:id="playhereBtn" layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onAction="#playHere" prefHeight="25.0" prefWidth="100.0" text="Play here (Beta)" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="150.0" />
+      <ImageView fitHeight="110.0" fitWidth="110.0" layoutX="12.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0" />
     </children>
 </AnchorPane>
