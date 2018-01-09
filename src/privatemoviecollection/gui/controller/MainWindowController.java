@@ -44,8 +44,6 @@ public class MainWindowController implements Initializable {
     @FXML
     private Button ratingBtn;
     @FXML
-    private TableView<Movie> listView;
-    @FXML
     private Label imdbLbl;
     @FXML
     private Label nameLbl;
@@ -75,6 +73,8 @@ public class MainWindowController implements Initializable {
     private Button sysdefBtn;
     @FXML
     private Button playhereBtn;
+    @FXML
+    private TableView<?> movieTable;
 
     /**
      * Initializes the controller class.
@@ -85,7 +85,7 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         createCellValueFactories();
-        listView.setItems(model.getMovies());
+        movieTable.setItems(model.getMovies());
     }
     
     private void createCellValueFactories() {
@@ -116,6 +116,17 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void removeClicked(ActionEvent event) {
+        if (showConfirmationDialog("Are you sure you want to delete this song?")) {
+            return;
+        }
+        Movie selected = (Movie) movieTable.getSelectionModel().getSelectedItem();
+        try {
+            model.removeMedia(selected);
+        }
+        catch (ModelException ex) {
+            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            showAlert(ex);
+        }
     }
 
     @FXML
@@ -141,5 +152,25 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void playHere(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("NEM INDUL");
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            newAlert(ex);
+         }
     }
+    
+    private boolean showConfirmationDialog(String prompt) {
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
+        confirmation.showAndWait();
+        return confirmation.getResult() == ButtonType.NO;
+        }
 }

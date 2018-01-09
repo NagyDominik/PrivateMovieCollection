@@ -8,12 +8,15 @@ package privatemoviecollection.gui.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import privatemoviecollection.be.Movie;
+import privatemoviecollection.dal.DAException;
+import privatemoviecollection.dal.DALManager;
 
 /**
  *
  * @author Dominik
  */
 public class Model {
+    DALManager dalManager = new DALManager();
     private static Model instance;
     private ObservableList<Movie> movieList = FXCollections.observableArrayList();
 
@@ -29,5 +32,17 @@ public class Model {
 
     public ObservableList<Movie> getMovies() {
         return movieList;
+    }
+
+    public void removeMedia(Movie selected) throws DAException {
+        for (int i = 0; i < movieList.size(); i++) {
+          if(movieList.get(i).equals(selected))
+           {
+            movieList.remove(i);
+            dalManager.delet(selected);
+           }
+        }
+                
+                
     }
 }
