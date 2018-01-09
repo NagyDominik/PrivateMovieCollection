@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.MainWindowController">
+<AnchorPane id="AnchorPane" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.MainWindowController">
     <children>
         <Button fx:id="addBtn" layoutX="19.0" layoutY="427.0" onAction="#addClicked" text="Add" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="10.0" />
       <Button fx:id="removeBtn" layoutX="91.0" layoutY="427.0" mnemonicParsing="false" onAction="#removeClicked" text="Remove" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="70.0" />
