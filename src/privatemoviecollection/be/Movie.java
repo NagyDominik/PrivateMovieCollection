@@ -5,7 +5,6 @@
  */
 package privatemoviecollection.be;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,6 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.media.Media;
 
 /**
@@ -44,7 +41,6 @@ public class Movie {
         this.personalRating.set(personalRating);
         this.path.set(path);
         this.media = media;
-        
     }
     
     public void createMovieFromPath(){
@@ -57,11 +53,16 @@ public class Movie {
             //The data, hovewer, will not be displayed (but it will appear on the tableView)
             System.out.println(ex.getMessage());
         }
-        
     }
-   
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
+    }
     
-     
     public String getPath() {
         return path.get();
     }
@@ -122,6 +123,5 @@ public class Movie {
     public IntegerProperty idProperty() {
         return id;
     }
-    
     
 }

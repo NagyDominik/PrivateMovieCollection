@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,27 +70,30 @@ public class MainWindowController implements Initializable {
     private TableColumn<Movie, String> catCol;
     @FXML
     private TableColumn<Movie, String> lastViewedCol;
-        
-    private Model model;
     @FXML
     private Button sysdefBtn;
     @FXML
     private Button playhereBtn;
     @FXML
-    private TableView<?> movieTable;
+    private TableView<Movie> movieTable;
+
+    private Model model;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
+        loadMovies();
+        addListenersAndHandlers();
         createCellValueFactories();
-        //movieTable.setItems(model.getMovies());
+        movieTable.setItems(model.getMoviesFromList());
     }
-    
+
     private void createCellValueFactories() {
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
         imdbCol.setCellValueFactory(new PropertyValueFactory("imdbRating"));
@@ -117,12 +122,12 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void removeClicked(ActionEvent event) {
-        if (showConfirmationDialog("Are you sure you want to delete this song?")) {
-            return;
-        }
-        Movie selected = (Movie) movieTable.getSelectionModel().getSelectedItem();
         try {
-            model.removeMedia(selected);
+            if (showConfirmationDialog("Are you sure you want to delete this song?")) {
+                return;
+            }
+            Movie selected = (Movie) movieTable.getSelectionModel().getSelectedItem();
+            model.removeMovie(selected);
         }
         catch (ModelException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,17 +143,18 @@ public class MainWindowController implements Initializable {
     private void editPRatingClicked(ActionEvent event) {
     }
 
-    private void newAlert(Exception ex) {
-        Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
-        a.show();
-    }
-
     @FXML
     private void searchClicked(ActionEvent event) {
     }
 
     @FXML
     private void playSysDef(ActionEvent event) {
+        try {
+            model.playSysDef(movieTable.getSelectionModel().getSelectedItem());
+        }
+        catch (ModelException ex) {
+            newAlert(ex);
+        }
     }
 
     @FXML
@@ -166,12 +172,47 @@ public class MainWindowController implements Initializable {
         catch (IOException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
             newAlert(ex);
-         }
+        }
     }
-    
+
     private boolean showConfirmationDialog(String prompt) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
         return confirmation.getResult() == ButtonType.NO;
+    }
+
+    private void loadMovies() {
+        try {
+            model.loadMovies();
         }
+        catch (ModelException ex) {
+            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            newAlert(ex);
+        }
+    }
+
+    private void addListenersAndHandlers() {
+        movieTable.getSelectionModel().selectedItemProperty().addListener(
+            new ChangeListener() {
+                @Override
+                public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                    setLabels();
+                }
+            }
+        );
+    }
+    
+    private void setLabels() {
+        Movie tempmovie = movieTable.getSelectionModel().getSelectedItem();
+        nameLbl.setText(tempmovie.getName());
+        imdbLbl.setText("IMDb Rating: " + tempmovie.getImdbRating());
+        personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
+        categoriesLbl.setText("UNDER CONSTRUCTION! (Categories)");
+        lastViewLbl.setText("Last Viewed: " + "UNDER CONSTRUCTION!");
+    }
+    
+    private void newAlert(Exception ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
+        a.show();
+    }
 }

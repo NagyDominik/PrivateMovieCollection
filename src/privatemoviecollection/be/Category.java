@@ -5,7 +5,6 @@
  */
 package privatemoviecollection.be;
 
-
 /**
  *
  * @author Bence
@@ -13,26 +12,23 @@ package privatemoviecollection.be;
 public class Category {
 
     private int id;
-    private String categories;
+    private String name;
 
-   public Category()
-    {
+    public Category() {
     }
+
     public Category(int id, String categories) {
         this.id = id;
-        this.categories = categories;
-    }
-    
-   
-
-    public String getCategories() {
-        return categories;
+        this.name = categories;
     }
 
-    public void setCategories(String categories) {
-        this.categories = categories;
+    public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -42,7 +38,4 @@ public class Category {
         this.id = id;
     }
 
-
-    
-   
 }
