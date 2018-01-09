@@ -14,16 +14,21 @@ import privatemoviecollection.dal.DALManager;
  * @author Dominik
  */
 public class BLLManager {
-    
+
     private DALManager dalm = new DALManager();
 
+    /**
+     * Calls the method in the DALManager that saves 
+     * @param newmovie A new movie to be saved
+     * @throws BLLException If an error occurs in the DALManager, during the method call
+     */
     public void saveMovie(Movie newmovie) throws BLLException {
         try {
-            dalm.save(newmovie);
+            dalm.saveMovie(newmovie);
         }
         catch (DAException ex) {
             throw new BLLException(ex);
         }
     }
-    
+
 }
