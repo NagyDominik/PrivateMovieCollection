@@ -62,16 +62,10 @@ public class CategoryDBManager
                 throw new DAException("Category could not be saved");
             }
             ResultSet rs = ps.getGeneratedKeys();
-            ResultSetMetaData rsmd = rs.getMetaData();
-            System.out.println(rsmd.getColumnCount());
-            System.out.println(rsmd.getColumnName(1));
-            System.out.println(rsmd.getColumnLabel(1));
-            /*
             if (rs.next())
             {
-                cat.setId(rs.getInt("id"));
+                cat.setId(rs.getInt(1));
             }
-            */
         }
         catch(SQLException ex)
         {
