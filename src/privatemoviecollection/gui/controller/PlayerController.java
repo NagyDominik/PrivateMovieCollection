@@ -56,10 +56,6 @@ public class PlayerController implements Initializable {
             }
         
         });
-       
-        
-        
-        
     }
 
     //public void listener
@@ -85,8 +81,6 @@ public class PlayerController implements Initializable {
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
                slider.setValue(newValue.toSeconds());
             }
-        
-        
         });
     }
     
@@ -105,7 +99,7 @@ public class PlayerController implements Initializable {
         player.seek(Duration.seconds(slider.getValue()));
         slider.setValue(player.currentTimeProperty().getValue().toMillis());// player.currentTimeProperty().getValue().toMillis()
         
-        player.play();
+        
         
     }
     
