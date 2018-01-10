@@ -29,42 +29,34 @@ public class PlayerController implements Initializable {
     private Slider slider;
     @FXML
     private Button playClick;
-    
-    private MediaPlayer mp;
-    private Media me;
     @FXML
-    private MediaView mw;
-    
-    
-    /*
-            
+    private MediaView mediaView;
+    private MediaPlayer player;
+    private Media media;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         String path = new File("C:\\Users\\Bence\\Documents\\GitHub\\PrivateMovieCollection1\\Snowden.mp4").getAbsolutePath();
-        me = new Media(new File(path).toURI().toString());
-        mp = new MediaPlayer(me);
-        mw.setMediaPlayer(mp);
-    }    
-    
+        media = new Media(new File(path).toURI().toString());
+        player = new MediaPlayer(media);
+        mediaView.setMediaPlayer(player);
+    }
+
     //public void listener
-
-
     @FXML
     private void playClick(MouseEvent event) throws MalformedURLException {
-         double d = me.getDuration().toSeconds();
-       
-       slider.setMax(d);
+        double d = media.getDuration().toSeconds();
+
+        slider.setMax(d);
         System.out.println(d);
-       //slider.setValue(1);
-        mp.play();
+        player.play();
     }
 
-    
     @FXML
     private void pauseClick(MouseEvent event) {
-        String current = mp.currentTimeProperty().toString();
+        String current = player.currentTimeProperty().toString();
         System.out.println(current);
-        System.out.println(me.durationProperty().toString());
-        mp.pause();
+        System.out.println(media.durationProperty().toString());
+        player.pause();
     }
-}*/
+}

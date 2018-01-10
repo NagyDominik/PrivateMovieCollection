@@ -32,11 +32,10 @@ public class Movie {
     private ObservableList<Category> categories = FXCollections.observableArrayList();
     private Media media;
 
-    public Movie()
-    {
+    public Movie() {
     }
-    
-     public Movie(int id, String name, float imdbRating , float personalRating, String path, Media media) {
+
+    public Movie(int id, String name, float imdbRating, float personalRating, String path, Media media) {
         this.id.set(id);
         this.name.set(name);
         this.imdbRating.set(imdbRating);
@@ -44,11 +43,11 @@ public class Movie {
         this.path.set(path);
         this.media = media;
     }
-    
-    public void createMovieFromPath(){
-        try{
-        File f = new File(path.get());
-        this.media = new Media(f.toURI().toString());
+
+    public void createMovieFromPath() {
+        try {
+            File f = new File(path.get());
+            this.media = new Media(f.toURI().toString());
         }
         catch (Exception ex) {
             //If the save did not occure on the current machine, an error will occur, and the Media object will no be created
@@ -64,7 +63,7 @@ public class Movie {
     public void setMedia(Media media) {
         this.media = media;
     }
-    
+
     public String getPath() {
         return path.get();
     }
@@ -88,7 +87,6 @@ public class Movie {
     public FloatProperty personalRatingProperty() {
         return personalRating;
     }
-    
 
     public float getImdbRating() {
         return imdbRating.get();
@@ -101,7 +99,7 @@ public class Movie {
     public FloatProperty imdbRatingProperty() {
         return imdbRating;
     }
-    
+
     public String getName() {
         return name.get();
     }
@@ -113,7 +111,7 @@ public class Movie {
     public StringProperty nameProperty() {
         return name;
     }
-    
+
     public int getId() {
         return id.get();
     }
@@ -125,14 +123,12 @@ public class Movie {
     public IntegerProperty idProperty() {
         return id;
     }
-    
-    public ObservableList<Category> getCategories()
-    {
+
+    public ObservableList<Category> getCategories() {
         return this.categories;
     }
-    
-    public void addCategory(Category category)
-    {
+
+    public void addCategory(Category category) {
         this.categories.add(category);
     }
 }

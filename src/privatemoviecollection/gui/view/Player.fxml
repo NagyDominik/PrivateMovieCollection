@@ -9,7 +9,7 @@
    <children>
       <Button fx:id="playClick" layoutX="14.0" layoutY="464.0" mnemonicParsing="false" onMouseClicked="#playClick" text="Play" />
       <Slider fx:id="slider" blockIncrement="5.0" layoutX="159.0" layoutY="469.0" prefHeight="14.0" prefWidth="547.0" />
-      <MediaView fx:id="mw" fitHeight="450.0" fitWidth="800.0" layoutX="7.0" />
+      <MediaView fx:id="mediaView" fitHeight="450.0" fitWidth="800.0" layoutX="7.0" />
       <Button layoutX="64.0" layoutY="464.0" mnemonicParsing="false" onMouseClicked="#pauseClick" text="pause" />
    </children>
 </AnchorPane>

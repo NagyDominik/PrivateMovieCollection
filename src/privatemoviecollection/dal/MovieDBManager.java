@@ -52,7 +52,7 @@ public class MovieDBManager
                 if (movie.getId() == rs2.getInt("id"))
                 {
                     Category tmp = new Category();
-                    tmp.setId(rs2.getInt(""));
+                    //tmp.setId(rs2.getInt(""));
                 }
             }
         }
