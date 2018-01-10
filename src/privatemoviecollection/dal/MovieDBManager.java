@@ -174,6 +174,7 @@ public class MovieDBManager
                 throw new DAException(String.format("Movie with the ID of %d could not be deleted", movie.getId()));
             }
             
+            //If the movie is associated with at least one category, delete those associations
             if (!movie.getCategories().isEmpty())
             {
                 PreparedStatement ps2 = con.prepareStatement("DELETE FROM CatMovie WHERE CatMovie.MovieId = ?");
@@ -181,10 +182,9 @@ public class MovieDBManager
                 affected = ps.executeUpdate();
                 if (affected < 1)
                 {
-                    throw new DAException("Category associations could not be delete");
+                    throw new DAException("Category associations could not be deleted");
                 }
             }
-
         }
         catch(SQLException ex)
         {
