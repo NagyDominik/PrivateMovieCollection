@@ -78,6 +78,11 @@ public class BLLManager {
         }
     }
 
+    /**
+     * Load the list of categories from the database  
+     * @return The list of categories from the database
+     * @throws BLLException If an error occurs during database access
+     */
     public List<Category> loadCategories() throws BLLException
     {
         try {
