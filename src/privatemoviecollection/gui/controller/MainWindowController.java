@@ -138,17 +138,12 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void editCatClicked(ActionEvent event) {
-        try
-        {
+        try {
             Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
-            
-            if (selectedMovie == null)
-            {
+            if (selectedMovie == null) {
                 throw new Exception("Please select a movie!");
             }
-            
             model.setSelectedMovie(selectedMovie);
-            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/EditCategories.fxml"));
             Parent root = (Parent) loader.load();
 
@@ -158,8 +153,7 @@ public class MainWindowController implements Initializable {
             stage.setResizable(false);
             stage.show();
         }
-        catch(Exception ex)
-        {
+        catch (Exception ex) {
             newAlert(ex);
         }
     }
@@ -209,7 +203,7 @@ public class MainWindowController implements Initializable {
             newAlert(ex);
         }
     }
-    
+
     private void loadCategories() {
         try {
             model.loadCategories();
@@ -222,16 +216,16 @@ public class MainWindowController implements Initializable {
 
     private void addListenersAndHandlers() {
         movieTable.getSelectionModel().selectedItemProperty().addListener(
-            new ChangeListener() {
-                @Override
-                public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                    setLabels();
-                }
+                new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                setLabels();
             }
+        }
         );
-        
+
     }
-    
+
     private void setLabels() {
         Movie tempmovie = movieTable.getSelectionModel().getSelectedItem();
         nameLbl.setText(tempmovie.getName());
@@ -240,12 +234,12 @@ public class MainWindowController implements Initializable {
         categoriesLbl.setText("UNDER CONSTRUCTION! (Categories)");
         lastViewLbl.setText("Last Viewed: " + "UNDER CONSTRUCTION!");
     }
-    
+
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
-    
+
     private boolean showConfirmationDialog(String prompt) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();

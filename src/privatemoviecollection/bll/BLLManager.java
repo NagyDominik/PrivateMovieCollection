@@ -59,6 +59,7 @@ public class BLLManager {
     public static void playSysDef(Movie selected) throws BLLException {
         try {
             File movie = new File(selected.getPath());
+            //File movie = new File("D:\\test2.mp4");
             Desktop.getDesktop().open(movie);
         }
         catch (IOException ex) {
