@@ -189,7 +189,7 @@ public class MainWindowController implements Initializable {
 
     private void loadMovies() {
         try {
-            model.loadMovies();
+            model.load();
         }
         catch (ModelException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);

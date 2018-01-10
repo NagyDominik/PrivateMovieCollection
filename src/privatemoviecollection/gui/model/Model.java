@@ -43,9 +43,10 @@ public class Model {
         return categoryList;
     }
 
-    public void loadMovies() throws ModelException {
+    public void load() throws ModelException {
         try {
             movieList.addAll(bllm.loadMovies());
+            categoryList.addAll(bllm.loadCategories());
         }
         catch (BLLException ex) {
             throw new ModelException(ex);

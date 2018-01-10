@@ -76,4 +76,13 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
+
+    public List<Category> loadCategories() throws BLLException {
+        try {
+            return dalm.getCategories();
+        }
+        catch (DAException ex) {
+            throw new BLLException(ex);
+        }
+    }
 }
