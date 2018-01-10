@@ -77,52 +77,49 @@ public class BLLManager {
     }
 
     /**
-     * Load the list of categories from the database  
+     * Load the list of categories from the database
+     *
      * @return The list of categories from the database
      * @throws BLLException If an error occurs during database access
      */
-    public List<Category> loadCategories() throws BLLException
-    {
+    public List<Category> loadCategories() throws BLLException {
         try {
-           return dalm.getCategories();
+            return dalm.getCategories();
         }
         catch (DAException ex) {
             throw new BLLException(ex);
         }
     }
 
-     /**
+    /**
      * Associate a category with a movie
+     *
      * @param selectedMovie The movie that will be updated
      * @param selectedCat The category that will be added to the movie
      * @throws BLLException If an error occurs during database access
      */
-    public void addCategoryToMovie(Movie selectedMovie, Category selectedCat) throws  BLLException
-    {
-        try
-        {
+    public void addCategoryToMovie(Movie selectedMovie, Category selectedCat) throws BLLException {
+        try {
             dalm.addCategoryToMovie(selectedMovie, selectedCat);
         }
-        catch(DAException ex)
-        {
+        catch (DAException ex) {
             throw new BLLException(ex);
         }
     }
 
     /**
      * Remove the given category from the given movie
+     *
      * @param selectedMovie The selected movie
-     * @param selectedCat The selected category, that will be removed from the given movie
+     * @param selectedCat The selected category, that will be removed from the
+     * given movie
      * @throws BLLException If an error occurs during database access
      */
-    public void removeCategoryFromMovie(Movie selectedMovie, Category selectedCat) throws  BLLException
-    {
-        try
-        {
+    public void removeCategoryFromMovie(Movie selectedMovie, Category selectedCat) throws BLLException {
+        try {
             dalm.removeCategoryFromMovie(selectedMovie, selectedCat);
         }
-        catch (DAException ex)
-        {
+        catch (DAException ex) {
             throw new BLLException(ex);
         }
     }
