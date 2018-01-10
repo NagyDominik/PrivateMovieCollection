@@ -53,9 +53,8 @@ public class CategoryDBManager
     {
         try(Connection con = cm.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("INSER INTO Category(id, name) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, cat.getId());
-            ps.setString(2, cat.getName());
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Category(name) VALUES(?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, cat.getName());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
@@ -64,7 +63,7 @@ public class CategoryDBManager
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next())
             {
-                cat.setId(rs.getInt("id"));
+                cat.setId(rs.getInt(1));
             }
         }
         catch(SQLException ex)

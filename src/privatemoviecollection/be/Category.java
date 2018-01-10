@@ -38,4 +38,9 @@ public class Category {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }
