@@ -30,6 +30,7 @@ public class Movie {
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
     private ObservableList<Category> categories = FXCollections.observableArrayList();
+    private String categoriesAsString;
     private Media media;
 
     public Movie() {
@@ -126,6 +127,14 @@ public class Movie {
 
     public ObservableList<Category> getCategories() {
         return this.categories;
+    }
+    
+    public String getCategoriesAsString() {
+        categoriesAsString = "";
+        for (Category category : categories) {
+            categoriesAsString += category.getName();
+        }
+        return categoriesAsString;
     }
 
     public void addCategory(Category category) {

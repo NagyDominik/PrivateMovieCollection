@@ -7,8 +7,6 @@ package privatemoviecollection.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,7 +52,7 @@ public class NewCategoryController implements Initializable {
             closeStage();
         }
         catch (ModelException ex) {
-            Alert a = new Alert(Alert.AlertType.INFORMATION, ex.getMessage(), ButtonType.OK);
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
             a.show();
         }
     }
