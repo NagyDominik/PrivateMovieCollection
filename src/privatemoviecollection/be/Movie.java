@@ -29,6 +29,7 @@ public class Movie {
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
+    
     private ObservableList<Category> categories = FXCollections.observableArrayList();
     private String categoriesAsString;
     private Media media;

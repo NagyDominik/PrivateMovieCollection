@@ -43,6 +43,7 @@ public class MovieDBManager
                 movies.add(tmp);
             }
             
+        //Retrieve the categores associated with the movies
         PreparedStatement ps2 = con.prepareStatement("SELECT CatMovie.MovieId, Category.id, Category.name"
                 + " FROM CS2017B_24_PrivateMovieCollection.dbo.Movie, CS2017B_24_PrivateMovieCollection.dbo.Category, CS2017B_24_PrivateMovieCollection.dbo.CatMovie "
                 + "WHERE CatMovie.MovieId = Movie.id AND CatMovie.CategoryId = Category.id;");
@@ -172,6 +173,18 @@ public class MovieDBManager
             {
                 throw new DAException(String.format("Movie with the ID of %d could not be deleted", movie.getId()));
             }
+            
+            if (!movie.getCategories().isEmpty())
+            {
+                PreparedStatement ps2 = con.prepareStatement("DELETE FROM CatMovie WHERE CatMovie.MovieId = ?");
+                ps2.setInt(1, movie.getId());
+                affected = ps.executeUpdate();
+                if (affected < 1)
+                {
+                    throw new DAException("Category associations could not be delete");
+                }
+            }
+
         }
         catch(SQLException ex)
         {
