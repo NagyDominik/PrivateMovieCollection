@@ -47,6 +47,17 @@ public class DALManager
     }
     
     /**
+     * Add a category to a move
+     * @param movie The movie that will be updated with a new category
+     * @param newCategory The new category, that will be added to the movie
+     * @throws DAException If an error occurs in the MovieDBManager, during database access
+     */
+    public void addCategoryToMovie(Movie editedMovie, Category newCategory) throws DAException
+    {
+        movieDBManager.addCategoryToMovie(editedMovie, newCategory);
+    }
+    
+    /**
      * Delete a movie from the database
      * @param movie The movie that will be deleted
      * @throws DAException If an error occurs in the MovieDBManager, during database access

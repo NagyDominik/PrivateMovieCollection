@@ -43,16 +43,20 @@ public class MovieDBManager
                 movies.add(tmp);
             }
             
-        PreparedStatement ps2 = con.prepareStatement("SELECT Movie.*, CatMovie.CategoryId FROM Movie, CatMovie WHERE CatMovie.MovieId = Movie.id");
+        PreparedStatement ps2 = con.prepareStatement("SELECT CatMovie.MovieId, Category.id, Category.name"
+                + " FROM CS2017B_24_PrivateMovieCollection.dbo.Movie, CS2017B_24_PrivateMovieCollection.dbo.Category, CS2017B_24_PrivateMovieCollection.dbo.CatMovie "
+                + "WHERE CatMovie.MovieId = Movie.id AND CatMovie.CategoryId = Category.id;");
         ResultSet rs2 = ps2.executeQuery();
         while(rs2.next())
         {
             for (Movie movie : movies)
             {
-                if (movie.getId() == rs2.getInt("id"))
+                if (movie.getId() == rs2.getInt("MovieId"))
                 {
                     Category tmp = new Category();
-                    tmp.setId(rs2.getInt(""));
+                    tmp.setId(rs2.getInt("id"));
+                    tmp.setName(rs2.getString("name"));
+                    movie.addCategory(tmp);
                 }
             }
         }
@@ -119,6 +123,32 @@ public class MovieDBManager
             {
                 throw new DAException("Movie could not be edited!");
             }
+        }
+        catch(SQLException ex)
+        {
+            throw new DAException(ex);
+        }
+    }
+    
+    /**
+     * Add a category to a move
+     * @param movie The movie that will be updated with a new category
+     * @param newCategory The new category, that will be added to the movie
+     * @throws DAException If an error occurs during database access
+     */
+    public void addCategoryToMovie(Movie movie, Category newCategory) throws DAException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO CatMovie(CategoryId, MovieId) VALUES(?, ?)");
+            ps.setInt(1, newCategory.getId());
+            ps.setInt(2, movie.getId());
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DAException("Category could not be saved to the movie");
+            }
+            
         }
         catch(SQLException ex)
         {
