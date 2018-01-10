@@ -38,10 +38,6 @@ public class Model {
     public ObservableList<Movie> getMoviesFromList() {
         return movieList;
     }
-    
-    public ObservableList<Category> getCategoriesFromList() {
-        return categoryList;
-    }
 
     public void loadMovies() throws ModelException {
         try {

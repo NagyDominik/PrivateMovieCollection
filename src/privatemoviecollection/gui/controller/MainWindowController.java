@@ -10,15 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -104,7 +98,7 @@ public class MainWindowController implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
         imdbCol.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         pRatingCol.setCellValueFactory(new PropertyValueFactory("personalRating"));
-        catCol.setCellValueFactory(new PropertyValueFactory("categoriesAsString"));
+        catCol.setCellValueFactory(new PropertyValueFactory("categories"));
         lastViewedCol.setCellValueFactory(new PropertyValueFactory(""));
     }
 
@@ -206,7 +200,6 @@ public class MainWindowController implements Initializable {
                 }
             }
         );
-        
     }
     
     private void setLabels() {

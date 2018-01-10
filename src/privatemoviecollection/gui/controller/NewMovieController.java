@@ -27,7 +27,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
@@ -54,16 +53,11 @@ public class NewMovieController implements Initializable {
     @FXML
     private TextField pathField;
     @FXML
-    private ChoiceBox<Category> catSelector;
+    private ChoiceBox<?> catSelecter;
     @FXML
     private Button catAddBtn;
-    @FXML
-    private Button addCatToMovie;
-    @FXML
-    private TextField catField;
-        
+    
     private Model model;
-    private Movie newmovie = new Movie();
 
     /**
      * Initializes the controller class.
@@ -71,7 +65,6 @@ public class NewMovieController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = model.getInstance();
-        catSelector.setItems(model.getCategoriesFromList());
     }
 
     @FXML
@@ -79,13 +72,6 @@ public class NewMovieController implements Initializable {
         FileChooser filech = new FileChooser();
         URI path = filech.showOpenDialog(new ContextMenu()).toURI();
         pathField.setText(path.toString());
-    }
-    
-    @FXML
-    private void addCatToMovie(ActionEvent event) {
-        Category selected = catSelector.getSelectionModel().getSelectedItem();
-        newmovie.addCategory(selected);
-        catField.setText(catField.getText() + ", " + selected.getName());
     }
 
     @FXML
@@ -115,6 +101,12 @@ public class NewMovieController implements Initializable {
             newAlert(ex);
         }
     }
+    
+    private void onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            closeStage();
+        }
+    }
 
     private void closeStage() {
         Stage stage = (Stage) cancelBtn.getScene().getWindow();
@@ -123,6 +115,7 @@ public class NewMovieController implements Initializable {
 
     private void saveMovie() {
         try {
+            Movie newmovie = new Movie();
             newmovie.setName(titleField.getText());
             newmovie.setImdbRating(Float.parseFloat(imdbField.getText()));
             newmovie.setPersonalRating(Float.parseFloat(pratingField.getText()));
@@ -133,7 +126,6 @@ public class NewMovieController implements Initializable {
                 newAlert(ex);
         }
     }
-    
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
