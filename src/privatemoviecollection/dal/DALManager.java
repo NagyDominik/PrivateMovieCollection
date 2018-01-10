@@ -1,6 +1,7 @@
 package privatemoviecollection.dal;
 
 import java.util.List;
+import javafx.collections.ObservableList;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 
@@ -67,8 +68,18 @@ public class DALManager
         movieDBManager.delete(movie);
     }
     
+    /**
+     * Remove the given category from the given movie
+     * @param selectedMovie The selected movie
+     * @param selectedCat The selected category, that will be removed from the given movie
+     * @throws DAException If an error occurs during database access
+     */
+    public void removeCategoryFromMovie(Movie selectedMovie, Category selectedCat) throws DAException
+    {
+        movieDBManager.removeCategoryFromMovie(selectedMovie, selectedCat);
+    }
     /****************************************************************************************/
-    //Cateopry database methods
+    //Category database methods
     
     /**
      * Get the list of categories from the database

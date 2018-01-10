@@ -9,8 +9,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -30,7 +28,7 @@ import javafx.util.Duration;
  * @author Bence
  */
 public class PlayerController implements Initializable {
-    
+
     @FXML
     private Slider slider;
     @FXML
@@ -39,10 +37,10 @@ public class PlayerController implements Initializable {
     private MediaView mediaView;
     private MediaPlayer player;
     private Media media;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String path = new File("C:\\Users\\Bence\\Documents\\GitHub\\PrivateMovieCollection1\\testvideo1.mp4").getAbsolutePath();
+        String path = new File("C:\\Users\\Bence\\Documents\\GitHub\\PrivateMovieCollection1\\Snowden.mp4").getAbsolutePath();
         media = new Media(new File(path).toURI().toString());
         player = new MediaPlayer(media);
         mediaView.setMediaPlayer(player);
@@ -62,11 +60,12 @@ public class PlayerController implements Initializable {
     @FXML
     private void playClick(MouseEvent event) throws MalformedURLException {
         double d = media.getDuration().toSeconds();
+
         slider.setMax(d);
         System.out.println(d);
         player.play();
     }
-    
+
  /*   public void changeListener() {
         player.currentTimeProperty().addListener(new ChangeListener() {
             @Override
@@ -91,7 +90,7 @@ public class PlayerController implements Initializable {
         System.out.println(media.durationProperty().toString());
         player.pause();
     }
-    
+   
     
     @FXML
     private void changedPosition(MouseEvent event) {
@@ -102,5 +101,5 @@ public class PlayerController implements Initializable {
         
         
     }
-    
+
 }

@@ -29,7 +29,10 @@ public class Movie {
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
+    
     private ObservableList<Category> categories = FXCollections.observableArrayList();
+    
+    private String categoriesAsString;
     private Media media;
 
     public Movie() {
@@ -127,8 +130,43 @@ public class Movie {
     public ObservableList<Category> getCategories() {
         return this.categories;
     }
+    
+    public String getCategoriesAsString() {
+        categoriesAsString = "";
+        for (Category category : categories) {
+            categoriesAsString += category.getName() + " ";
+        }
+        
+        return categoriesAsString;
+    }
 
     public void addCategory(Category category) {
         this.categories.add(category);
+    }
+
+    /**
+     * Check if the categories list contains a given category
+     * @param selectedCat The category that is tested 
+     * @return True if the category list contains the given category, false otherwise
+     */
+    public boolean hasCategory(Category selectedCat)
+    {
+        for (Category category : categories)
+        {
+            if (category.getId() == selectedCat.getId())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Remove a given category from the categories list
+     * @param selectedCat The category that will be removed
+     */
+    public void removeCategory(Category selectedCat)
+    {
+        categories.remove(selectedCat);
     }
 }
