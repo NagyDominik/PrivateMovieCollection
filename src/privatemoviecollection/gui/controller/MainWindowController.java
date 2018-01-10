@@ -10,15 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -95,6 +89,7 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         loadMovies();
+        loadCategories();
         addListenersAndHandlers();
         createCellValueFactories();
         movieTable.setItems(model.getMoviesFromList());
@@ -143,6 +138,30 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void editCatClicked(ActionEvent event) {
+        try
+        {
+            Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
+            
+            if (selectedMovie == null)
+            {
+                throw new Exception("Please select a movie!");
+            }
+            
+            model.setSelectedMovie(selectedMovie);
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/EditCategories.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit categories");
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch(Exception ex)
+        {
+            newAlert(ex);
+        }
     }
 
     @FXML
@@ -181,15 +200,19 @@ public class MainWindowController implements Initializable {
         }
     }
 
-    private boolean showConfirmationDialog(String prompt) {
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
-        confirmation.showAndWait();
-        return confirmation.getResult() == ButtonType.NO;
-    }
-
     private void loadMovies() {
         try {
             model.loadMovies();
+        }
+        catch (ModelException ex) {
+            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            newAlert(ex);
+        }
+    }
+    
+    private void loadCategories() {
+        try {
+            model.loadCategories();
         }
         catch (ModelException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
@@ -221,5 +244,11 @@ public class MainWindowController implements Initializable {
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
+    }
+    
+    private boolean showConfirmationDialog(String prompt) {
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
+        confirmation.showAndWait();
+        return confirmation.getResult() == ButtonType.NO;
     }
 }
