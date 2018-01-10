@@ -191,4 +191,29 @@ public class MovieDBManager
             throw new DAException(ex);
         }
     }
+
+    /**
+     * Remove the given category from the given movie
+     * @param selectedMovie The selected movie
+     * @param selectedCat The selected category, that will be removed from the given movie
+     * @throws DAException If an error occurs during database access
+     */
+    void removeCategoryFromMovie(Movie selectedMovie, Category selectedCat) throws DAException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM CatMovie WHERE CatMovie.MovieId = ? AND CatMovie.CategoryId = ?");
+            ps.setInt(1, selectedMovie.getId());
+            ps.setInt(2, selectedCat.getId());
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new DAException("Could not remove category from movie");
+            }
+        }
+        catch (SQLException ex)
+        {
+            
+        }
+    }
 }

@@ -5,8 +5,6 @@
  */
 package privatemoviecollection.gui.model;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import privatemoviecollection.be.Category;
@@ -24,7 +22,8 @@ public class Model {
     private BLLManager bllm = new BLLManager();
     private ObservableList<Movie> movieList = FXCollections.observableArrayList();
     private ObservableList<Category> categoryList = FXCollections.observableArrayList();
-
+    private Movie selectedMovie;
+    
     public Model() {
     }
 
@@ -35,6 +34,16 @@ public class Model {
         return instance;
     }
 
+    public Movie getSelectedMovie()
+    {
+        return selectedMovie;
+    }
+
+    public void setSelectedMovie(Movie selectedMovie)
+    {
+        this.selectedMovie = selectedMovie;
+    }
+    
     public ObservableList<Movie> getMoviesFromList() {
         return movieList;
     }
@@ -96,6 +105,57 @@ public class Model {
             }
         } else {
             throw new ModelException("The category already exists");
+        }
+    }
+
+    /**
+     * Load the categories stored in the database
+     * @throws ModelException If an error occurs during database access
+     */
+    public void loadCategories() throws ModelException
+    {
+        try {
+            categoryList.addAll(bllm.loadCategories());
+        }
+        catch (BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
+    }
+
+    /**
+     * Associate a category with a movie
+     * @param selectedMovie The movie that will be updated
+     * @param selectedCat The category that will be added to the movie
+     * @throws ModelException If an error occurs during database access
+     */
+    public void addCategoryToMovie(Movie selectedMovie, Category selectedCat) throws ModelException
+    {
+        try
+        {
+           bllm.addCategoryToMovie(selectedMovie, selectedCat); 
+        }
+        catch(BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
+    }
+    
+    /**
+     * Remove the given category from the given movie
+     * @param selectedMovie The selected movie
+     * @param selectedCat The selected category, that will be removed from the given movie
+     * @throws ModelException If an error occurs during database access
+     */
+    public void removeCategoryFromMovie(Movie selectedMo, Category selectedCat) throws ModelException
+    {
+        try
+        {
+            bllm.removeCategoryFromMovie(selectedMo, selectedCat);
+        }
+        catch(BLLException ex)
+        {
+            throw new ModelException(ex);
         }
     }
 }

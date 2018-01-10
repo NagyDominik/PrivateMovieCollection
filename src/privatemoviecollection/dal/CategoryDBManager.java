@@ -24,7 +24,7 @@ public class CategoryDBManager
      */
     public List<Category> getCategoriesFromDatabase() throws DAException
     {
-        List<Category> categories = new ArrayList();
+        List<Category> categories = new ArrayList();        
         
         try(Connection con = cm.getConnection())
         {
@@ -35,6 +35,7 @@ public class CategoryDBManager
                 Category tmp = new Category();
                 tmp.setId(rs.getInt("id"));
                 tmp.setName(rs.getString("name"));
+                categories.add(tmp);
             }
         }
         catch(SQLException ex)
