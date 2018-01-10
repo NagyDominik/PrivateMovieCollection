@@ -43,6 +43,7 @@ public class MovieDBManager
                 movies.add(tmp);
             }
             
+        //Retrieve the categores associated with the movies
         PreparedStatement ps2 = con.prepareStatement("SELECT CatMovie.MovieId, Category.id, Category.name"
                 + " FROM CS2017B_24_PrivateMovieCollection.dbo.Movie, CS2017B_24_PrivateMovieCollection.dbo.Category, CS2017B_24_PrivateMovieCollection.dbo.CatMovie "
                 + "WHERE CatMovie.MovieId = Movie.id AND CatMovie.CategoryId = Category.id;");

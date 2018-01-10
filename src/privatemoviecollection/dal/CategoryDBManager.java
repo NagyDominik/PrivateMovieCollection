@@ -3,6 +3,7 @@ package privatemoviecollection.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -53,19 +54,24 @@ public class CategoryDBManager
     {
         try(Connection con = cm.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("INSER INTO Category(id, name) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, cat.getId());
-            ps.setString(2, cat.getName());
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Category(name) VALUES(?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, cat.getName());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
                 throw new DAException("Category could not be saved");
             }
             ResultSet rs = ps.getGeneratedKeys();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            System.out.println(rsmd.getColumnCount());
+            System.out.println(rsmd.getColumnName(1));
+            System.out.println(rsmd.getColumnLabel(1));
+            /*
             if (rs.next())
             {
                 cat.setId(rs.getInt("id"));
             }
+            */
         }
         catch(SQLException ex)
         {
