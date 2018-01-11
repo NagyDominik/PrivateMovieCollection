@@ -76,10 +76,10 @@ public class MainWindowController implements Initializable {
     private Button playhereBtn;
     @FXML
     private TableView<Movie> movieTable;
+    @FXML
+    private Button addDeleteCategories;
 
     private Model model;
-    @FXML
-    private Button adddeleteCategories;
 
     /**
      * Initializes the controller class.
@@ -134,7 +134,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void removeClicked(ActionEvent event) {
         try {
-            if (showConfirmationDialog("Are you sure you want to delete this song?")) {
+            if (showConfirmationDialog("Are you sure you want to delete this movie?")) {
                 return;
             }
             Movie selected = (Movie) movieTable.getSelectionModel().getSelectedItem();
@@ -278,7 +278,7 @@ public class MainWindowController implements Initializable {
         imdbLbl.setText("IMDb Rating: " + tempmovie.getImdbRating());
         personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
         categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
-        lastViewLbl.setText("Last Viewed: " + tempmovie.getLastAccessTime()); //This throws an error, because the createMediaFromPath is not called upon loading movies from the database
+        lastViewLbl.setText("Last Viewed: " + "WIP");// tempmovie.getLastAccessTime()); //This throws an error, because the createMediaFromPath is not called upon loading movies from the database
     }
 
     /**
@@ -302,6 +302,6 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void adddeleteCategories(ActionEvent event) {
+    private void btnAddDeleteCategoriesClicked(ActionEvent event) {
     }
 }

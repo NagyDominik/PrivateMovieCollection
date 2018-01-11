@@ -79,12 +79,11 @@ public class MovieDBManager
     {
         try(Connection con = cm.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Movie(id, name, user_rating, imdb_rating, filelink) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, movie.getId());
-            ps.setString(2, movie.getName());
-            ps.setFloat(3, movie.getPersonalRating());
-            ps.setFloat(4, movie.getImdbRating());
-            ps.setString(5, movie.getPath());
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Movie(name, user_rating, imdb_rating, filelink) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, movie.getName());
+            ps.setFloat(2, movie.getPersonalRating());
+            ps.setFloat(3, movie.getImdbRating());
+            ps.setString(4, movie.getPath());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
@@ -93,8 +92,25 @@ public class MovieDBManager
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next())
             {
-                movie.setId(rs.getInt("id"));
+                movie.setId(rs.getInt(1));
             }
+            
+            //Save the associated categories
+            if (!movie.getCategories().isEmpty())
+            {
+               for (Category cat : movie.getCategories())
+                {
+                    PreparedStatement ps2 = con.prepareStatement("INSERT INTO CatMovie(CategoryId, MovieId) VALUES(?, ?)");
+                    ps2.setInt(1, cat.getId());
+                    ps2.setInt(2, movie.getId());
+                    int affected2 = ps2.executeUpdate();
+                    if (affected2 < 1)
+                    {
+                        throw new DAException("Category could not be associated with movie!");
+                    }
+                }      
+            }
+            
         }
         catch(SQLException ex)
         {
@@ -164,24 +180,24 @@ public class MovieDBManager
     {
         try(Connection con = cm.getConnection())
         {
+            //If the movie is associated with at least one category, delete those associations
+            if (!movie.getCategories().isEmpty())
+            {
+                PreparedStatement ps2 = con.prepareStatement("DELETE FROM CatMovie WHERE CatMovie.MovieId = ?");
+                ps2.setInt(1, movie.getId());
+                int affected = ps2.executeUpdate();
+                if (affected < 1)
+                {
+                    throw new DAException("Category associations could not be deleted");
+                }
+            }
+            
             PreparedStatement ps = con.prepareStatement("DELETE FROM Movie WHERE id=?");
             ps.setInt(1, movie.getId());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
                 throw new DAException(String.format("Movie with the ID of %d could not be deleted", movie.getId()));
-            }
-            
-            //If the movie is associated with at least one category, delete those associations
-            if (!movie.getCategories().isEmpty())
-            {
-                PreparedStatement ps2 = con.prepareStatement("DELETE FROM CatMovie WHERE CatMovie.MovieId = ?");
-                ps2.setInt(1, movie.getId());
-                affected = ps.executeUpdate();
-                if (affected < 1)
-                {
-                    throw new DAException("Category associations could not be deleted");
-                }
             }
         }
         catch(SQLException ex)

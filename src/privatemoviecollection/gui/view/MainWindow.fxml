@@ -14,7 +14,7 @@
         <Button fx:id="addBtn" layoutX="19.0" layoutY="427.0" onAction="#addClicked" text="Add" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="10.0" />
       <Button fx:id="removeBtn" layoutX="91.0" layoutY="427.0" mnemonicParsing="false" onAction="#removeClicked" text="Remove" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="70.0" />
       <Button fx:id="categoriesBtn" layoutX="670.0" layoutY="427.0" mnemonicParsing="false" onAction="#editCatClicked" text=" Edit categories" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="25.0" />
-      <Button fx:id="ratingBtn" layoutX="762.0" layoutY="526.0" mnemonicParsing="false" onAction="#editPRatingClicked" text="Edit personal rating" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="142.0" />
+      <Button fx:id="ratingBtn" layoutX="703.0" layoutY="520.0" mnemonicParsing="false" onAction="#editPRatingClicked" text="Edit personal rating" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="171.0" />
       <TableView fx:id="movieTable" layoutX="10.0" layoutY="188.0" prefHeight="229.0" prefWidth="772.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="190.0">
         <columns>
           <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
@@ -49,6 +49,6 @@
       <Button fx:id="sysdefBtn" layoutX="140.0" layoutY="150.0" mnemonicParsing="false" onAction="#playSysDef" prefHeight="25.0" prefWidth="140.0" text="Play with default player" textAlignment="CENTER" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="150.0" />
       <Button fx:id="playhereBtn" layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onAction="#playHere" prefHeight="25.0" prefWidth="100.0" text="Play here (Beta)" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="150.0" />
       <ImageView fitHeight="110.0" fitWidth="110.0" layoutX="12.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0" />
-      <Button fx:id="adddeleteCategories" layoutX="853.0" layoutY="150.0" mnemonicParsing="false" onAction="#adddeleteCategories" prefHeight="25.0" prefWidth="145.0" text="Add / Delete Categories" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="150.0" />
+      <Button fx:id="addDeleteCategories" layoutX="853.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnAddDeleteCategoriesClicked" prefHeight="25.0" prefWidth="145.0" text="Add / Delete Categories" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="150.0" />
     </children>
 </AnchorPane>
