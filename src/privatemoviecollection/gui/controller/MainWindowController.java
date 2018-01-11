@@ -78,6 +78,8 @@ public class MainWindowController implements Initializable {
     private TableView<Movie> movieTable;
 
     private Model model;
+    @FXML
+    private Button adddeleteCategories;
 
     /**
      * Initializes the controller class.
@@ -89,7 +91,6 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         loadMovies();
-        loadCategories();
         addListenersAndHandlers();
         createCellValueFactories();
         movieTable.setItems(model.getMoviesFromList());
@@ -298,5 +299,9 @@ public class MainWindowController implements Initializable {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
         return confirmation.getResult() == ButtonType.NO;
+    }
+
+    @FXML
+    private void adddeleteCategories(ActionEvent event) {
     }
 }
