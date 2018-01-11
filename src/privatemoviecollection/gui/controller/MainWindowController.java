@@ -97,6 +97,9 @@ public class MainWindowController implements Initializable {
         movieTable.setItems(model.getMoviesFromList());
     }
 
+    /**
+     * Create cell value factories to properly display the values 
+     */
     private void createCellValueFactories() {
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
         imdbCol.setCellValueFactory(new PropertyValueFactory("imdbRating"));
@@ -105,6 +108,9 @@ public class MainWindowController implements Initializable {
         //lastViewedCol.setCellValueFactory(new PropertyValueFactory("lastAccessTime")); Will be enabled later
     }
 
+    /**
+     * Open a new window where the user can add a new movie to the database
+     */
     @FXML
     private void addClicked(ActionEvent event) {
         try {
@@ -123,6 +129,9 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    /**
+     * Attempt to remove a movie from the list and the database
+     */
     @FXML
     private void removeClicked(ActionEvent event) {
         try {
@@ -138,6 +147,9 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    /**
+     * Open a new window, where the user can assign or delete categories to and from a movie
+     */
     @FXML
     private void editCatClicked(ActionEvent event) {
         try {
@@ -161,6 +173,9 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    /**
+     * Open a new window where the user can edit the personal rating of a movie
+     */
     @FXML
     private void editPRatingClicked(ActionEvent event) {
         try
@@ -185,11 +200,17 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    /**
+     * Search through the database for the movies that satisfy the search parameters
+     */
     @FXML
     private void searchClicked(ActionEvent event) {
         
     }
 
+    /**
+     * Attempt to play the selected movie with the default media player
+     */
     @FXML
     private void playSysDef(ActionEvent event) {
         try {
@@ -200,6 +221,9 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    /**
+     * Attempt to play the selected movie within the program
+     */
     @FXML
     private void playHere(ActionEvent event) {
         try {
@@ -219,6 +243,9 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    /**
+     * Load the movies from the database
+     */
     private void loadMovies() {
         try {
             model.load();
@@ -229,6 +256,9 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    /**
+     * Load the categories from the database
+     */
     private void loadCategories() {
         try {
             model.loadCategories();
@@ -239,6 +269,9 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    /**
+     * Add a listener to the movie table, so the labels can be updated when the selection changes
+     */
     private void addListenersAndHandlers() {
         movieTable.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener() {
@@ -248,23 +281,34 @@ public class MainWindowController implements Initializable {
             }
         }
         );
-
     }
 
+    /**
+     * Set the labels do display the info of the selected movie
+     */
     private void setLabels() {
         Movie tempmovie = movieTable.getSelectionModel().getSelectedItem();
         nameLbl.setText(tempmovie.getName());
         imdbLbl.setText("IMDb Rating: " + tempmovie.getImdbRating());
         personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
-        categoriesLbl.setText("UNDER CONSTRUCTION! (Categories)");
-        lastViewLbl.setText("Last Viewed: " + "UNDER CONSTRUCTION!");
+        categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
+        lastViewLbl.setText("Last Viewed: " + tempmovie.getLastAccessTime()); //This throws an error, because the createMediaFromPath is not called upon loading movies from the database
     }
 
+    /**
+     * Display a new alert window, to notify the user of some error
+     * @param ex The exception that carries the error message
+     */
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
 
+    /**
+     * Show a confirmation dialog with the specified prompt.
+     * @param prompt The text that will be shown to the user
+     * @return True, if the user selected the "Yes" button, false otherwise
+     */
     private boolean showConfirmationDialog(String prompt) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
