@@ -9,9 +9,6 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.dal.DAException;
@@ -62,6 +59,7 @@ public class BLLManager {
     public static void playSysDef(Movie selected) throws BLLException {
         try {
             File movie = new File(selected.getPath());
+            //File movie = new File("D:\\test2.mp4");
             Desktop.getDesktop().open(movie);
         }
         catch (IOException ex) {
@@ -79,52 +77,49 @@ public class BLLManager {
     }
 
     /**
-     * Load the list of categories from the database  
+     * Load the list of categories from the database
+     *
      * @return The list of categories from the database
      * @throws BLLException If an error occurs during database access
      */
-    public List<Category> loadCategories() throws BLLException
-    {
+    public List<Category> loadCategories() throws BLLException {
         try {
-           return dalm.getCategories();
+            return dalm.getCategories();
         }
         catch (DAException ex) {
             throw new BLLException(ex);
         }
     }
 
-     /**
+    /**
      * Associate a category with a movie
+     *
      * @param selectedMovie The movie that will be updated
      * @param selectedCat The category that will be added to the movie
      * @throws BLLException If an error occurs during database access
      */
-    public void addCategoryToMovie(Movie selectedMovie, Category selectedCat) throws  BLLException
-    {
-        try
-        {
+    public void addCategoryToMovie(Movie selectedMovie, Category selectedCat) throws BLLException {
+        try {
             dalm.addCategoryToMovie(selectedMovie, selectedCat);
         }
-        catch(DAException ex)
-        {
+        catch (DAException ex) {
             throw new BLLException(ex);
         }
     }
 
     /**
      * Remove the given category from the given movie
+     *
      * @param selectedMovie The selected movie
-     * @param selectedCat The selected category, that will be removed from the given movie
+     * @param selectedCat The selected category, that will be removed from the
+     * given movie
      * @throws BLLException If an error occurs during database access
      */
-    public void removeCategoryFromMovie(Movie selectedMovie, Category selectedCat) throws  BLLException
-    {
-        try
-        {
+    public void removeCategoryFromMovie(Movie selectedMovie, Category selectedCat) throws BLLException {
+        try {
             dalm.removeCategoryFromMovie(selectedMovie, selectedCat);
         }
-        catch (DAException ex)
-        {
+        catch (DAException ex) {
             throw new BLLException(ex);
         }
     }

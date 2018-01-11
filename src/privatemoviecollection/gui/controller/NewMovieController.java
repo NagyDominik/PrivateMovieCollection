@@ -85,7 +85,7 @@ public class NewMovieController implements Initializable {
     private void addCatToMovie(ActionEvent event) {
         Category selected = catSelector.getSelectionModel().getSelectedItem();
         newmovie.addCategory(selected);
-        catField.setText(catField.getText() + ", " + selected.getName());
+        catField.setText(catField.getText() + selected.getName() + ", ");
     }
 
     @FXML
