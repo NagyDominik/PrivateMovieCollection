@@ -27,9 +27,17 @@ public class Model {
     //private ObservableList<Movie> searchedList = FXCollections.observableArrayList();
     
     public Model() { 
+
         
    }
 
+ 
+
+
+    /**
+     * Return an instance of the Model
+     * @return An instance of the Model
+     */
     public static Model getInstance() {
         if (instance == null) {
             instance = new Model();
@@ -37,22 +45,42 @@ public class Model {
         return instance;
     }
 
+    /**
+     * Return the selected movie
+     * @return The selected movie
+     */
     public Movie getSelectedMovie() {
         return selectedMovie;
     }
 
+    /**
+     * Used to reference a selected movie (for example, when editing the personal rating or categories) between different windows
+     * @param selectedMovie The selected movie that will be referenced 
+     */
     public void setSelectedMovie(Movie selectedMovie) {
         this.selectedMovie = selectedMovie;
     }
 
+    /**
+     * Return a list of movies
+     * @return A list of movies
+     */
     public ObservableList<Movie> getMoviesFromList() {
         return movieList;
     }
-
+    
+    /**
+     * Return a list of categories
+     * @return A list of categories
+     */
     public ObservableList<Category> getCategoriesFromList() {
         return categoryList;
     }
 
+    /**
+     * Load the list of movies and categories from the database
+     * @throws ModelException If an error occurs during database access
+     */
     public void load() throws ModelException {
         try {
             movieList.addAll(bllm.loadMovies());
@@ -63,12 +91,18 @@ public class Model {
         }
     }
 
+    /**
+     * Remove the selected movie from the list and from the database
+     * @param selected The movie that will be removed
+     * @throws ModelException If an error occurs during database access
+     */
     public void removeMovie(Movie selected) throws ModelException {
         for (int i = 0; i < movieList.size(); i++) {
             if (movieList.get(i).equals(selected)) {
                 try {
                     movieList.remove(i);
                     bllm.deleteMovie(selected);
+                    break;
                 }
                 catch (BLLException ex) {
                     throw new ModelException(ex);
@@ -77,8 +111,14 @@ public class Model {
         }
     }
 
+    /**
+     * Save a new movie to the list and to the database
+     * @param newmovie The movie that will be saved
+     * @throws ModelException If an error occurs during database access
+     */
     public void saveMovie(Movie newmovie) throws ModelException {
         try {
+            movieList.add(newmovie);
             bllm.saveMovie(newmovie);
         }
         catch (BLLException ex) {
@@ -86,6 +126,11 @@ public class Model {
         }
     }
 
+    /**
+     * Attempt to play the selected movie with the default media player
+     * @param selected The selected movie that will be played
+     * @throws ModelException If an error occurs
+     */
     public void playSysDef(Movie selected) throws ModelException {
         try {
             bllm.playSysDef(selected);
@@ -95,6 +140,11 @@ public class Model {
         }
     }
 
+    /**
+     * Attempt to 
+     * @param cat
+     * @throws ModelException 
+     */
     public void addCategory(Category cat) throws ModelException {
         if (!categoryList.contains(cat)) {
             try {
@@ -106,20 +156,6 @@ public class Model {
             }
         } else {
             throw new ModelException("The category already exists");
-        }
-    }
-
-    /**
-     * Load the categories stored in the database
-     *
-     * @throws ModelException If an error occurs during database access
-     */
-    public void loadCategories() throws ModelException {
-        try {
-            categoryList.addAll(bllm.loadCategories());
-        }
-        catch (BLLException ex) {
-            throw new ModelException(ex);
         }
     }
 
@@ -171,22 +207,40 @@ public class Model {
         }
     }
     
+    /**
+     * Set up a player to play the movie in the program
+     * @param selected The movie that will be played
+     */
     public void setupPlayer(Movie selected) {
         bllm.setupPlayer(selected);
     }
 
+    /**
+     * Return a media player object 
+     * @return A media player object
+     */
     public MediaPlayer getPlayer() {
         return bllm.getPlayer();
     }
 
+    /**
+     * Use the built-in player
+     */
     public void playBuiltIn() {
         bllm.playBuiltIn();
     }
 
+    /**
+     * Pause the play back
+     */
     public void pauseBuiltIn() {
         bllm.pauseBuiltIn();
     }
 
+    /**
+     * Move to a different location during play
+     * @param value The new location
+     */
     public void seekBuiltIn(double value) {
         bllm.seekBuiltIn(value);
     }

@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import privatemoviecollection.be.Category;
@@ -29,11 +30,15 @@ public class NewCategoryController implements Initializable {
     @FXML
     private TextField nameField;
     @FXML
-    private Button saveBtn;
-    @FXML
     private Button cancelBtn;
 
     private Model model;
+    @FXML
+    private Button okBtn;
+    @FXML
+    private ListView<?> categoryList;
+    @FXML
+    private Button addBtn;
 
     /**
      * Initializes the controller class.
@@ -43,7 +48,6 @@ public class NewCategoryController implements Initializable {
         model = Model.getInstance();
     }
 
-    @FXML
     private void btnSaveClick(ActionEvent event) {
         try {
             Category newcat = new Category();
@@ -65,5 +69,13 @@ public class NewCategoryController implements Initializable {
     private void closeStage() {
         Stage stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void btnOkClick(ActionEvent event) {
+    }
+
+    @FXML
+    private void addCategory(ActionEvent event) {
     }
 }

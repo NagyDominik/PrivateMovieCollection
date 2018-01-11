@@ -76,6 +76,8 @@ public class MainWindowController implements Initializable {
     private Button playhereBtn;
     @FXML
     private TableView<Movie> movieTable;
+    @FXML
+    private Button addDeleteCategories;
 
     private Model model;
 
@@ -89,7 +91,6 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         loadMovies();
-        loadCategories();
         addListenersAndHandlers();
         createCellValueFactories();
         movieTable.setItems(model.getMoviesFromList());
@@ -103,7 +104,7 @@ public class MainWindowController implements Initializable {
         imdbCol.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         pRatingCol.setCellValueFactory(new PropertyValueFactory("personalRating"));
         catCol.setCellValueFactory(new PropertyValueFactory("categoriesAsString"));
-        //lastViewedCol.setCellValueFactory(new PropertyValueFactory("lastAccessTime")); Will be enabled later
+        //lastViewedCol.setCellValueFactory(new PropertyValueFactory("lastAccessTime")); //Will be enabled later
     }
 
     /**
@@ -133,7 +134,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void removeClicked(ActionEvent event) {
         try {
-            if (showConfirmationDialog("Are you sure you want to delete this song?")) {
+            if (showConfirmationDialog("Are you sure you want to delete this movie?")) {
                 return;
             }
             Movie selected = (Movie) movieTable.getSelectionModel().getSelectedItem();
@@ -262,19 +263,6 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Load the categories from the database
-     */
-    private void loadCategories() {
-        try {
-            model.loadCategories();
-        }
-        catch (ModelException ex) {
-            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            newAlert(ex);
-        }
-    }
-
-    /**
      * Add a listener to the movie table, so the labels can be updated when the selection changes
      */
     private void addListenersAndHandlers() {
@@ -297,7 +285,7 @@ public class MainWindowController implements Initializable {
         imdbLbl.setText("IMDb Rating: " + tempmovie.getImdbRating());
         personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
         categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
-        lastViewLbl.setText("Last Viewed: " + tempmovie.getLastAccessTime()); //This throws an error, because the createMediaFromPath is not called upon loading movies from the database
+        lastViewLbl.setText("Last Viewed: " + "WIP");// tempmovie.getLastAccessTime()); //This throws an error, because the createMediaFromPath is not called upon loading movies from the database
     }
 
     /**
@@ -318,5 +306,9 @@ public class MainWindowController implements Initializable {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
         return confirmation.getResult() == ButtonType.NO;
+    }
+
+    @FXML
+    private void btnAddDeleteCategoriesClicked(ActionEvent event) {
     }
 }
