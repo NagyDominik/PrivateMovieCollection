@@ -255,19 +255,6 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Load the categories from the database
-     */
-    private void loadCategories() {
-        try {
-            model.loadCategories();
-        }
-        catch (ModelException ex) {
-            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            newAlert(ex);
-        }
-    }
-
-    /**
      * Add a listener to the movie table, so the labels can be updated when the selection changes
      */
     private void addListenersAndHandlers() {
