@@ -100,7 +100,7 @@ public class MainWindowController implements Initializable {
         imdbCol.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         pRatingCol.setCellValueFactory(new PropertyValueFactory("personalRating"));
         catCol.setCellValueFactory(new PropertyValueFactory("categoriesAsString"));
-        lastViewedCol.setCellValueFactory(new PropertyValueFactory(""));
+        //lastViewedCol.setCellValueFactory(new PropertyValueFactory("lastAccessTime")); Will be enabled later
     }
 
     @FXML
@@ -151,7 +151,8 @@ public class MainWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle("Edit categories");
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
+            movieTable.refresh(); //Refresh the table, so it displays the newly added categories
         }
         catch (Exception ex) {
             newAlert(ex);
@@ -160,6 +161,26 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void editPRatingClicked(ActionEvent event) {
+        try
+        {
+           Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
+            if (selectedMovie == null) {
+                throw new Exception("Please selecta a movie!");
+            }
+            model.setSelectedMovie(selectedMovie);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/EditRating.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit categories");
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            newAlert(ex);
+        }
     }
 
     @FXML
@@ -180,6 +201,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void playHere(ActionEvent event) {
         try {
+            model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
             Parent root = (Parent) loader.load();
 

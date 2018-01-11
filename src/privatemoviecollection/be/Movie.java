@@ -6,6 +6,10 @@
 package privatemoviecollection.be;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.FloatProperty;
@@ -29,6 +33,7 @@ public class Movie {
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
+    private FileTime lastAccessTime;
     
     private ObservableList<Category> categories = FXCollections.observableArrayList();
     
@@ -47,10 +52,15 @@ public class Movie {
         this.media = media;
     }
 
+    /**
+     * Try to create a media object from the specified path, and check when the file was last accessed
+     */
     public void createMovieFromPath() {
         try {
             File f = new File(path.get());
             this.media = new Media(f.toURI().toString());
+            BasicFileAttributes bfa = Files.readAttributes(f.toPath(), BasicFileAttributes.class);
+            this.lastAccessTime = bfa.lastAccessTime();
         }
         catch (Exception ex) {
             //If the save did not occure on the current machine, an error will occur, and the Media object will no be created
@@ -133,10 +143,12 @@ public class Movie {
     
     public String getCategoriesAsString() {
         categoriesAsString = "";
-        for (Category category : categories) {
-            categoriesAsString += category.getName() + " ";
-        }
         
+        List<String> catList = new ArrayList<>();
+        for (Category category : categories) {
+            catList.add(category.getName());
+        }
+        categoriesAsString = String.join(", ", catList);
         return categoriesAsString;
     }
 
@@ -168,5 +180,14 @@ public class Movie {
     public void removeCategory(Category selectedCat)
     {
         categories.remove(selectedCat);
+    }
+    
+    /**
+     * Return a string representation of the last time the file associated with this Movie object was accessed
+     * @return A string representation of the last time the file associated with this Movie object was accessed
+     */
+    public String getLastAccessTime()
+    {
+        return lastAccessTime.toString();
     }
 }
