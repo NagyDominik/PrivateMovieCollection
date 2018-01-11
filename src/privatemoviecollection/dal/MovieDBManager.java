@@ -79,13 +79,12 @@ public class MovieDBManager
     {
         try(Connection con = cm.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Movie(id, name, user_rating, imdb_rating, filelink, lastview) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Movie(id, name, user_rating, imdb_rating, filelink) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, movie.getId());
             ps.setString(2, movie.getName());
             ps.setFloat(3, movie.getPersonalRating());
             ps.setFloat(4, movie.getImdbRating());
             ps.setString(5, movie.getPath());
-            //ps.setDate(6, movie.getLastView());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
@@ -215,6 +214,7 @@ public class MovieDBManager
             
         }
     }
+    
     /*public List<Movie>search(String searchString){
         List<Movie> allMovies = new ArrayList();
         
@@ -227,10 +227,13 @@ public class MovieDBManager
             String querry2 = "SELECT Movie.*, Category.* FROM [Movie], [Category], [CatMovie] "
                     + "WHERE CatMovie.CategoryId = Category.id AND CatMovie.MovieId = Movie.id "
                     + "AND Movie.user_rating LIKE '%' + ? + '%' OR Movie.imdb_rating LIKE '%' + ? + '%'";
-            
-        
         }
+        catch (SQLException ex)
+        {
+            throw new DAException(ex);
+        }
+        
+        return allMovies;
+    }
     }*/
-            
-    
 }

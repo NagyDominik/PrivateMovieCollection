@@ -91,7 +91,6 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         loadMovies();
-        loadCategories();
         addListenersAndHandlers();
         createCellValueFactories();
         movieTable.setItems(model.getMoviesFromList());
@@ -249,19 +248,6 @@ public class MainWindowController implements Initializable {
     private void loadMovies() {
         try {
             model.load();
-        }
-        catch (ModelException ex) {
-            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            newAlert(ex);
-        }
-    }
-
-    /**
-     * Load the categories from the database
-     */
-    private void loadCategories() {
-        try {
-            model.loadCategories();
         }
         catch (ModelException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
