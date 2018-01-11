@@ -201,22 +201,40 @@ public class Model {
         }
     }
     
+    /**
+     * Set up a player to play the movie in the program
+     * @param selected The movie that will be played
+     */
     public void setupPlayer(Movie selected) {
         bllm.setupPlayer(selected);
     }
 
+    /**
+     * Return a media player object 
+     * @return A media player object
+     */
     public MediaPlayer getPlayer() {
         return bllm.getPlayer();
     }
 
+    /**
+     * Use the built-in player
+     */
     public void playBuiltIn() {
         bllm.playBuiltIn();
     }
 
+    /**
+     * Pause the play back
+     */
     public void pauseBuiltIn() {
         bllm.pauseBuiltIn();
     }
 
+    /**
+     * Move to a different location during play
+     * @param value The new location
+     */
     public void seekBuiltIn(double value) {
         bllm.seekBuiltIn(value);
     }
