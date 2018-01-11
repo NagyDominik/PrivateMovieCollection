@@ -6,8 +6,6 @@
 package privatemoviecollection.be;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -134,7 +132,7 @@ public class Movie {
     public String getCategoriesAsString() {
         categoriesAsString = "";
         for (Category category : categories) {
-            categoriesAsString += category.getName() + ",";
+            categoriesAsString += category.getName() + ", ";
         }
         
         return categoriesAsString;

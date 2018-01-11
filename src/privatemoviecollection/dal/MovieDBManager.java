@@ -112,13 +112,12 @@ public class MovieDBManager
     {
         try(Connection con = cm.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("UPADTE Movie SET name=?, user_rating=?, imdb_rating=?, filelink=?, lastview=? WHERE id=?");
+            PreparedStatement ps = con.prepareStatement("UPDATE Movie SET name=?, user_rating=?, imdb_rating=?, filelink=?  WHERE id=?");
             ps.setString(1, movie.getName());
             ps.setFloat(2, movie.getPersonalRating());
             ps.setFloat(3, movie.getImdbRating());
             ps.setString(4, movie.getPath());
-            //ps.setDate(5, movie.getLastView());
-            ps.setInt(6, movie.getId());
+            ps.setInt(5, movie.getId());
             int affected = ps.executeUpdate();
             if (affected < 0)
             {

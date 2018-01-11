@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +27,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
@@ -163,6 +161,26 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void editPRatingClicked(ActionEvent event) {
+        try
+        {
+           Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
+            if (selectedMovie == null) {
+                throw new Exception("Please selecta a movie!");
+            }
+            model.setSelectedMovie(selectedMovie);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/EditRating.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit categories");
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            newAlert(ex);
+        }
     }
 
     @FXML

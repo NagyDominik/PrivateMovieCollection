@@ -143,7 +143,7 @@ public class Model {
     
     /**
      * Remove the given category from the given movie
-     * @param selectedMovie The selected movie
+     * @param selectedMo The selected movie
      * @param selectedCat The selected category, that will be removed from the given movie
      * @throws ModelException If an error occurs during database access
      */
@@ -152,6 +152,23 @@ public class Model {
         try
         {
             bllm.removeCategoryFromMovie(selectedMo, selectedCat);
+        }
+        catch(BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
+    }
+
+    /**
+     * Attempt to update the given movie in the database
+     * @param selectedMovie The move that will be updated
+     * @throws ModelException If an error occurs during database access
+     */
+    public void updateMovie(Movie selectedMovie) throws ModelException
+    {
+        try
+        {
+            bllm.updateMovie(selectedMovie);
         }
         catch(BLLException ex)
         {

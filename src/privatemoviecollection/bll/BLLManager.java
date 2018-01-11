@@ -123,4 +123,21 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
+
+     /**
+     * Attempt to update the given movie in the database
+     * @param selectedMovie The move that will be updated
+     * @throws BLLException If an error occurs during database access
+     */
+    public void updateMovie(Movie selectedMovie) throws BLLException
+    {
+        try
+        {
+            dalm.editMovie(selectedMovie);
+        }
+        catch(DAException ex)
+        {
+            throw new BLLException(ex);
+        }
+    }
 }
