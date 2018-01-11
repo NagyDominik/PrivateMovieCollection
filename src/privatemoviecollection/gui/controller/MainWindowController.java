@@ -100,7 +100,7 @@ public class MainWindowController implements Initializable {
         imdbCol.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         pRatingCol.setCellValueFactory(new PropertyValueFactory("personalRating"));
         catCol.setCellValueFactory(new PropertyValueFactory("categoriesAsString"));
-        lastViewedCol.setCellValueFactory(new PropertyValueFactory(""));
+        //lastViewedCol.setCellValueFactory(new PropertyValueFactory("lastAccessTime")); Will be enabled later
     }
 
     @FXML
