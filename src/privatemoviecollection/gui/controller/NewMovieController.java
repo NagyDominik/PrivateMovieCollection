@@ -84,7 +84,9 @@ public class NewMovieController implements Initializable {
     @FXML
     private void addCatToMovie(ActionEvent event) {
         Category selected = allCetegories.getSelectionModel().getSelectedItem();
-        newmovie.addCategory(selected);
+        if (!newmovie.hasCategory(selected)) {
+            newmovie.addCategory(selected);
+        }
     }
 
     @FXML
