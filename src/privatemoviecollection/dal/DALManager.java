@@ -1,7 +1,6 @@
 package privatemoviecollection.dal;
 
 import java.util.List;
-import javafx.collections.ObservableList;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 
