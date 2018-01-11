@@ -215,7 +215,7 @@ public class MovieDBManager
             
         }
     }
-    public List<Movie>search(String searchString){
+    /*public List<Movie>search(String searchString){
         List<Movie> allMovies = new ArrayList();
         
         try(Connection con = cm.getConnection())
@@ -230,7 +230,7 @@ public class MovieDBManager
             
         
         }
-    }
+    }*/
             
     
 }

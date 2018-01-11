@@ -22,9 +22,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import privatemoviecollection.be.Category;
@@ -54,14 +53,14 @@ public class NewMovieController implements Initializable {
     @FXML
     private TextField pathField;
     @FXML
-    private ChoiceBox<Category> catSelector;
-    @FXML
-    private Button catAddBtn;
-    @FXML
     private Button addCatToMovie;
     @FXML
-    private TextField catField;
-        
+    private ListView<Category> movieCategories;
+    @FXML
+    private ListView<Category> allCetegories;
+    @FXML
+    private Button removeCatFromMovie;
+
     private Model model;
     private Movie newmovie = new Movie();
 
@@ -71,7 +70,8 @@ public class NewMovieController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = model.getInstance();
-        catSelector.setItems(model.getCategoriesFromList());
+        allCetegories.setItems(model.getCategoriesFromList());
+        movieCategories.setItems(newmovie.getCategories());
     }
 
     @FXML
@@ -80,40 +80,28 @@ public class NewMovieController implements Initializable {
         URI path = filech.showOpenDialog(new ContextMenu()).toURI();
         pathField.setText(path.toString());
     }
-    
+
     @FXML
     private void addCatToMovie(ActionEvent event) {
-        Category selected = catSelector.getSelectionModel().getSelectedItem();
+        Category selected = allCetegories.getSelectionModel().getSelectedItem();
         newmovie.addCategory(selected);
-        catField.setText(catField.getText() + selected.getName() + ", ");
     }
 
     @FXML
     private void saveClicked(ActionEvent event) {
         saveMovie();
+        closeStage();
     }
 
     @FXML
     private void cancelClicked(ActionEvent event) {
         closeStage();
     }
-    
-    @FXML
-    private void addCategory(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/NewCategory.fxml"));
-            Parent root = (Parent) loader.load();
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Add Category");
-            stage.setResizable(false);
-            stage.show();
-        }
-        catch (IOException ex) {
-            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            newAlert(ex);
-        }
+    @FXML
+    private void removeCatFromMovie(ActionEvent event) {
+        Category selected = movieCategories.getSelectionModel().getSelectedItem();
+        newmovie.removeCategory(selected);
     }
 
     private void closeStage() {
@@ -127,13 +115,14 @@ public class NewMovieController implements Initializable {
             newmovie.setImdbRating(Float.parseFloat(imdbField.getText()));
             newmovie.setPersonalRating(Float.parseFloat(pratingField.getText()));
             newmovie.setPath(pathField.getText());
-            
+
             model.saveMovie(newmovie);
-        } catch (ModelException ex) {
-                newAlert(ex);
+        }
+        catch (ModelException ex) {
+            newAlert(ex);
         }
     }
-    
+
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
