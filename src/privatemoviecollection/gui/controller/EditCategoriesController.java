@@ -76,7 +76,6 @@ public class EditCategoriesController implements Initializable
             return;
         }
         
-        lstViewMovieCategories.getItems().add(selectedCat);
         selectedMovie.addCategory(selectedCat);
         try
         {

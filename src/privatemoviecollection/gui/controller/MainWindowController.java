@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
@@ -151,7 +153,8 @@ public class MainWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle("Edit categories");
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
+            movieTable.refresh(); //Refresh the table, so it displays the newly added categories
         }
         catch (Exception ex) {
             newAlert(ex);
