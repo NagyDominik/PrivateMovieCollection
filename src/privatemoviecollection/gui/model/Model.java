@@ -24,8 +24,10 @@ public class Model {
     private ObservableList<Movie> movieList = FXCollections.observableArrayList();
     private ObservableList<Category> categoryList = FXCollections.observableArrayList();
     private Movie selectedMovie;
+    //private ObservableList<Movie> searchedList = FXCollections.observableArrayList();
     
     public Model() { 
+        
    }
 
     public static Model getInstance() {
@@ -187,5 +189,16 @@ public class Model {
 
     public void seekBuiltIn(double value) {
         bllm.seekBuiltIn(value);
+    }
+
+    public void search(String searchString) throws ModelException {
+        try{
+            movieList.clear();
+            movieList.addAll(bllm.search(searchString));
+        }
+        catch(BLLException ex)
+        {
+            throw new ModelException(ex);
+        }
     }
 }

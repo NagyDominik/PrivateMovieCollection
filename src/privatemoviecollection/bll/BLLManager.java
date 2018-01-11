@@ -6,6 +6,8 @@
 package privatemoviecollection.bll;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.media.MediaPlayer;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
@@ -163,5 +165,16 @@ public class BLLManager {
 
     public void seekBuiltIn(double value) {
         player.seekBuiltIn(value);
+    }
+
+    public List<Movie> search(String searchString) throws BLLException{
+        try{
+            return  dalm.search(searchString);
+        }
+        catch(DAException ex)
+        {
+            throw new BLLException(ex);
+        }
+        
     }
 }

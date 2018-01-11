@@ -15,7 +15,7 @@ import privatemoviecollection.be.Movie;
 
 /**
  *
- * @author Dominik
+ * @author Dominik,Bence
  */
 public class MoviePlayer {
     

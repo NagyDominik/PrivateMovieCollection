@@ -13,6 +13,7 @@ public class DALManager
     private MovieDBManager movieDBManager = new MovieDBManager();
     private CategoryDBManager categoryDBManager = new CategoryDBManager();
     
+    
     /****************************************************************************************/
     //Movie database methods
     
@@ -109,5 +110,8 @@ public class DALManager
     {
         categoryDBManager.delete(category);
     }
-    
+
+    public List<Movie> search(String searchString) throws DAException{
+       return movieDBManager.search(searchString);
+    }
 }

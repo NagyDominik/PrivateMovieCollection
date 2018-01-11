@@ -220,17 +220,53 @@ public class MovieDBManager
         
         try(Connection con = cm.getConnection())
         {
-            String querry = "SELECT Movie.*, Category.* FROM [Movie], [Category], [CatMovie] "
+            String query = "SELECT Movie.*, Category.* FROM [Movie], [Category], [CatMovie] "
                     + "WHERE CatMovie.CategoryId = Category.id AND CatMovie.MovieId = Movie.id "
                     + "AND Movie.name LIKE '%' + ? + '%' OR Category.name LIKE '%' + ? + '%' ";
             
-            String querry2 = "SELECT Movie.*, Category.* FROM [Movie], [Category], [CatMovie] "
+            String query2 = "SELECT Movie.*, Category.* FROM [Movie], [Category], [CatMovie] "
                     + "WHERE CatMovie.CategoryId = Category.id AND CatMovie.MovieId = Movie.id "
-                    + "AND Movie.user_rating LIKE '%' + ? + '%' OR Movie.imdb_rating LIKE '%' + ? + '%'";
+                    + "AND Movie.user_rating LIKE '%' + ? + '%' OR Movie.imdb_rating LIKE '%' + ? + '%'"; 
             
-        
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, searchString);
+            pstmt.setString(2, searchString);
+            
+           PreparedStatement pstmt2 = con.prepareStatement(query2);
+            pstmt2.setString(1, searchString);
+            pstmt2.setString(2, searchString);
+            
+            
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                Movie tmp = new Movie();
+                tmp.setId(rs.getInt("id"));
+                tmp.setImdbRating(rs.getFloat("imdb_rating"));
+                tmp.setPersonalRating(rs.getFloat("user_rating"));
+                tmp.setName(rs.getString("name"));
+                tmp.setPath(rs.getString("filelink"));
+                //tmp.createMovieFromPath();
+                allMovies.add(tmp);
+            }
+            
+            ResultSet rs2 = pstmt2.executeQuery();
+            while(rs2.next()){
+                Movie tmp2 = new Movie();
+                tmp2.setId(rs2.getInt("id"));
+                tmp2.setImdbRating(rs2.getFloat("imdb_rating"));
+                tmp2.setPersonalRating(rs2.getFloat("user_rating"));
+                tmp2.setName(rs2.getString("name"));
+                tmp2.setPath(rs2.getString("filelink"));
+                //tmp.createMovieFromPath();
+                allMovies.add(tmp2);
+            }
         }
+        catch(SQLException ex){
+        }
+        return allMovies;
     }
+}
             
     
-}
+

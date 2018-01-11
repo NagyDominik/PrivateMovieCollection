@@ -203,6 +203,13 @@ public class MainWindowController implements Initializable {
      */
     @FXML
     private void searchClicked(ActionEvent event) {
+        movieTable.getItems().clear();
+        try{
+            model.search(searchBar.getText());
+            
+        }catch (ModelException ex) {
+            newAlert(ex);
+        }
         
     }
 
