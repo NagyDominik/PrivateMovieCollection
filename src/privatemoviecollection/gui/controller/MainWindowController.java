@@ -200,6 +200,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void playHere(ActionEvent event) {
         try {
+            model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
             Parent root = (Parent) loader.load();
 

@@ -12,19 +12,19 @@ import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import privatemoviecollection.gui.model.Model;
 
 /**
  * FXML Controller class
@@ -42,25 +42,23 @@ public class PlayerController implements Initializable {
     @FXML
     private Label timeLbl;
 
-    private MediaPlayer player;
+    private Model model;
     private Media media;
     private boolean isPlaying = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String path = new File("C:\\Users\\Bence\\Documents\\GitHub\\PrivateMovieCollection1\\Snowden.mp4").getAbsolutePath();
-        //String path = new File("D:\\test2.mp4").getAbsolutePath();
-        media = new Media(new File(path).toURI().toString());
-        player = new MediaPlayer(media);
-        mediaView.setMediaPlayer(player);
+        model = Model.getInstance();
+        if (model.getSelectedMovie() != null) {
+            model.setupPlayer(model.getSelectedMovie());
+            media = new Media(model.getSelectedMovie().getPath());
+        } else {
+            Alert a = new Alert(Alert.AlertType.ERROR, "No movie selected! Please select a movie and try again.", ButtonType.OK);
+            a.show();
+            return;
+        }
+        mediaView.setMediaPlayer(model.getPlayer());
         valueChanger();
-        /*slider.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                player.seek(Duration.seconds(slider.getValue()));
-                player.play();
-            }
-        });*/
     }
 
     @FXML
@@ -70,10 +68,11 @@ public class PlayerController implements Initializable {
             slider.setMax(d);
             isPlaying = true;
         }
-        player.play();
+        model.playBuiltIn();
     }
 
     public void valueChanger() {
+        MediaPlayer player = model.getPlayer();
         player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
             @Override
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
@@ -85,12 +84,12 @@ public class PlayerController implements Initializable {
 
     @FXML
     private void pauseClick(MouseEvent event) {
-        player.pause();
+        model.pauseBuiltIn();
     }
 
     @FXML
     private void changedPosition(MouseEvent event) {
-        player.seek(Duration.seconds(slider.getValue()));
+        model.seekBuiltIn(slider.getValue());
     }
 
     private String formatTime(double time) {
