@@ -198,7 +198,7 @@ public class MovieDBManager
      * @param selectedCat The selected category, that will be removed from the given movie
      * @throws DAException If an error occurs during database access
      */
-    void removeCategoryFromMovie(Movie selectedMovie, Category selectedCat) throws DAException
+    public void removeCategoryFromMovie(Movie selectedMovie, Category selectedCat) throws DAException
     {
         try(Connection con = cm.getConnection())
         {
@@ -216,4 +216,22 @@ public class MovieDBManager
             
         }
     }
+    public List<Movie>search(String searchString){
+        List<Movie> allMovies = new ArrayList();
+        
+        try(Connection con = cm.getConnection())
+        {
+            String querry = "SELECT Movie.*, Category.* FROM [Movie], [Category], [CatMovie] "
+                    + "WHERE CatMovie.CategoryId = Category.id AND CatMovie.MovieId = Movie.id "
+                    + "AND Movie.name LIKE '%' + ? + '%' OR Category.name LIKE '%' + ? + '%' ";
+            
+            String querry2 = "SELECT Movie.*, Category.* FROM [Movie], [Category], [CatMovie] "
+                    + "WHERE CatMovie.CategoryId = Category.id AND CatMovie.MovieId = Movie.id "
+                    + "AND Movie.user_rating LIKE '%' + ? + '%' OR Movie.imdb_rating LIKE '%' + ? + '%'";
+            
+        
+        }
+    }
+            
+    
 }

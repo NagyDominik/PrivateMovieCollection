@@ -164,6 +164,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void searchClicked(ActionEvent event) {
+        
     }
 
     @FXML

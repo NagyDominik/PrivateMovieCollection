@@ -24,8 +24,8 @@ public class Model {
     private ObservableList<Category> categoryList = FXCollections.observableArrayList();
     private Movie selectedMovie;
     
-    public Model() {
-    }
+    public Model() { 
+   }
 
     public static Model getInstance() {
         if (instance == null) {
