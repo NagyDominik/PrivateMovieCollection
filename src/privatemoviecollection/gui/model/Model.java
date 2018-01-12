@@ -311,5 +311,32 @@ public class Model {
     }
     public void stopBuiltIn() {
         bllm.stopBuiltIn();
+
     }    
+
+    
+    /**
+     * Filter out movies that haven't been accessed for more than two years and have a lower personal rating than 6.
+     * @return The list of movies that match the above criteria.
+     */
+    public List<Movie> checkMovies()
+    {
+        List<Movie> oldMovies = new ArrayList<>();
+        Calendar checkDate = Calendar.getInstance();
+        checkDate.add(Calendar.MINUTE, -1);
+        // checkDate.add(Calendar.YEAR, -2);
+        
+        for (Movie movie: movieList)
+        {
+            if (movie.getPersonalRating() < 10.0f)
+            {
+                if (movie.getTimeStamp().before(checkDate.getTime()))
+                {
+                    oldMovies.add(movie);
+                }
+            }
+        }
+        
+        return oldMovies;
+    }
 }

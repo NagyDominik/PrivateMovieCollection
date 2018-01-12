@@ -93,7 +93,7 @@ public class MainWindowController implements Initializable {
         loadMovies();
         addListenersAndHandlers();
         createCellValueFactories();
-        //checkMovies();
+        checkMovies();
         movieTable.setItems(model.getMoviesFromList());
     }
 
@@ -328,6 +328,34 @@ public class MainWindowController implements Initializable {
     {
             lastViewLbl.setText("Last Viewed: " + movie.getFileAccessDate());
     }
+    
+    /**
+     * Use the model to look for movies that haven't been accesses for more than 2 years, and have a personal rating lower than 6. Ask the user if they should be deleted.
+     */
+    private void checkMovies()
+    {
+        if (!model.checkMovies().isEmpty())
+        {
+            Boolean answer = showConfirmationDialog("We foiund some old movies with personal rating lower than 6. Would you like to see a list of these movies?");
+            if (answer)
+            {
+                try
+                {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/OldMovieList.fxml"));
+                    Parent root = (Parent) loader.load();
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Old movies");
+                    stage.showAndWait();
+                }
+                catch (IOException ex)
+                {
+                    newAlert(ex);
+                }
+            }
+        }
+    }
 
     /**
      * Display a new alert window, to notify the user of some error
@@ -348,7 +376,7 @@ public class MainWindowController implements Initializable {
     private boolean showConfirmationDialog(String prompt) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
-        return confirmation.getResult() == ButtonType.NO;
+        return confirmation.getResult() == ButtonType.YES;
     }
     
     /**
