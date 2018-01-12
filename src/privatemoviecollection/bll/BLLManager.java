@@ -6,6 +6,8 @@
 package privatemoviecollection.bll;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.media.MediaPlayer;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
@@ -174,5 +176,13 @@ public class BLLManager {
 
     public void stopBuiltIn() {
         player.stopBuiltIn();
+    }
+
+    public void removeCategory(Category cat) throws BLLException {
+        try {
+            dalm.deleteCategory(cat);
+        } catch (DAException ex) {
+             throw new BLLException(ex);
+        }
     }
 }

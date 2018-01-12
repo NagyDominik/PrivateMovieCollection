@@ -30,15 +30,15 @@ public class NewCategoryController implements Initializable {
     @FXML
     private TextField nameField;
     @FXML
-    private Button cancelBtn;
-
-    private Model model;
-    @FXML
     private Button okBtn;
     @FXML
-    private ListView<?> categoryList;
+    private ListView<Category> categoryList;
     @FXML
     private Button addBtn;
+    @FXML
+    private Button deleteBtn;
+    
+    private Model model;
 
     /**
      * Initializes the controller class.
@@ -46,6 +46,7 @@ public class NewCategoryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
+        categoryList.setItems(model.getCategoriesFromList());
     }
 
     private void btnSaveClick(ActionEvent event) {
@@ -61,21 +62,48 @@ public class NewCategoryController implements Initializable {
         }
     }
 
-    @FXML
-    private void cancelClicked(ActionEvent event) {
-        closeStage();
-    }
 
     private void closeStage() {
-        Stage stage = (Stage) cancelBtn.getScene().getWindow();
+        Stage stage = (Stage) okBtn.getScene().getWindow();
         stage.close();
     }
 
     @FXML
     private void btnOkClick(ActionEvent event) {
+       closeStage();
     }
 
     @FXML
     private void addCategory(ActionEvent event) {
+        try {
+            Category category = new Category();
+            category.setName(nameField.getText());
+            model.addCategory(category);
+        } catch (ModelException ex) {
+             Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
+             a.show();
+        }
+     }
+    
+
+    @FXML
+    private void deleteCategory(ActionEvent event) {
+        Category selected = categoryList.getSelectionModel().getSelectedItem();
+        
+        if(selected != null)
+        {
+            try {
+                model.removeCategory(selected);
+            } catch (ModelException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
+            a.show();
+            }
+        }
+        else{
+             Alert a = new Alert(Alert.AlertType.ERROR,"No selected category " , ButtonType.OK);
+             a.show();           
+        }
+        
     }
+
 }
