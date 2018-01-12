@@ -49,13 +49,7 @@ public class PlayerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
-        if (model.getSelectedMovie() != null) {
-            model.setupPlayer(model.getSelectedMovie());
-        } else {
-            Alert a = new Alert(Alert.AlertType.ERROR, "No movie selected! Please select a movie and try again.", ButtonType.OK);
-            a.show();
-            return;
-        }
+        model.setupPlayer(model.getSelectedMovie());
         mediaView.setMediaPlayer(model.getPlayer());
         valueChanger();
     }

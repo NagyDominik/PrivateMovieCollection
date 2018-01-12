@@ -6,8 +6,6 @@
 package privatemoviecollection.bll;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.media.MediaPlayer;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
@@ -56,20 +54,20 @@ public class BLLManager {
             throw new BLLException(ex);
         }
     }
-    
+
     /**
      * Plays the selected movie with the system default video player
-     * 
+     *
      * @param selected The selected movie
      * @throws BLLException If error occurs
      */
     public void playSysDef(Movie selected) throws BLLException {
         player.playSysDef(selected);
     }
-    
+
     /**
      * Saves a new category to the database
-     * 
+     *
      * @param cat The new category to be saved
      * @throws BLLException If error occurs
      */
@@ -130,19 +128,17 @@ public class BLLManager {
         }
     }
 
-     /**
+    /**
      * Attempt to update the given movie in the database
+     *
      * @param selectedMovie The move that will be updated
      * @throws BLLException If an error occurs during database access
      */
-    public void updateMovie(Movie selectedMovie) throws BLLException
-    {
-        try
-        {
+    public void updateMovie(Movie selectedMovie) throws BLLException {
+        try {
             dalm.editMovie(selectedMovie);
         }
-        catch(DAException ex)
-        {
+        catch (DAException ex) {
             throw new BLLException(ex);
         }
     }
@@ -167,14 +163,16 @@ public class BLLManager {
         player.seekBuiltIn(value);
     }
 
-    public List<Movie> search(String searchString) throws BLLException{
-        try{
+    public List<Movie> search(String searchString) throws BLLException {
+        try {
             return dalm.search(searchString);
         }
-        catch(DAException ex)
-        {
+        catch (DAException ex) {
             throw new BLLException(ex);
         }
-        
+    }
+
+    public void stopBuiltIn() {
+        player.stopBuiltIn();
     }
 }

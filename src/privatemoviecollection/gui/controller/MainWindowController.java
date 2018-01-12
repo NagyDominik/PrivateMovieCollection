@@ -8,9 +8,12 @@ import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
@@ -32,7 +36,7 @@ import privatemoviecollection.gui.model.ModelException;
  * @author Bence
  */
 public class MainWindowController implements Initializable {
-
+    
     @FXML
     private Button addBtn;
     @FXML
@@ -73,7 +77,7 @@ public class MainWindowController implements Initializable {
     private TableView<Movie> movieTable;
     @FXML
     private Button addDeleteCategories;
-
+    
     private Model model;
     private boolean isSearching = false;
 
@@ -112,7 +116,7 @@ public class MainWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/NewMovie.fxml"));
             Parent root = (Parent) loader.load();
-
+            
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Add Movie");
@@ -157,7 +161,7 @@ public class MainWindowController implements Initializable {
             model.setSelectedMovie(selectedMovie);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/EditCategories.fxml"));
             Parent root = (Parent) loader.load();
-
+            
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Edit categories");
@@ -183,7 +187,7 @@ public class MainWindowController implements Initializable {
             model.setSelectedMovie(selectedMovie);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/EditRating.fxml"));
             Parent root = (Parent) loader.load();
-
+            
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Edit categories");
@@ -224,7 +228,11 @@ public class MainWindowController implements Initializable {
     @FXML
     private void playSysDef(ActionEvent event) {
         try {
-            model.playSysDef(movieTable.getSelectionModel().getSelectedItem());
+            if (movieTable.getSelectionModel().getSelectedItem() != null) {
+                model.playSysDef(movieTable.getSelectionModel().getSelectedItem());
+            } else {
+                newAlert(new Exception("No movie is selected! Please select a movie to play!"));
+            }
         }
         catch (ModelException ex) {
             newAlert(ex);
@@ -237,15 +245,25 @@ public class MainWindowController implements Initializable {
     @FXML
     private void playHere(ActionEvent event) {
         try {
-            model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
-            Parent root = (Parent) loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("NEM INDUL");
-            stage.setResizable(false);
-            stage.show();
+            if (movieTable.getSelectionModel().getSelectedItem() != null) {
+                model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
+                Parent root = (Parent) loader.load();
+                
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Built-In Media Player Beta_v2");
+                stage.setResizable(false);
+                stage.show();
+                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent event) {
+                        model.stopBuiltIn();
+                    }
+                });
+            } else {
+                newAlert(new Exception("No movie is selected! Please select a movie to play!"));
+            }
         }
         catch (IOException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
@@ -292,15 +310,14 @@ public class MainWindowController implements Initializable {
         categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
         lastViewLbl.setText("Last Viewed: " + "WIP");// tempmovie.getLastAccessTime()); //This throws an error, because the createMediaFromPath is not called upon loading movies from the database
     }
-    
-     /**
-     * Check for movies that haven't been accessed for more than 2 years, and have a lower personal score than 6.
-     * Ask the user if these movies should be deleted
+
+    /**
+     * Check for movies that haven't been accessed for more than 2 years, and
+     * have a lower personal score than 6. Ask the user if these movies should
+     * be deleted
      */
-    private void checkMovies()
-    {
-        if (!model.checkMovies().isEmpty())
-        {
+    private void checkMovies() {
+        if (!model.checkMovies().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Old movies found", ButtonType.OK);
             a.show();
         }
@@ -312,7 +329,7 @@ public class MainWindowController implements Initializable {
      * @param ex The exception that carries the error message
      */
     private void newAlert(Exception ex) {
-        Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
+        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
 
@@ -327,7 +344,10 @@ public class MainWindowController implements Initializable {
         confirmation.showAndWait();
         return confirmation.getResult() == ButtonType.NO;
     }
-
+    
+    /**
+     * Shows a new window where we can Add and Delete categories from the database 
+     */
     @FXML
     private void btnAddDeleteCategoriesClicked(ActionEvent event) {
     }
