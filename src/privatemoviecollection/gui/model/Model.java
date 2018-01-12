@@ -5,6 +5,11 @@
  */
 package privatemoviecollection.gui.model;
 
+import java.nio.file.attribute.FileTime;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.MediaPlayer;
@@ -289,5 +294,26 @@ public class Model {
 
     public ObservableList<Movie> getSearchedMovies() {
         return searchedList;
+    }
+
+    /**
+     * Look for movies that haven't been accessed for more than 2 years, and
+     * have a lower personal score than 6
+     */
+    public List<Movie> checkMovies() {
+        List<Movie> oldMovies = new ArrayList();
+
+        for (Movie movie : movieList) {
+            if (movie.getPersonalRating() < 6.0f) {
+                Date fileAccesDate = new Date(movie.getAccesFileTime().toMillis());
+                Calendar twoYears = Calendar.getInstance();
+                twoYears.add(Calendar.YEAR, -2);
+
+                if (fileAccesDate.before(twoYears.getTime())) {
+                    oldMovies.add(movie);
+                }
+            }
+        }
+        return oldMovies;
     }
 }

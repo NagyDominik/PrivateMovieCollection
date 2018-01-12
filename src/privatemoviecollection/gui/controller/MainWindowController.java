@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.controller;
 
 import java.io.IOException;
@@ -94,6 +89,7 @@ public class MainWindowController implements Initializable {
         loadMovies();
         addListenersAndHandlers();
         createCellValueFactories();
+        //checkMovies();
         movieTable.setItems(model.getMoviesFromList());
     }
 
@@ -295,6 +291,19 @@ public class MainWindowController implements Initializable {
         personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
         categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
         lastViewLbl.setText("Last Viewed: " + "WIP");// tempmovie.getLastAccessTime()); //This throws an error, because the createMediaFromPath is not called upon loading movies from the database
+    }
+    
+     /**
+     * Check for movies that haven't been accessed for more than 2 years, and have a lower personal score than 6.
+     * Ask the user if these movies should be deleted
+     */
+    private void checkMovies()
+    {
+        if (!model.checkMovies().isEmpty())
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Old movies found", ButtonType.OK);
+            a.show();
+        }
     }
 
     /**

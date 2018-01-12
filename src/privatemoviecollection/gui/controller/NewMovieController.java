@@ -5,22 +5,15 @@
  */
 package privatemoviecollection.gui.controller;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -76,9 +69,23 @@ public class NewMovieController implements Initializable {
 
     @FXML
     private void fileChooseClicked(ActionEvent event) {
-        FileChooser filech = new FileChooser();
-        URI path = filech.showOpenDialog(new ContextMenu()).toURI();
-        pathField.setText(path.toString());
+        try
+        {
+            FileChooser filech = new FileChooser();
+            URI path = filech.showOpenDialog(new ContextMenu()).toURI();
+            if (path.toString().endsWith(".mp4") || path.toString().endsWith("mpeg4")) // Only allow .mp4 and .mpeg4 files
+            {
+                pathField.setText(path.toString());   
+            }
+            else
+            {
+                throw new Exception("Only .mp4 and .mpeg4 files allowed");
+            }
+        }
+        catch (Exception ex) 
+        {
+            newAlert(ex);
+        }
     }
 
     @FXML

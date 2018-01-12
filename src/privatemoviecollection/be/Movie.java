@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.be;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
@@ -23,7 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.media.Media;
 
 /**
- *
+ * An object that represent a .mp4 or .mpeg4 file
  * @author Bence
  */
 public class Movie {
@@ -189,5 +183,10 @@ public class Movie {
     public String getLastAccessTime()
     {
         return lastAccessTime.toString();
+    }
+    
+    public FileTime getAccesFileTime()
+    {
+        return this.lastAccessTime;
     }
 }
