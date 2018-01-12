@@ -51,7 +51,6 @@ public class PlayerController implements Initializable {
         model = Model.getInstance();
         if (model.getSelectedMovie() != null) {
             model.setupPlayer(model.getSelectedMovie());
-            media = new Media(model.getSelectedMovie().getPath());
         } else {
             Alert a = new Alert(Alert.AlertType.ERROR, "No movie selected! Please select a movie and try again.", ButtonType.OK);
             a.show();
@@ -73,6 +72,7 @@ public class PlayerController implements Initializable {
 
     public void valueChanger() {
         MediaPlayer player = model.getPlayer();
+        media = player.getMedia();
         player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
             @Override
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {

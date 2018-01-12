@@ -45,7 +45,8 @@ public class MoviePlayer {
     
     public static void playSysDef(Movie selected) throws BLLException {
         try {
-            File movie = new File(selected.getPath());
+            String path = selected.getPath().replace("file:/", "").replace("/", "\\");
+            File movie = new File(path);
             Desktop.getDesktop().open(movie);
         }
         catch (IOException ex) {
