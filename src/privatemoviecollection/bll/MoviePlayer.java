@@ -18,31 +18,31 @@ import privatemoviecollection.be.Movie;
  * @author Dominik,Bence
  */
 public class MoviePlayer {
-    
+
     private Media media;
     private MediaPlayer player;
-    
+
     public void setupPlayer(Movie movie) {
         this.media = new Media(movie.getPath());
         player = new MediaPlayer(media);
     }
-    
+
     public MediaPlayer getPlayer() {
         return player;
     }
-    
+
     public void playBuiltIn() {
         player.play();
     }
-    
+
     public void pauseBuiltIn() {
         player.pause();
     }
-    
+
     public void seekBuiltIn(double value) {
         player.seek(Duration.seconds(value));
     }
-    
+
     public static void playSysDef(Movie selected) throws BLLException {
         try {
             String path = selected.getPath().replace("file:/", "").replace("/", "\\");
@@ -52,5 +52,9 @@ public class MoviePlayer {
         catch (IOException ex) {
             throw new BLLException(ex);
         }
+    }
+
+    public void stopBuiltIn() {
+        player.stop();
     }
 }

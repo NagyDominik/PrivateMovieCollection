@@ -5,8 +5,11 @@
  */
 package privatemoviecollection.gui.model;
 
-import com.sun.glass.ui.SystemClipboard;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.MediaPlayer;
@@ -295,5 +298,10 @@ public class Model {
 
     public ObservableList<Movie> getSearchedMovies() {
         return searchedList;
+    }
+
+
+    public void stopBuiltIn() {
+        bllm.stopBuiltIn();
     }
 }
