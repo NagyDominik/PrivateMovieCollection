@@ -39,7 +39,7 @@ public class MovieDBManager
                 tmp.setPersonalRating(rs.getFloat("user_rating"));
                 tmp.setName(rs.getString("name"));
                 tmp.setPath(rs.getString("filelink"));
-                //tmp.createMovieFromPath();
+                //tmp.checkLastAccessTime();
                 movies.add(tmp);
             }
             
@@ -262,7 +262,7 @@ public class MovieDBManager
                 tmp.setPersonalRating(rs.getFloat("user_rating"));
                 tmp.setName(rs.getString("name"));
                 tmp.setPath(rs.getString("filelink"));
-                //tmp.createMovieFromPath();
+                //tmp.checkLastAccessTime();
                 allMovies.add(tmp);
             }
             
@@ -274,7 +274,7 @@ public class MovieDBManager
                 tmp2.setPersonalRating(rs2.getFloat("user_rating"));
                 tmp2.setName(rs2.getString("name"));
                 tmp2.setPath(rs2.getString("filelink"));
-                //tmp.createMovieFromPath();
+                //tmp.checkLastAccessTime();
                 allMovies.add(tmp2);
             }
         }

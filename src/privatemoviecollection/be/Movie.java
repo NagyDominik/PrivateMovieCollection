@@ -2,6 +2,8 @@ package privatemoviecollection.be;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
@@ -49,16 +51,12 @@ public class Movie {
     /**
      * Try to create a media object from the specified path, and check when the file was last accessed
      */
-    public void createMovieFromPath() {
+    public void checkLastAccessTime() {
         try {
-            File f = new File(path.get());
-            this.media = new Media(f.toURI().toString());
-            BasicFileAttributes bfa = Files.readAttributes(f.toPath(), BasicFileAttributes.class);
+            BasicFileAttributes bfa = Files.readAttributes(Paths.get(path.get()), BasicFileAttributes.class);
             this.lastAccessTime = bfa.lastAccessTime();
         }
         catch (Exception ex) {
-            //If the save did not occure on the current machine, an error will occur, and the Media object will no be created
-            //The data, hovewer, will not be displayed (but it will appear on the tableView)
             System.out.println(ex.getMessage());
         }
     }

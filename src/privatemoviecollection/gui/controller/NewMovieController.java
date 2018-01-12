@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.controller;
 
 import java.net.URI;
@@ -38,21 +33,13 @@ public class NewMovieController implements Initializable {
     @FXML
     private TextField pratingField;
     @FXML
-    private Button fileBtn;
-    @FXML
-    private Button saveBtn;
-    @FXML
     private Button cancelBtn;
     @FXML
     private TextField pathField;
     @FXML
-    private Button addCatToMovie;
-    @FXML
     private ListView<Category> movieCategories;
     @FXML
     private ListView<Category> allCetegories;
-    @FXML
-    private Button removeCatFromMovie;
 
     private Model model;
     private Movie newmovie = new Movie();
