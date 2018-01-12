@@ -169,7 +169,7 @@ public class BLLManager {
 
     public List<Movie> search(String searchString) throws BLLException{
         try{
-            return  dalm.search(searchString);
+            return dalm.search(searchString);
         }
         catch(DAException ex)
         {

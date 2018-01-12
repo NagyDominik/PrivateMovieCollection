@@ -24,18 +24,15 @@ public class Model {
     private ObservableList<Movie> movieList = FXCollections.observableArrayList();
     private ObservableList<Category> categoryList = FXCollections.observableArrayList();
     private Movie selectedMovie;
-    //private ObservableList<Movie> searchedList = FXCollections.observableArrayList();
-    
-    public Model() { 
+    private ObservableList<Movie> searchedList = FXCollections.observableArrayList();
 
-        
-   }
+    public Model() {
 
- 
-
+    }
 
     /**
      * Return an instance of the Model
+     *
      * @return An instance of the Model
      */
     public static Model getInstance() {
@@ -47,6 +44,7 @@ public class Model {
 
     /**
      * Return the selected movie
+     *
      * @return The selected movie
      */
     public Movie getSelectedMovie() {
@@ -54,8 +52,10 @@ public class Model {
     }
 
     /**
-     * Used to reference a selected movie (for example, when editing the personal rating or categories) between different windows
-     * @param selectedMovie The selected movie that will be referenced 
+     * Used to reference a selected movie (for example, when editing the
+     * personal rating or categories) between different windows
+     *
+     * @param selectedMovie The selected movie that will be referenced
      */
     public void setSelectedMovie(Movie selectedMovie) {
         this.selectedMovie = selectedMovie;
@@ -63,14 +63,16 @@ public class Model {
 
     /**
      * Return a list of movies
+     *
      * @return A list of movies
      */
     public ObservableList<Movie> getMoviesFromList() {
         return movieList;
     }
-    
+
     /**
      * Return a list of categories
+     *
      * @return A list of categories
      */
     public ObservableList<Category> getCategoriesFromList() {
@@ -79,6 +81,7 @@ public class Model {
 
     /**
      * Load the list of movies and categories from the database
+     *
      * @throws ModelException If an error occurs during database access
      */
     public void load() throws ModelException {
@@ -93,6 +96,7 @@ public class Model {
 
     /**
      * Remove the selected movie from the list and from the database
+     *
      * @param selected The movie that will be removed
      * @throws ModelException If an error occurs during database access
      */
@@ -113,6 +117,7 @@ public class Model {
 
     /**
      * Save a new movie to the list and to the database
+     *
      * @param newmovie The movie that will be saved
      * @throws ModelException If an error occurs during database access
      */
@@ -128,6 +133,7 @@ public class Model {
 
     /**
      * Attempt to play the selected movie with the default media player
+     *
      * @param selected The selected movie that will be played
      * @throws ModelException If an error occurs
      */
@@ -141,9 +147,10 @@ public class Model {
     }
 
     /**
-     * Attempt to 
+     * Attempt to
+     *
      * @param cat
-     * @throws ModelException 
+     * @throws ModelException
      */
     public void addCategory(Category cat) throws ModelException {
         if (!categoryList.contains(cat)) {
@@ -177,8 +184,10 @@ public class Model {
 
     /**
      * Remove the given category from the given movie
+     *
      * @param selectedMo The selected movie
-     * @param selectedCat The selected category, that will be removed from the given movie
+     * @param selectedCat The selected category, that will be removed from the
+     * given movie
      * @throws ModelException If an error occurs during database access
      */
     public void removeCategoryFromMovie(Movie selectedMo, Category selectedCat) throws ModelException {
@@ -192,23 +201,22 @@ public class Model {
 
     /**
      * Attempt to update the given movie in the database
+     *
      * @param selectedMovie The move that will be updated
      * @throws ModelException If an error occurs during database access
      */
-    public void updateMovie(Movie selectedMovie) throws ModelException
-    {
-        try
-        {
+    public void updateMovie(Movie selectedMovie) throws ModelException {
+        try {
             bllm.updateMovie(selectedMovie);
         }
-        catch(BLLException ex)
-        {
+        catch (BLLException ex) {
             throw new ModelException(ex);
         }
     }
-    
+
     /**
      * Set up a player to play the movie in the program
+     *
      * @param selected The movie that will be played
      */
     public void setupPlayer(Movie selected) {
@@ -216,7 +224,8 @@ public class Model {
     }
 
     /**
-     * Return a media player object 
+     * Return a media player object
+     *
      * @return A media player object
      */
     public MediaPlayer getPlayer() {
@@ -239,6 +248,7 @@ public class Model {
 
     /**
      * Move to a different location during play
+     *
      * @param value The new location
      */
     public void seekBuiltIn(double value) {
@@ -246,13 +256,38 @@ public class Model {
     }
 
     public void search(String searchString) throws ModelException {
-        try{
-            movieList.clear();
-            movieList.addAll(bllm.search(searchString));
+        /*try {
+            searchedList.clear();
+            searchedList.addAll(bllm.search(searchString));
         }
-        catch(BLLException ex)
-        {
+        catch (BLLException ex) {
             throw new ModelException(ex);
+        }*/
+        searchedList.clear();
+        for (Movie movie : movieList) {
+            boolean isAdded = false;
+            if (movie.getName().toLowerCase().contains(searchString)) {
+                searchedList.add(movie);
+                isAdded = true;
+            }
+            try {
+                float searchFloat = Float.parseFloat(searchString);
+                if ((movie.getImdbRating() > searchFloat || movie.getPersonalRating() > searchFloat) && !isAdded) {
+                    searchedList.add(movie);
+                }
+            }
+            catch (Exception e) {
+            }
+            for (Category category : movie.getCategories()) {
+                if (category.getName().toLowerCase().contains(searchString) && !isAdded) {
+                    searchedList.add(movie);
+                    break;
+                }
+            }
         }
+    }
+
+    public ObservableList<Movie> getSearchedMovies() {
+        return searchedList;
     }
 }

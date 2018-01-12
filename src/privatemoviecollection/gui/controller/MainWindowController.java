@@ -80,6 +80,7 @@ public class MainWindowController implements Initializable {
     private Button addDeleteCategories;
 
     private Model model;
+    private boolean isSearching = false;
 
     /**
      * Initializes the controller class.
@@ -97,7 +98,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Create cell value factories to properly display the values 
+     * Create cell value factories to properly display the values
      */
     private void createCellValueFactories() {
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
@@ -147,7 +148,8 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Open a new window, where the user can assign or delete categories to and from a movie
+     * Open a new window, where the user can assign or delete categories to and
+     * from a movie
      */
     @FXML
     private void editCatClicked(ActionEvent event) {
@@ -177,9 +179,8 @@ public class MainWindowController implements Initializable {
      */
     @FXML
     private void editPRatingClicked(ActionEvent event) {
-        try
-        {
-           Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
+        try {
+            Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
             if (selectedMovie == null) {
                 throw new Exception("Please selecta a movie!");
             }
@@ -193,25 +194,32 @@ public class MainWindowController implements Initializable {
             stage.setResizable(false);
             stage.show();
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             newAlert(ex);
         }
     }
 
     /**
-     * Search through the database for the movies that satisfy the search parameters
+     * Search through the database for the movies that satisfy the search
+     * parameters
      */
     @FXML
     private void searchClicked(ActionEvent event) {
-        movieTable.getItems().clear();
-        try{
-            model.search(searchBar.getText());
-            
-        }catch (ModelException ex) {
+        try {
+            if (!isSearching) {
+                movieTable.setItems(model.getSearchedMovies());
+                model.search(searchBar.getText());
+                searchBtn.setText("Cancel");
+                isSearching = true;
+            } else {
+                movieTable.setItems(model.getMoviesFromList());
+                searchBtn.setText("Search");
+                isSearching = false;
+            }
+        }
+        catch (ModelException ex) {
             newAlert(ex);
         }
-        
     }
 
     /**
@@ -263,7 +271,8 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Add a listener to the movie table, so the labels can be updated when the selection changes
+     * Add a listener to the movie table, so the labels can be updated when the
+     * selection changes
      */
     private void addListenersAndHandlers() {
         movieTable.getSelectionModel().selectedItemProperty().addListener(
@@ -290,6 +299,7 @@ public class MainWindowController implements Initializable {
 
     /**
      * Display a new alert window, to notify the user of some error
+     *
      * @param ex The exception that carries the error message
      */
     private void newAlert(Exception ex) {
@@ -299,6 +309,7 @@ public class MainWindowController implements Initializable {
 
     /**
      * Show a confirmation dialog with the specified prompt.
+     *
      * @param prompt The text that will be shown to the user
      * @return True, if the user selected the "Yes" button, false otherwise
      */
