@@ -101,7 +101,7 @@ public class MainWindowController implements Initializable {
         imdbCol.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         pRatingCol.setCellValueFactory(new PropertyValueFactory("personalRating"));
         catCol.setCellValueFactory(new PropertyValueFactory("categoriesAsString"));
-        //lastViewedCol.setCellValueFactory(new PropertyValueFactory("lastAccessTime")); //Will be enabled later
+        lastViewedCol.setCellValueFactory(new PropertyValueFactory("fileAccessDate"));
     }
 
     /**
@@ -224,7 +224,10 @@ public class MainWindowController implements Initializable {
     @FXML
     private void playSysDef(ActionEvent event) {
         try {
-            model.playSysDef(movieTable.getSelectionModel().getSelectedItem());
+            Movie movie = movieTable.getSelectionModel().getSelectedItem();
+            model.playSysDef(movie);
+            movieTable.refresh();
+            setLastViewLabel(movie);
         }
         catch (ModelException ex) {
             newAlert(ex);
@@ -237,19 +240,23 @@ public class MainWindowController implements Initializable {
     @FXML
     private void playHere(ActionEvent event) {
         try {
-            model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());
+            Movie movie = movieTable.getSelectionModel().getSelectedItem();
+            model.setSelectedMovie(movie);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
             Parent root = (Parent) loader.load();
-
+            
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("NEM INDUL");
+            stage.setTitle("Video player");
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
+            
+            movieTable.refresh();
+            setLastViewLabel(movie);
         }
         catch (IOException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
-            newAlert(ex);
+             newAlert(ex);
         }
     }
 
@@ -286,24 +293,23 @@ public class MainWindowController implements Initializable {
      */
     private void setLabels() {
         Movie tempmovie = movieTable.getSelectionModel().getSelectedItem();
-        nameLbl.setText(tempmovie.getName());
-        imdbLbl.setText("IMDb Rating: " + tempmovie.getImdbRating());
-        personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
-        categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
-        lastViewLbl.setText("Last Viewed: " + "WIP");// tempmovie.getLastAccessTime()); //This throws an error, because the createMediaFromPath is not called upon loading movies from the database
+        if (tempmovie != null)
+        {
+            nameLbl.setText(tempmovie.getName());
+            imdbLbl.setText("IMDb Rating: " + tempmovie.getImdbRating());
+            personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
+            categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
+            setLastViewLabel(tempmovie);
+        }
     }
     
-     /**
-     * Check for movies that haven't been accessed for more than 2 years, and have a lower personal score than 6.
-     * Ask the user if these movies should be deleted
+    /**
+     * Set the label displaying the last access to a given movie to the actual value. Used to refresh the UI.
+     * @param movie 
      */
-    private void checkMovies()
+    private void setLastViewLabel(Movie movie)
     {
-        if (!model.checkMovies().isEmpty())
-        {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Old movies found", ButtonType.OK);
-            a.show();
-        }
+            lastViewLbl.setText("Last Viewed: " + movie.getFileAccessDate());
     }
 
     /**

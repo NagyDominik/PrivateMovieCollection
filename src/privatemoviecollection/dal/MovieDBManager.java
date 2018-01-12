@@ -39,7 +39,7 @@ public class MovieDBManager
                 tmp.setPersonalRating(rs.getFloat("user_rating"));
                 tmp.setName(rs.getString("name"));
                 tmp.setPath(rs.getString("filelink"));
-                //tmp.checkLastAccessTime();
+                tmp.setFileAccessDate(rs.getTimestamp("lastview"));
                 movies.add(tmp);
             }
             
@@ -79,11 +79,12 @@ public class MovieDBManager
     {
         try(Connection con = cm.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Movie(name, user_rating, imdb_rating, filelink) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Movie(name, user_rating, imdb_rating, filelink, lastview) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, movie.getName());
             ps.setFloat(2, movie.getPersonalRating());
             ps.setFloat(3, movie.getImdbRating());
             ps.setString(4, movie.getPath());
+            ps.setTimestamp(5, movie.getTimeStamp());
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
@@ -127,12 +128,13 @@ public class MovieDBManager
     {
         try(Connection con = cm.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("UPDATE Movie SET name=?, user_rating=?, imdb_rating=?, filelink=?  WHERE id=?");
+            PreparedStatement ps = con.prepareStatement("UPDATE Movie SET name=?, user_rating=?, imdb_rating=?, filelink=?, lastview = ?  WHERE id=?");
             ps.setString(1, movie.getName());
             ps.setFloat(2, movie.getPersonalRating());
             ps.setFloat(3, movie.getImdbRating());
             ps.setString(4, movie.getPath());
-            ps.setInt(5, movie.getId());
+            ps.setTimestamp(5, movie.getTimeStamp());
+            ps.setInt(6, movie.getId());
             int affected = ps.executeUpdate();
             if (affected < 0)
             {
@@ -262,7 +264,7 @@ public class MovieDBManager
                 tmp.setPersonalRating(rs.getFloat("user_rating"));
                 tmp.setName(rs.getString("name"));
                 tmp.setPath(rs.getString("filelink"));
-                //tmp.checkLastAccessTime();
+                tmp.setFileAccessDate(rs.getTimestamp("lastview"));
                 allMovies.add(tmp);
             }
             
@@ -274,7 +276,7 @@ public class MovieDBManager
                 tmp2.setPersonalRating(rs2.getFloat("user_rating"));
                 tmp2.setName(rs2.getString("name"));
                 tmp2.setPath(rs2.getString("filelink"));
-                //tmp.checkLastAccessTime();
+                tmp2.setFileAccessDate(rs2.getTimestamp("lastview"));
                 allMovies.add(tmp2);
             }
         }

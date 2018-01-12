@@ -1,11 +1,6 @@
 package privatemoviecollection.be;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.FloatProperty;
@@ -29,11 +24,12 @@ public class Movie {
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
-    private FileTime lastAccessTime;
+    private Timestamp fileAccessDate;
     
     private ObservableList<Category> categories = FXCollections.observableArrayList();
     
     private String categoriesAsString;
+
     private Media media;
 
     public Movie() {
@@ -48,18 +44,6 @@ public class Movie {
         this.media = media;
     }
 
-    /**
-     * Try to create a media object from the specified path, and check when the file was last accessed
-     */
-    public void checkLastAccessTime() {
-        try {
-            BasicFileAttributes bfa = Files.readAttributes(Paths.get(path.get()), BasicFileAttributes.class);
-            this.lastAccessTime = bfa.lastAccessTime();
-        }
-        catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
 
     public Media getMedia() {
         return media;
@@ -133,6 +117,10 @@ public class Movie {
         return this.categories;
     }
     
+    /**
+     * Return the list of categories associated with this movie as a formatted string
+     * @return The list of categories associated with this movie as a formatted string
+     */
     public String getCategoriesAsString() {
         categoriesAsString = "";
         
@@ -148,6 +136,25 @@ public class Movie {
         this.categories.add(category);
     }
 
+    /**
+     * Return the last acces time formatted as a string
+     * @return The last acces time formatted as a string
+     */
+    public String getFileAccessDate()
+    {
+        return fileAccessDate.toString();
+    }
+
+    public void setFileAccessDate(Timestamp fileAccessDate)
+    {
+        this.fileAccessDate = fileAccessDate;
+    }
+    
+    public Timestamp getTimeStamp()
+    {
+        return this.fileAccessDate;
+    }
+    
     /**
      * Check if the categories list contains a given category
      * @param selectedCat The category that is tested 
@@ -172,19 +179,5 @@ public class Movie {
     public void removeCategory(Category selectedCat)
     {
         categories.remove(selectedCat);
-    }
-    
-    /**
-     * Return a string representation of the last time the file associated with this Movie object was accessed
-     * @return A string representation of the last time the file associated with this Movie object was accessed
-     */
-    public String getLastAccessTime()
-    {
-        return lastAccessTime.toString();
-    }
-    
-    public FileTime getAccesFileTime()
-    {
-        return this.lastAccessTime;
     }
 }

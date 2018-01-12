@@ -2,6 +2,7 @@ package privatemoviecollection.gui.controller;
 
 import java.net.URI;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,7 +112,8 @@ public class NewMovieController implements Initializable {
             newmovie.setImdbRating(Float.parseFloat(imdbField.getText()));
             newmovie.setPersonalRating(Float.parseFloat(pratingField.getText()));
             newmovie.setPath(pathField.getText());
-
+            newmovie.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
+            
             model.saveMovie(newmovie);
         }
         catch (ModelException ex) {
