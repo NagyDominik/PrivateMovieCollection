@@ -25,6 +25,7 @@ public class Movie {
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
+    private final StringProperty imagePath = new SimpleStringProperty();
     private Timestamp fileAccessDate;
     private ObservableList<Category> categories = FXCollections.observableArrayList();
     private String categoriesAsString;
@@ -125,9 +126,24 @@ public class Movie {
     public Timestamp getTimeStamp() {
         return this.fileAccessDate;
     }
+    
+    public String getImagePath()
+    {
+        return imagePath.get();
+    }
 
+    public void setImagePath(String value)
+    {
+        imagePath.set(value);
+    }
+
+    public StringProperty imagePathProperty()
+    {
+        return imagePath;
+    }
+    
     /**
-     * Return the last acces time formatted as a string
+     * Return the last access time formatted as a string
      *
      * @return The last acces time formatted as a string
      */

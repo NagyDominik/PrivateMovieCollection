@@ -39,6 +39,7 @@ public class MovieDBManager {
                 tmp.setName(rs.getString("name"));
                 tmp.setPath(rs.getString("filelink"));
                 tmp.setFileAccessDate(rs.getTimestamp("lastview"));
+                tmp.setImagePath(rs.getString("imagefilelink"));
                 movies.add(tmp);
             }
 
@@ -72,12 +73,13 @@ public class MovieDBManager {
      */
     public void save(Movie movie) throws DAException {
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Movie(name, user_rating, imdb_rating, filelink, lastview) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Movie(name, user_rating, imdb_rating, filelink, lastview, imagefilelink) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, movie.getName());
             ps.setFloat(2, movie.getPersonalRating());
             ps.setFloat(3, movie.getImdbRating());
             ps.setString(4, movie.getPath());
             ps.setTimestamp(5, movie.getTimeStamp());
+            ps.setString(6, movie.getImagePath());
             int affected = ps.executeUpdate();
             if (affected < 1) {
                 throw new DAException("Movie could not be saved!");
@@ -113,13 +115,14 @@ public class MovieDBManager {
      */
     public void edit(Movie movie) throws DAException {
         try (Connection con = cm.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE Movie SET name=?, user_rating=?, imdb_rating=?, filelink=?, lastview = ?  WHERE id=?");
+            PreparedStatement ps = con.prepareStatement("UPDATE Movie SET name=?, user_rating=?, imdb_rating=?, filelink=?, lastview = ?, imagefilelink=?  WHERE id=?");
             ps.setString(1, movie.getName());
             ps.setFloat(2, movie.getPersonalRating());
             ps.setFloat(3, movie.getImdbRating());
             ps.setString(4, movie.getPath());
             ps.setTimestamp(5, movie.getTimeStamp());
-            ps.setInt(6, movie.getId());
+            ps.setString(6, movie.getImagePath());
+            ps.setInt(7, movie.getId());
             int affected = ps.executeUpdate();
             if (affected < 0) {
                 throw new DAException("Movie could not be edited!");

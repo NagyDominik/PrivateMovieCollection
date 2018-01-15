@@ -7,28 +7,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.NewMovieController">
+<AnchorPane id="AnchorPane" prefHeight="558.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.NewMovieController">
    <children>
       <TextField fx:id="titleField" layoutX="160.0" layoutY="75.0" prefHeight="25.0" prefWidth="225.0" />
       <TextField fx:id="imdbField" layoutX="160.0" layoutY="110.0" prefHeight="25.0" prefWidth="225.0" />
       <TextField fx:id="pratingField" layoutX="160.0" layoutY="145.0" prefHeight="25.0" prefWidth="225.0" />
       <TextField fx:id="pathField" layoutX="160.0" layoutY="180.0" prefHeight="25.0" prefWidth="225.0" />
-      <Label layoutX="15.0" layoutY="75.0" prefHeight="20.0" prefWidth="95.0" text="Title" textAlignment="RIGHT" AnchorPane.leftAnchor="15.0">
+      <Label layoutX="15.0" layoutY="81.0" prefHeight="20.0" prefWidth="95.0" text="Title" textAlignment="RIGHT" AnchorPane.leftAnchor="15.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="110.0" prefHeight="20.0" prefWidth="95.0" text="IMDb rating" AnchorPane.leftAnchor="15.0">
+      <Label layoutX="15.0" layoutY="116.0" prefHeight="20.0" prefWidth="95.0" text="IMDb rating" AnchorPane.leftAnchor="15.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="145.0" prefHeight="20.0" prefWidth="95.0" text="Personal rating" AnchorPane.leftAnchor="15.0">
+      <Label layoutX="13.0" layoutY="151.0" prefHeight="20.0" prefWidth="95.0" text="Personal rating" AnchorPane.leftAnchor="13.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="180.0" prefHeight="20.0" prefWidth="95.0" text="File Location" AnchorPane.leftAnchor="15.0">
+      <Label layoutX="15.0" layoutY="186.0" prefHeight="20.0" prefWidth="95.0" text="File Location" AnchorPane.leftAnchor="15.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -41,22 +41,25 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="215.0" prefHeight="20.0" prefWidth="95.0" text="Categories" AnchorPane.leftAnchor="15.0">
+      <Label layoutX="43.0" layoutY="279.0" prefHeight="20.0" prefWidth="95.0" text="Categories" AnchorPane.leftAnchor="43.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="addCatToMovie" layoutX="255.0" layoutY="255.0" mnemonicParsing="false" onAction="#addCatToMovie" prefHeight="25.0" prefWidth="25.0" text="&lt;" AnchorPane.leftAnchor="255.0">
+      <Button fx:id="addCatToMovie" layoutX="253.0" layoutY="314.0" mnemonicParsing="false" onAction="#addCatToMovie" prefHeight="25.0" prefWidth="25.0" text="&lt;" AnchorPane.leftAnchor="253.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <ListView fx:id="movieCategories" layoutX="45.0" layoutY="245.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="45.0" />
-      <ListView fx:id="allCetegories" layoutX="290.0" layoutY="245.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="removeCatFromMovie" layoutX="255.0" layoutY="290.0" mnemonicParsing="false" onAction="#removeCatFromMovie" prefHeight="25.0" prefWidth="25.0" text="&gt;" AnchorPane.leftAnchor="255.0">
+      <ListView fx:id="movieCategories" layoutX="43.0" layoutY="304.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="43.0" />
+      <ListView fx:id="allCetegories" layoutX="288.0" layoutY="304.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button fx:id="removeCatFromMovie" layoutX="253.0" layoutY="349.0" mnemonicParsing="false" onAction="#removeCatFromMovie" prefHeight="25.0" prefWidth="25.0" text="&gt;" AnchorPane.leftAnchor="253.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Label layoutX="14.0" layoutY="222.0" text="Image (Optional)" />
+      <TextField fx:id="txtFieldImage" layoutX="160.0" layoutY="217.0" prefHeight="31.0" prefWidth="225.0" />
+      <Button fx:id="imageBtn" layoutX="390.0" layoutY="217.0" mnemonicParsing="false" onAction="#btnImageFIleChooserClicked" prefHeight="25.0" prefWidth="90.0" text="File..." />
    </children>
 </AnchorPane>

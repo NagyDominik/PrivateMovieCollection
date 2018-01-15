@@ -44,6 +44,18 @@ public class NewMovieController implements Initializable {
 
     private Model model;
     private Movie newmovie = new Movie();
+    @FXML
+    private Button fileBtn;
+    @FXML
+    private Button saveBtn;
+    @FXML
+    private Button addCatToMovie;
+    @FXML
+    private Button removeCatFromMovie;
+    @FXML
+    private Button imageBtn;
+    @FXML
+    private TextField txtFieldImage;
 
     /**
      * Initializes the controller class.
@@ -95,6 +107,26 @@ public class NewMovieController implements Initializable {
         Category selected = movieCategories.getSelectionModel().getSelectedItem();
         newmovie.removeCategory(selected);
     }
+    
+    /**
+     * Select an optional image for the movie
+     */
+    @FXML
+    private void btnImageFIleChooserClicked(ActionEvent event)
+    {
+        try {
+            FileChooser filech = new FileChooser();
+            URI path = filech.showOpenDialog(new ContextMenu()).toURI();
+            if (path.toString().endsWith(".jpeg") || path.toString().endsWith(".png")) { // Only allow .mp4 and .mpeg4 files
+                txtFieldImage.setText(path.toString());
+            } else {
+                throw new Exception("Only .jpeg and .png files allowed");
+            }
+        }
+        catch (Exception ex) {
+            newAlert(ex);
+        }
+    }
 
     private void saveMovie() {
         try {
@@ -103,7 +135,8 @@ public class NewMovieController implements Initializable {
             newmovie.setPersonalRating(Float.parseFloat(pratingField.getText()));
             newmovie.setPath(pathField.getText());
             newmovie.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
-
+            newmovie.setImagePath(txtFieldImage.getText().isEmpty()? "None" : txtFieldImage.getText());
+            
             model.saveMovie(newmovie);
         }
         catch (ModelException ex) {
@@ -120,5 +153,4 @@ public class NewMovieController implements Initializable {
         Stage stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
     }
-
 }

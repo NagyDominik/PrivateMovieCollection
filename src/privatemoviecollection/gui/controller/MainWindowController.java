@@ -26,6 +26,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import privatemoviecollection.be.Movie;
@@ -82,6 +84,8 @@ public class MainWindowController implements Initializable {
 
     private Model model;
     private boolean isSearching = false;
+    @FXML
+    private ImageView imgViewMovieImage;
 
     /**
      * Initializes the controller class.
@@ -333,6 +337,22 @@ public class MainWindowController implements Initializable {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 setLabels();
+                setImageView();
+            }
+
+            private void setImageView()
+            {
+                Movie selected = movieTable.getSelectionModel().getSelectedItem();
+                if (selected != null)
+                {
+                    if (selected.getImagePath().isEmpty()) //Return, if we do not store an image with the movie
+                    {
+                        return;
+                    }
+                    
+                    Image image = new Image(selected.getImagePath());
+                    imgViewMovieImage.setImage(image);
+                }
             }
         }
         );
