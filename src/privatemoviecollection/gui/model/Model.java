@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.MediaPlayer;
@@ -172,6 +174,14 @@ public class Model {
             throw new ModelException("The category already exists");
         }
     }
+    
+    public void removeCategory(Category cat) throws ModelException{
+        try {
+            bllm.removeCategory(cat);
+        } catch (BLLException ex) {
+             throw new ModelException(ex);
+        }
+    }
 
     /**
      * Associate a category with a movie
@@ -299,11 +309,11 @@ public class Model {
     public ObservableList<Movie> getSearchedMovies() {
         return searchedList;
     }
-
-
     public void stopBuiltIn() {
         bllm.stopBuiltIn();
-    }
+
+    }    
+
     
     /**
      * Filter out movies that haven't been accessed for more than two years and have a lower personal rating than 6.

@@ -385,5 +385,17 @@ public class MainWindowController implements Initializable {
      */
     @FXML
     private void btnAddDeleteCategoriesClicked(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/NewCategory.fxml"));
+            Parent root = (Parent) loader.load();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Add / delete category");
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            newAlert(ex);
+        }
     }
 }
