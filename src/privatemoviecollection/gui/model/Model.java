@@ -25,7 +25,7 @@ public class Model {
     private final BLLManager bllm = new BLLManager();
     private final ObservableList<Movie> movieList = FXCollections.observableArrayList();
     private final ObservableList<Category> categoryList = FXCollections.observableArrayList();
-    private final ObservableList<Movie> searchedList = FXCollections.observableArrayList(); //Used to store the result of a user-initiated searc
+    private final ObservableList<Movie> searchedList = FXCollections.observableArrayList(); //Used to store the result of a user-initiated search
     private final ObservableList<Movie> movieUtilityList = FXCollections.observableArrayList(); //Used to store moves that are old or movies that have similar titles to a new movie
     private Movie selectedMovie;
 
@@ -403,51 +403,53 @@ public class Model {
      */
     private int levenshtein(String first, String second)
     {
-        int d[][];
-        int n;
-        int m;
-        int i;
-        int j;
-        char s_i;
-        char t_j;
+        int d[][];  //Matrix
+        int n;  //Length of the first string
+        int m;  //Length of the seconf string
+        int i;  //Iterate through the first string  
+        int j;  //Iterate through the second string
+        char s_i;   //ith character of the first string
+        char t_j;   //jth charachter of the second string
         int cost;
         
         n = first.length();
         m = second.length();
         
-        if (n == 0) {return m; }
-        if (m == 0) {return n; }
+        if (n == 0) {return m; }    //If the first string is empty, the number of transformation required is the length of the second string.
+        if (m == 0) {return n; }    //If the second string is empty, the number of transformation required is the length of the first string.
         
-        d = new int[n+1][m+1];
+        d = new int[n+1][m+1];  //Create a new matrix with the dimension of the first and second strings
         
-        for (i = 0; i < n; i++)
+        for (i = 0; i < n; i++) //Set the first row of the matrix to numbers 0 through n
         {
             d[i][0] = i;
         }
         
-        for (j = 0; j < m; j++)
+        for (j = 0; j < m; j++) //Set the first column of the matrix to numbers 0 through m
         {
             d[0][j] = j;
         }
         
         for (i = 1; i<=n; i++)
         {
-            s_i =  first.charAt(i - 1);
+            s_i =  first.charAt(i - 1); //Examine each character of the first string
             
             for (j = 1; j <= m; j++)
             {
-                t_j = second.charAt(j - 1);
+                t_j = second.charAt(j - 1); //Examine each charachter of the second string
                 
                 if (s_i == t_j)
                 {
-                    cost = 0;
+                    cost = 0;   //If the two charachters are equal, the cost is 0
                 }
                 else
                 {
-                    cost = 1;
+                    cost = 1;   //Otherwise the cost is 1
                 }
                 
-                d[i][j] = min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1] + cost);
+                d[i][j] = min(d[i-1][j]+1, //Deletion
+                        d[i][j-1]+1, //Insertion
+                        d[i-1][j-1] + cost); //Substitution
             }
         }
         
@@ -455,6 +457,13 @@ public class Model {
         
     }
     
+    /**
+     * Return the lowest number from the three parameters
+     * @param a First number
+     * @param b Second number
+     * @param c Third number
+     * @return The lowest number
+     */
     private int min(int a, int b, int c)
     {
         int min = a;

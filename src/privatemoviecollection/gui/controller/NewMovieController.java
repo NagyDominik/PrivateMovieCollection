@@ -197,7 +197,7 @@ public class NewMovieController implements Initializable {
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "There is atleast one movie with a similar name. Save anyway? (Click Apply to see the similar movies)", ButtonType.YES, ButtonType.NO, ButtonType.APPLY);
             confirmation.showAndWait();  
             
-            while(confirmation.getResult() == ButtonType.APPLY)
+            while(confirmation.getResult() == ButtonType.APPLY) //Show a list of similar movies
             {
                 try
                 {
@@ -215,7 +215,7 @@ public class NewMovieController implements Initializable {
                 
                 confirmation.showAndWait();
             }
-            
+          
             return confirmation.getResult() == ButtonType.YES;
         }
         
