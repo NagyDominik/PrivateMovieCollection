@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -17,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
@@ -47,6 +50,7 @@ public class PlayerController implements Initializable {
         model.setupPlayer(model.getSelectedMovie());
         mediaView.setMediaPlayer(model.getPlayer());
         valueChanger();
+
     }
 
     @FXML
@@ -88,6 +92,16 @@ public class PlayerController implements Initializable {
                 TimeUnit.MILLISECONDS.toMinutes(ms) % 60,
                 TimeUnit.MILLISECONDS.toSeconds(ms) % 60);
         return timestring;
+    }
+    
+        /**
+     * Display a new alert window, to notify the user of some error
+     *
+     * @param ex The exception that carries the error message
+     */
+    private void newAlert(Exception ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
+        a.show();
     }
 
 }

@@ -2,6 +2,10 @@ package privatemoviecollection.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -135,7 +139,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void removeClicked(ActionEvent event) {
         try {
-            if (showConfirmationDialog("Are you sure you want to delete this movie?")) {
+            if (!showConfirmationDialog("Are you sure you want to delete this movie?")) {
                 return;
             }
             Movie selected = (Movie) movieTable.getSelectionModel().getSelectedItem();
@@ -250,7 +254,17 @@ public class MainWindowController implements Initializable {
     private void playHere(ActionEvent event) {
         try {        
             Movie movie = movieTable.getSelectionModel().getSelectedItem();
+            
+            
             if (movie != null) {
+                //Check to see if the file is located on the computer
+                String path = movie.getPath().replace("file:/", "").replace("/", "\\");
+                Path p = Paths.get(path);
+                if (!Files.exists(p, LinkOption.NOFOLLOW_LINKS))
+                {
+                    throw new Exception("File not found!");
+                }
+                
                 model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
                 Parent root = (Parent) loader.load();
@@ -263,16 +277,24 @@ public class MainWindowController implements Initializable {
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
                     public void handle(WindowEvent event) {
-                        model.stopBuiltIn();            
-                        movieTable.refresh();
-                        setLastViewLabel(movie);
+                        try
+                        {
+                            model.stopBuiltIn();            
+                            movieTable.refresh();
+                            setLastViewLabel(movie);
+                        }
+                        catch(Exception ex)
+                        {
+                            
+                        }
+
                     }
                 });
             } else {
                 newAlert(new Exception("No movie is selected! Please select a movie to play!"));
             }
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
              newAlert(ex);
         }
