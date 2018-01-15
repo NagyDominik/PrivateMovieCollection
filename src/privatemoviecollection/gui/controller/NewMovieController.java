@@ -132,7 +132,7 @@ public class NewMovieController implements Initializable {
         try {
             FileChooser filech = new FileChooser();
             URI path = filech.showOpenDialog(new ContextMenu()).toURI();
-            if (path.toString().endsWith(".jpeg") || path.toString().endsWith(".png")) { // Only allow .mp4 and .mpeg4 files
+            if (path.toString().endsWith(".jpeg") || path.toString().endsWith(".jpg") || path.toString().endsWith(".png")) { // Only allow .mp4 and .mpeg4 files
                 txtFieldImage.setText(path.toString());
             } else {
                 throw new Exception("Only .jpeg and .png files allowed");

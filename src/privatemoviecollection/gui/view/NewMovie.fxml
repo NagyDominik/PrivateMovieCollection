@@ -59,7 +59,7 @@
          </font>
       </Button>
       <Label layoutX="14.0" layoutY="222.0" text="Image (Optional)" />
-      <TextField fx:id="txtFieldImage" layoutX="160.0" layoutY="217.0" prefHeight="31.0" prefWidth="225.0" />
-      <Button fx:id="imageBtn" layoutX="390.0" layoutY="217.0" mnemonicParsing="false" onAction="#btnImageFIleChooserClicked" prefHeight="25.0" prefWidth="90.0" text="File..." />
+      <TextField fx:id="txtFieldImage" layoutX="160.0" layoutY="215.0" prefHeight="25.0" prefWidth="225.0" />
+      <Button fx:id="imageBtn" layoutX="390.0" layoutY="215.0" mnemonicParsing="false" onAction="#btnImageFIleChooserClicked" prefHeight="25.0" prefWidth="90.0" text="File..." />
    </children>
 </AnchorPane>
