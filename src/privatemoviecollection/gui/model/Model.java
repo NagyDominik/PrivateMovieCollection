@@ -6,9 +6,7 @@
 package privatemoviecollection.gui.model;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.MediaPlayer;
@@ -27,8 +25,9 @@ public class Model {
     private BLLManager bllm = new BLLManager();
     private ObservableList<Movie> movieList = FXCollections.observableArrayList();
     private ObservableList<Category> categoryList = FXCollections.observableArrayList();
-    private Movie selectedMovie;
     private ObservableList<Movie> searchedList = FXCollections.observableArrayList();
+    private ObservableList<Movie> oldMovies = FXCollections.observableArrayList();
+    private Movie selectedMovie;
 
     public Model() {
     }
@@ -75,7 +74,7 @@ public class Model {
 
     /**
      * Returns a list of movies we searched for
-     * 
+     *
      * @return A filtered list of movies
      */
     public ObservableList<Movie> getSearchedMovies() {
@@ -92,9 +91,18 @@ public class Model {
     }
 
     /**
-     * Database Methods**************************************************************
+     * Return a list of old movies
+     *
+     * @return A list of old movies
      */
-    
+    public ObservableList<Movie> getOldMovies() {
+        return this.oldMovies;
+    }
+
+    /**
+     * Database
+     * Methods**************************************************************
+     */
     /**
      * Loads the list of movies and categories from the database
      *
@@ -139,6 +147,13 @@ public class Model {
      */
     public void saveMovie(Movie newmovie) throws ModelException {
         try {
+            //Check if a movie is already in the database
+            for (Movie movie : movieList) {
+                if (newmovie.getName().equals(movie.getName())) {
+                    throw new ModelException("Movie is already in the database!");
+                }
+            }
+
             movieList.add(newmovie);
             bllm.saveMovie(newmovie);
         }
@@ -229,11 +244,11 @@ public class Model {
             throw new ModelException(ex);
         }
     }
-    
+
     /**
-     * Movie player methods**********************************************************
+     * Movie player
+     * methods**********************************************************
      */
-    
     /**
      * Attempts to play the selected movie with the default media player
      *
@@ -304,9 +319,9 @@ public class Model {
     }
 
     /**
-     * Other methods*****************************************************************
+     * Other
+     * methods*****************************************************************
      */
-    
     /**
      * Looks for a given character sequence in the movie titles, categories,
      * imdb and personal ratings
@@ -345,20 +360,19 @@ public class Model {
      *
      * @return The list of movies that match the above criteria.
      */
-    public List<Movie> checkMovies() {
-        List<Movie> oldMovies = new ArrayList<>();
+    public Boolean checkMovies() {
         Calendar checkDate = Calendar.getInstance();
-        checkDate.add(Calendar.MINUTE, -1);
-        // checkDate.add(Calendar.YEAR, -2);
+        checkDate.add(Calendar.YEAR, -2);
 
         for (Movie movie : movieList) {
-            if (movie.getPersonalRating() < 10.0f) {
+            if (movie.getPersonalRating() < 6.0f) {
                 if (movie.getTimeStamp().before(checkDate.getTime())) {
                     oldMovies.add(movie);
                 }
             }
         }
-        return oldMovies;
+        return !oldMovies.isEmpty();
+
     }
 
 }

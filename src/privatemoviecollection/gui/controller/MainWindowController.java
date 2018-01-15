@@ -353,8 +353,10 @@ public class MainWindowController implements Initializable {
      * 2 years, and have a personal rating lower than 6. Ask the user if they
      * should be deleted.
      */
-    private void checkMovies() {
-        if (!model.checkMovies().isEmpty()) {
+    private void checkMovies()
+    {
+        if (model.checkMovies())
+        {
             Boolean answer = showConfirmationDialog("We foiund some old movies with personal rating lower than 6. Would you like to see a list of these movies?");
             if (answer) {
                 try {
@@ -364,6 +366,7 @@ public class MainWindowController implements Initializable {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.setTitle("Old movies");
+                    stage.setResizable(false);
                     stage.showAndWait();
                 }
                 catch (IOException ex) {
