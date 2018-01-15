@@ -1,5 +1,6 @@
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -12,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
@@ -38,28 +38,27 @@ public class NewMovieController implements Initializable {
     @FXML
     private TextField pratingField;
     @FXML
-    private Button cancelBtn;
+    private JFXButton cancelBtn;
     @FXML
     private TextField pathField;
     @FXML
     private ListView<Category> movieCategories;
     @FXML
     private ListView<Category> allCetegories;
-
-    private Model model;
-    private Movie newmovie = new Movie();
     @FXML
-    private Button fileBtn;
+    private JFXButton fileBtn;
     @FXML
-    private Button saveBtn;
+    private JFXButton saveBtn;
     @FXML
-    private Button addCatToMovie;
+    private JFXButton addCatToMovie;
     @FXML
-    private Button removeCatFromMovie;
-    @FXML
-    private Button imageBtn;
+    private JFXButton removeCatFromMovie;
     @FXML
     private TextField txtFieldImage;
+    @FXML
+    private JFXButton imgBtn;
+    private Model model;
+    private Movie newmovie = new Movie();
 
     /**
      * Initializes the controller class.
@@ -126,17 +125,16 @@ public class NewMovieController implements Initializable {
         Category selected = movieCategories.getSelectionModel().getSelectedItem();
         newmovie.removeCategory(selected);
     }
-    
+
     /**
      * Select an optional image for the movie
      */
     @FXML
-    private void btnImageFIleChooserClicked(ActionEvent event)
-    {
+    private void btnImageFIleChooserClicked(ActionEvent event) {
         try {
             FileChooser filech = new FileChooser();
             URI path = filech.showOpenDialog(new ContextMenu()).toURI();
-            if (path.toString().endsWith(".jpeg") || path.toString().endsWith(".png")) { // Only allow .mp4 and .mpeg4 files
+            if (path.toString().endsWith(".jpeg") || path.toString().endsWith(".jpg") || path.toString().endsWith(".png")) { // Only allow .mp4 and .mpeg4 files
                 txtFieldImage.setText(path.toString());
             } else {
                 throw new Exception("Only .jpeg and .png files allowed");
@@ -159,7 +157,7 @@ public class NewMovieController implements Initializable {
             newmovie.setPersonalRating(Float.parseFloat(pratingField.getText()));
             newmovie.setPath(pathField.getText());
             newmovie.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
-            newmovie.setImagePath(txtFieldImage.getText().isEmpty()? "None" : txtFieldImage.getText());
+            newmovie.setImagePath(txtFieldImage.getText().isEmpty() ? "None" : txtFieldImage.getText());
             newmovie.createImage();
             
             if (checkForSimilarMovies(newmovie))

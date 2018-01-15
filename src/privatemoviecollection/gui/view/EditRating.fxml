@@ -1,41 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="267.0" prefWidth="593.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="privatemoviecollection.gui.controller.EditRatingController">
+<AnchorPane id="AnchorPane" prefHeight="277.0" prefWidth="588.0" style="-fx-background-color: #95b5c0;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.EditRatingController">
    <children>
-      <Label layoutX="14.0" layoutY="29.0" text="Title:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="30.0">
+      <Pane layoutX="25.0" layoutY="69.0">
+         <children>
+            <Label text="Title:">
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTitle" layoutX="60.0" prefHeight="30.0">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutY="48.0" text="Currrent rating:">
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCurrentRating" layoutX="180.0" layoutY="47.0">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutY="100.0" text="Newrating:">
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFieldNewRating" layoutX="131.0" layoutY="102.0" prefHeight="25.0" prefWidth="212.0" />
+         </children>
+      </Pane>
+      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="225.0" onAction="#btnSaveClick" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../img/save.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnExit" buttonType="RAISED" ellipsisString="" layoutX="529.0" layoutY="228.0" onAction="#btnExitClick" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0">
+               <image>
+                  <Image url="@../../../img/exit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Label layoutX="224.0" layoutY="14.0" text="Edit Rating">
          <font>
-            <Font size="25.0" />
+            <Font name="Arial Black" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="lblTitle" layoutX="80.0" layoutY="37.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="30.0">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="25.0" layoutY="81.0" text="Currrent rating:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="80.0">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblCurrentRating" layoutX="208.0" layoutY="88.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="80.0">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="25.0" layoutY="146.0" text="Newrating:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="130.0">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtFieldNewRating" layoutX="156.0" layoutY="133.0" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="130.0" />
-      <Button layoutX="277.0" layoutY="210.0" mnemonicParsing="false" onAction="#btnSaveClick" text="Save" />
-      <Button fx:id="btnExit" layoutX="502.0" layoutY="210.0" mnemonicParsing="false" onAction="#btnExitClick" text="Exit" />
+      <Separator layoutX="-5.0" layoutY="50.0" prefHeight="1.0" prefWidth="593.0" />
    </children>
 </AnchorPane>

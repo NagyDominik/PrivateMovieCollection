@@ -1,5 +1,7 @@
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -26,7 +28,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import privatemoviecollection.be.Movie;
@@ -41,13 +45,13 @@ import privatemoviecollection.gui.model.ModelException;
 public class MainWindowController implements Initializable {
 
     @FXML
-    private Button addBtn;
+    private JFXButton addBtn;
     @FXML
-    private Button removeBtn;
+    private JFXButton removeBtn;
     @FXML
-    private Button categoriesBtn;
+    private JFXButton categoriesBtn;
     @FXML
-    private Button ratingBtn;
+    private JFXButton ratingBtn;
     @FXML
     private Label imdbLbl;
     @FXML
@@ -57,7 +61,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private Label categoriesLbl;
     @FXML
-    private TextField searchBar;
+    private JFXTextField searchBar;
     @FXML
     private Button searchBtn;
     @FXML
@@ -73,18 +77,22 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<Movie, String> lastViewedCol;
     @FXML
-    private Button sysdefBtn;
+    private JFXButton sysdefBtn;
     @FXML
-    private Button playhereBtn;
+    private JFXButton playhereBtn;
     @FXML
     private TableView<Movie> movieTable;
     @FXML
-    private Button addDeleteCategories;
-
+    private JFXButton addDeleteCategories;
+    @FXML
+    private ImageView imgViewMovieImage;
+    @FXML
+    private AnchorPane mainPane;
+    
     private Model model;
     private boolean isSearching = false;
     @FXML
-    private ImageView imgViewMovieImage;
+    private ImageView searchIV;
 
     /**
      * Initializes the controller class.
@@ -100,6 +108,7 @@ public class MainWindowController implements Initializable {
         createCellValueFactories();
         checkMovies();
         movieTable.setItems(model.getMoviesFromList());
+        imgViewMovieImage.setImage(new Image("/img/no_cover.png"));
     }
 
     /**
@@ -214,11 +223,11 @@ public class MainWindowController implements Initializable {
             if (!isSearching) {
                 movieTable.setItems(model.getSearchedMovies());
                 model.search(searchBar.getText());
-                searchBtn.setText("Cancel");
+                searchIV.setImage(new Image("/img/exit.png"));
                 isSearching = true;
             } else {
                 movieTable.setItems(model.getMoviesFromList());
-                searchBtn.setText("Search");
+                searchIV.setImage(new Image("/img/search.png")); 
                 isSearching = false;
             }
         }
@@ -352,7 +361,6 @@ public class MainWindowController implements Initializable {
             personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
             categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
             setLastViewLabel(tempmovie);
-            
             imgViewMovieImage.setImage(tempmovie.getImage());
         }
     }

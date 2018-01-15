@@ -1,5 +1,6 @@
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
@@ -10,15 +11,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
@@ -33,15 +35,19 @@ public class PlayerController implements Initializable {
     @FXML
     private Slider slider;
     @FXML
-    private Button playClick;
+    private JFXButton playClick;
     @FXML
     private MediaView mediaView;
     @FXML
     private Label timeLbl;
-
+    @FXML
+    private ImageView playIV;
+    @FXML
+    private AnchorPane moviePane;
     private Model model;
     private Media media;
     private boolean isPlaying = false;
+    private boolean isPaused = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,6 +56,8 @@ public class PlayerController implements Initializable {
         mediaView.setMediaPlayer(model.getPlayer());
         valueChanger();
 
+        mediaView.fitHeightProperty().bind(moviePane.heightProperty());
+        mediaView.fitWidthProperty().bind(moviePane.widthProperty());
     }
 
     /**
@@ -63,19 +71,19 @@ public class PlayerController implements Initializable {
                 slider.setMax(d);
                 isPlaying = true;
             }
-            model.playBuiltIn();
+            if (!isPaused) {
+                playIV.setImage(new Image("/img/pause.png"));
+                model.playBuiltIn();
+                isPaused = true;
+            } else {
+                playIV.setImage(new Image("/img/play.png"));
+                model.pauseBuiltIn();
+                isPaused = false;
+            }
         }
         catch (ModelException ex) {
             Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    /**
-     * Pauses the player 
-     */
-    @FXML
-    private void pauseClick(MouseEvent event) {
-        model.pauseBuiltIn();
     }
 
     /**
@@ -88,7 +96,7 @@ public class PlayerController implements Initializable {
 
     /**
      * Formats time given time in milliseconds to HH:mm:ss formated string
-     * 
+     *
      * @param time Time in milliseconds to be formated
      * @return Formated string
      */
@@ -100,8 +108,8 @@ public class PlayerController implements Initializable {
                 TimeUnit.MILLISECONDS.toSeconds(ms) % 60);
         return timestring;
     }
-    
-        /**
+
+    /**
      * Display a new alert window, to notify the user of some error
      *
      * @param ex The exception that carries the error message
@@ -112,7 +120,8 @@ public class PlayerController implements Initializable {
     }
 
     /**
-     * Sets up a ChangeListener that sets the slider's value to the movie's position.
+     * Sets up a ChangeListener that sets the slider's value to the movie's
+     * position.
      */
     public void valueChanger() {
         MediaPlayer player = model.getPlayer();
@@ -124,6 +133,10 @@ public class PlayerController implements Initializable {
                 timeLbl.setText(formatTime(player.getCurrentTime().toMillis()) + " / " + formatTime(media.getDuration().toMillis()));
             }
         });
+    }
+
+    @FXML
+    private void pauseClick(MouseEvent event) {
     }
 
 }
