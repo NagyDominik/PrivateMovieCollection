@@ -8,6 +8,10 @@ package privatemoviecollection.bll;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -58,6 +62,10 @@ public class MoviePlayer {
         try {
             String path = selected.getPath().replace("file:/", "").replace("/", "\\");
             File movie = new File(path);
+            if (!movie.exists())
+            {
+                throw new BLLException("File does not exist! It might have been added on a different computer.");
+            }
             Desktop.getDesktop().open(movie);
         }
         catch (IOException ex) {

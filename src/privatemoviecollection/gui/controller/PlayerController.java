@@ -9,13 +9,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
@@ -46,6 +49,7 @@ public class PlayerController implements Initializable {
         model.setupPlayer(model.getSelectedMovie());
         mediaView.setMediaPlayer(model.getPlayer());
         valueChanger();
+
     }
 
     /**
@@ -95,6 +99,16 @@ public class PlayerController implements Initializable {
                 TimeUnit.MILLISECONDS.toMinutes(ms) % 60,
                 TimeUnit.MILLISECONDS.toSeconds(ms) % 60);
         return timestring;
+    }
+    
+        /**
+     * Display a new alert window, to notify the user of some error
+     *
+     * @param ex The exception that carries the error message
+     */
+    private void newAlert(Exception ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
+        a.show();
     }
 
     /**
