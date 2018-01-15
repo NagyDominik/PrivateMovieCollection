@@ -41,9 +41,6 @@ public class NewMovieController implements Initializable {
     private ListView<Category> movieCategories;
     @FXML
     private ListView<Category> allCetegories;
-
-    private Model model;
-    private Movie newmovie = new Movie();
     @FXML
     private Button fileBtn;
     @FXML
@@ -56,6 +53,9 @@ public class NewMovieController implements Initializable {
     private Button imageBtn;
     @FXML
     private TextField txtFieldImage;
+    
+    private Model model;
+    private Movie newmovie = new Movie();
 
     /**
      * Initializes the controller class.

@@ -330,7 +330,7 @@ public class Model {
         searchedList.clear();
         for (Movie movie : movieList) {
             boolean isAdded = false;
-            if (movie.getName().toLowerCase().contains(searchString)) {
+            if (movie.getName().toLowerCase().contains(searchString.toLowerCase())) {
                 searchedList.add(movie);
                 isAdded = true;
             }
@@ -343,7 +343,7 @@ public class Model {
             catch (NumberFormatException e) {
             }
             for (Category category : movie.getCategories()) {
-                if (category.getName().toLowerCase().contains(searchString) && !isAdded) {
+                if (category.getName().toLowerCase().contains(searchString.toLowerCase()) && !isAdded) {
                     searchedList.add(movie);
                     break;
                 }

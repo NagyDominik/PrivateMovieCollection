@@ -101,6 +101,7 @@ public class MainWindowController implements Initializable {
         createCellValueFactories();
         checkMovies();
         movieTable.setItems(model.getMoviesFromList());
+        imgViewMovieImage.setImage(new Image("/img/no_cover.png"));
     }
 
     /**
