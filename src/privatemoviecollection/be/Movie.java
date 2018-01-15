@@ -156,7 +156,7 @@ public class Movie {
     {
         if (this.imagePath.get().equals("None"))
         {
-            //image = new Image("/img/no_cover.png");
+            image = new Image("/img/no_cover.png");
             return;
         }
         image = new Image(this.imagePath.get());

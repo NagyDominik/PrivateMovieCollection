@@ -29,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import privatemoviecollection.be.Movie;
@@ -82,11 +83,13 @@ public class MainWindowController implements Initializable {
     private TableView<Movie> movieTable;
     @FXML
     private JFXButton addDeleteCategories;
-
-    private Model model;
-    private boolean isSearching = false;
     @FXML
     private ImageView imgViewMovieImage;
+    @FXML
+    private AnchorPane mainPane;
+    
+    private Model model;
+    private boolean isSearching = false;
 
     /**
      * Initializes the controller class.
@@ -102,7 +105,7 @@ public class MainWindowController implements Initializable {
         createCellValueFactories();
         checkMovies();
         movieTable.setItems(model.getMoviesFromList());
-        //imgViewMovieImage.setImage(new Image("/img/no_cover.png"));
+        imgViewMovieImage.setImage(new Image("/img/no_cover.png"));
     }
 
     /**
