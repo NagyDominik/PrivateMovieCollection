@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="moviePane" prefHeight="505.0" prefWidth="750.0" style="-fx-background-color: #dfe6ec;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PlayerController">
    <children>
-      <Slider fx:id="slider" blockIncrement="5.0" layoutX="14.0" layoutY="435.0" majorTickUnit="5.0" minWidth="569.0" onMouseClicked="#changedPosition" onMouseDragged="#changedPosition" onMousePressed="#pauseClick" onMouseReleased="#playClick" prefHeight="14.0" prefWidth="604.0" />
+      <Slider fx:id="slider" blockIncrement="5.0" layoutX="14.0" layoutY="435.0" majorTickUnit="5.0" minWidth="569.0" onMouseClicked="#changedPosition" onMouseDragged="#changedPosition" onMousePressed="#playClick" onMouseReleased="#playClick" prefHeight="14.0" prefWidth="604.0" />
       <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="800.0" layoutX="7.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label fx:id="timeLbl" layoutX="583.0" layoutY="432.0" AnchorPane.rightAnchor="5.0">
          <font>
