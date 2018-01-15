@@ -347,6 +347,7 @@ public class MainWindowController implements Initializable {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.setTitle("Old movies");
+                    stage.setResizable(false);
                     stage.showAndWait();
                 }
                 catch (IOException ex)
