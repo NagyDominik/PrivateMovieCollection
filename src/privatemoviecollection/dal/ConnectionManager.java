@@ -14,7 +14,7 @@ public class ConnectionManager {
     private SQLServerDataSource source = new SQLServerDataSource();
 
     /**
-     * Create a new ConnectionManager, and set the values
+     * Creates a new ConnectionManager, and set the values
      */
     public ConnectionManager() {
         source.setDatabaseName("CS2017B_24_PrivateMovieCollection");

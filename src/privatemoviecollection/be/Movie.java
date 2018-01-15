@@ -143,16 +143,20 @@ public class Movie {
     }
     
     /**
+<<<<<<< HEAD
      * Return the last access time formatted as a string
+=======
+     * Returns the last access time formatted as a string
+>>>>>>> b39f1d1173750225bbb419658721caf9ad1a6e36
      *
-     * @return The last acces time formatted as a string
+     * @return The last access time formatted as a string
      */
     public String getFileAccessDate() {
         return fileAccessDate.toString();
     }
 
     /**
-     * Return the list of categories associated with this movie as a formatted
+     * Returns the list of categories associated with this movie as a formatted
      * string
      *
      * @return The list of categories associated with this movie as a formatted
@@ -169,7 +173,7 @@ public class Movie {
     }
 
     /**
-     * Check if the categories list contains a given category
+     * Checks if the categories list contains a given category
      *
      * @param selectedCat The category that is tested
      * @return True if the category list contains the given category, false
@@ -185,12 +189,12 @@ public class Movie {
     }
 
     /**
-     * Remove a given category from the categories list
+     * Removes a given category from the categories list
      *
      * @param selectedCat The category that will be removed
      */
     public void removeCategory(Category selectedCat) {
         categories.remove(selectedCat);
     }
-    
+
 }

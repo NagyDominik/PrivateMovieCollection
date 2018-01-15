@@ -19,7 +19,7 @@ public class CategoryDBManager {
     ConnectionManager cm = new ConnectionManager();
 
     /**
-     * Retrieve the list of categories, that are stored in the database
+     * Retrieves the list of categories, that are stored in the database
      *
      * @return The list of categories, that are stored in the database
      * @throws DAException If an error occurs during database access
@@ -68,7 +68,7 @@ public class CategoryDBManager {
     }
 
     /**
-     * Delete the specified category from the database
+     * Deletes the specified category from the database
      *
      * @param cat The category that will be deleted
      * @throws DAException If an error occurs during database access

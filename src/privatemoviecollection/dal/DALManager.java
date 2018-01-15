@@ -15,11 +15,10 @@ public class DALManager {
     private CategoryDBManager categoryDBManager = new CategoryDBManager();
 
     /**
-     * Movie database methods**************************************************************************
+     * Movie database methods***************************************************
      */
-    
     /**
-     * Get the list of movies in the database
+     * Gets the list of movies in the database
      *
      * @return The list of movies in the database
      * @throws DAException If an error occurs in the MovieDBManager, during
@@ -30,7 +29,7 @@ public class DALManager {
     }
 
     /**
-     * Save a movie to the database
+     * Saves a movie to the database
      *
      * @param movie The movie that will be saved
      * @throws DAException If an error occurs in the MovieDBManager, during
@@ -41,7 +40,7 @@ public class DALManager {
     }
 
     /**
-     * Update an already existing movie in the database
+     * Updates an already existing movie in the database
      *
      * @param movie The movie that will be updated
      * @throws DAException If an error occurs in the MovieDBManager, during
@@ -52,7 +51,7 @@ public class DALManager {
     }
 
     /**
-     * Add a category to a move
+     * Adds a category to a move
      *
      * @param editedMovie The movie that will be updated with a new category
      * @param newCategory The new category, that will be added to the movie
@@ -64,7 +63,7 @@ public class DALManager {
     }
 
     /**
-     * Delete a movie from the database
+     * Deletes a movie from the database
      *
      * @param movie The movie that will be deleted
      * @throws DAException If an error occurs in the MovieDBManager, during
@@ -75,7 +74,7 @@ public class DALManager {
     }
 
     /**
-     * Remove the given category from the given movie
+     * Removes the given category from the given movie
      *
      * @param selectedMovie The selected movie
      * @param selectedCat The selected category, that will be removed from the
@@ -87,11 +86,10 @@ public class DALManager {
     }
 
     /**
-     * Category database methods **********************************************************************
+     * Category database methods************************************************
      */
-    
     /**
-     * Get the list of categories from the database
+     * Gets the list of categories from the database
      *
      * @return The list of categories stored in the database
      * @throws DAException If an error occurs in the CategoryDBManager, during
@@ -102,7 +100,7 @@ public class DALManager {
     }
 
     /**
-     * Save a category to the database
+     * Saves a category to the database
      *
      * @param category The category that will be saved
      * @throws DAException If an error occurs in the CategoryDBManager, during
@@ -113,7 +111,7 @@ public class DALManager {
     }
 
     /**
-     * Delete a category from the database
+     * Deletes a category from the database
      *
      * @param category The category that will be deleted from the database
      * @throws DAException If an error occurs in the CategoryDBManager, during

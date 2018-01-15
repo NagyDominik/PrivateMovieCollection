@@ -55,7 +55,7 @@ public class EditCategoriesController implements Initializable {
     }
 
     /**
-     * Add the selected category to the movie
+     * Adds the selected category to the movie
      */
     @FXML
     private void btnAddCategoryClicked(ActionEvent event) {
@@ -79,7 +79,7 @@ public class EditCategoriesController implements Initializable {
     }
 
     /**
-     * Remove a category from a movie
+     * Removes a category from a movie
      */
     @FXML
     private void btnRemoveCategoryClicked(ActionEvent event) {
@@ -98,14 +98,11 @@ public class EditCategoriesController implements Initializable {
         }
     }
 
+    /**
+     * Closes the window
+     */
     @FXML
     private void btnCancelClicked(ActionEvent event) {
-        /*Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to exit?", ButtonType.YES, ButtonType.NO);
-        confirmation.showAndWait();
-        if (confirmation.resultProperty().get() == ButtonType.YES) {
-            Stage thisStage = (Stage) btnCancel.getScene().getWindow();
-            thisStage.close();
-        }*/
         Stage thisStage = (Stage) btnCancel.getScene().getWindow();
         thisStage.close();
     }

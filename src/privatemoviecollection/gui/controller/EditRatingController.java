@@ -49,7 +49,7 @@ public class EditRatingController implements Initializable {
     }
 
     /**
-     * Try to parse the number given by the user, and save it as the new
+     * Tries to parse the number given by the user, and save it as the new
      * personal rating, if successful
      */
     @FXML
@@ -61,27 +61,33 @@ public class EditRatingController implements Initializable {
             }
             selectedMovie.setPersonalRating(rating);
             model.updateMovie(selectedMovie);
+            closeStage();
         }
         catch (Exception ex) {
             newAlert(ex);
         }
     }
 
+    /**
+     * Closes the window
+     */
     @FXML
     private void btnExitClick(ActionEvent event) {
-        /*Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are yous oure you want to exit?", ButtonType.YES, ButtonType.NO);
-        confirmation.showAndWait();
-        if (confirmation.getResult() == ButtonType.YES) {
-            Stage current = (Stage) btnExit.getScene().getWindow();
-            current.close();
-        }*/
-        Stage current = (Stage) btnExit.getScene().getWindow();
-        current.close();
+        closeStage();        
     }
 
+    /**
+     * Displays a new alert window, to notify the user of some error
+     *
+     * @param ex The exception that carries the error message
+     */
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
 
+    private void closeStage() {
+        Stage current = (Stage) btnExit.getScene().getWindow();
+        current.close();
+    }
 }
