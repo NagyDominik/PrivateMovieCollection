@@ -155,7 +155,7 @@ public class NewMovieController implements Initializable {
             newmovie.setPath(pathField.getText());
             newmovie.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
             newmovie.setImagePath(txtFieldImage.getText().isEmpty()? "None" : txtFieldImage.getText());
-            
+            newmovie.createImage();
             model.saveMovie(newmovie);
         }
         catch (ModelException ex) {

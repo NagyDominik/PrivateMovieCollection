@@ -336,23 +336,7 @@ public class MainWindowController implements Initializable {
                 new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                setLabels();
-                setImageView();
-            }
-
-            private void setImageView()
-            {
-                Movie selected = movieTable.getSelectionModel().getSelectedItem();
-                if (selected != null)
-                {
-                    if (selected.getImagePath().isEmpty()) //Return, if we do not store an image with the movie
-                    {
-                        return;
-                    }
-                    
-                    Image image = new Image(selected.getImagePath());
-                    imgViewMovieImage.setImage(image);
-                }
+                setLabelsAndImageView();
             }
         }
         );
@@ -361,7 +345,7 @@ public class MainWindowController implements Initializable {
     /**
      * Sets the labels do display the info of the selected movie
      */
-    private void setLabels() {
+    private void setLabelsAndImageView() {
         Movie tempmovie = movieTable.getSelectionModel().getSelectedItem();
         if (tempmovie != null) {
             nameLbl.setText(tempmovie.getName());
@@ -369,6 +353,8 @@ public class MainWindowController implements Initializable {
             personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
             categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
             setLastViewLabel(tempmovie);
+            
+            imgViewMovieImage.setImage(tempmovie.getImage());
         }
     }
 

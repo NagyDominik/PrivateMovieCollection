@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 
 /**
@@ -26,6 +27,7 @@ public class Movie {
     private final FloatProperty personalRating = new SimpleFloatProperty();
     private final StringProperty path = new SimpleStringProperty();
     private final StringProperty imagePath = new SimpleStringProperty();
+    private Image image;
     private Timestamp fileAccessDate;
     private ObservableList<Category> categories = FXCollections.observableArrayList();
     private String categoriesAsString;
@@ -142,12 +144,25 @@ public class Movie {
         return imagePath;
     }
     
+    public Image getImage()
+    {
+        return this.image;
+    }
+    
     /**
-<<<<<<< HEAD
-     * Return the last access time formatted as a string
-=======
+     * If we store an image path, attempt to create an image from it
+     */
+    public void createImage()
+    {
+        if (this.imagePath.get().equals("None"))
+        {
+            return;
+        }
+        image = new Image(this.imagePath.get());
+    }
+    
+    /**
      * Returns the last access time formatted as a string
->>>>>>> b39f1d1173750225bbb419658721caf9ad1a6e36
      *
      * @return The last access time formatted as a string
      */
@@ -156,11 +171,9 @@ public class Movie {
     }
 
     /**
-     * Returns the list of categories associated with this movie as a formatted
-     * string
+     * Returns the list of categories associated with this movie as a formatted string
      *
-     * @return The list of categories associated with this movie as a formatted
-     * string
+     * @return The list of categories associated with this movie as a formatted string
      */
     public String getCategoriesAsString() {
         categoriesAsString = "";
