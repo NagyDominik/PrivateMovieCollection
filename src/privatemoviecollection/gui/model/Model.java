@@ -22,11 +22,11 @@ import privatemoviecollection.bll.BLLManager;
 public class Model {
 
     private static Model instance;
-    private BLLManager bllm = new BLLManager();
-    private ObservableList<Movie> movieList = FXCollections.observableArrayList();
-    private ObservableList<Category> categoryList = FXCollections.observableArrayList();
-    private ObservableList<Movie> searchedList = FXCollections.observableArrayList();
-    private ObservableList<Movie> oldMovies = FXCollections.observableArrayList();
+    private final BLLManager bllm = new BLLManager();
+    private final ObservableList<Movie> movieList = FXCollections.observableArrayList();
+    private final ObservableList<Category> categoryList = FXCollections.observableArrayList();
+    private final ObservableList<Movie> searchedList = FXCollections.observableArrayList(); //Used to store the result of a user-initiated searc
+    private final ObservableList<Movie> movieUtilityList = FXCollections.observableArrayList(); //Used to store moves that are old or movies that have similar titles to a new movie
     private Movie selectedMovie;
 
     public Model() {
@@ -95,8 +95,8 @@ public class Model {
      *
      * @return A list of old movies
      */
-    public ObservableList<Movie> getOldMovies() {
-        return this.oldMovies;
+    public ObservableList<Movie> getUtilityList() {
+        return this.movieUtilityList;
     }
 
     /**
@@ -145,20 +145,40 @@ public class Model {
      * @throws ModelException If an error occurs during database access
      */
     public void saveMovie(Movie newmovie) throws ModelException {
-        try {
-            //Check if a movie is already in the database
-            for (Movie movie : movieList) {
-                if (newmovie.getName().equals(movie.getName())) {
+        try { 
+            //Do not allow movies with already existing titles
+            for (Movie movie : movieList)
+            {
+                if (movie.getName().equals(newmovie.getName()))
+                {
                     throw new ModelException("Movie is already in the database!");
                 }
             }
-
+            
             movieList.add(newmovie);
             bllm.saveMovie(newmovie);
         }
         catch (BLLException ex) {
             throw new ModelException(ex);
         }
+    }
+    
+    /**
+     * Check the list of movies for similar titles. 
+     * @param The new movie that will be checked against the already existing movies.
+     * @return The list containing a list of similar movies.
+     */
+    public ObservableList<Movie> checkSimilarities(Movie newMovie)
+    {
+        //Check if a movie is already in the database
+        for (Movie movie : movieList)
+        {
+            if (levenshtein(movie.getName(), newMovie.getName()) < 3 )
+            {
+                movieUtilityList.add(movie);
+            }
+        }
+        return movieUtilityList;
     }
 
     /**
@@ -247,6 +267,8 @@ public class Model {
     /**
      * Movie player methods*****************************************************
      */
+    
+    
     /**
      * Attempts to play the selected movie with the default media player
      *
@@ -364,12 +386,89 @@ public class Model {
         for (Movie movie : movieList) {
             if (movie.getPersonalRating() < 6.0f) {
                 if (movie.getTimeStamp().before(checkDate.getTime())) {
-                    oldMovies.add(movie);
+                    movieUtilityList.add(movie);
                 }
             }
         }
-        return !oldMovies.isEmpty();
+        return !movieUtilityList.isEmpty();
 
+    }
+
+    /**
+     * Check the distance between two strings
+     * Based on this article: https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
+     * @param first The first string
+     * @param second The second string
+     * @return The distance between the two parameters
+     */
+    private int levenshtein(String first, String second)
+    {
+        int d[][];
+        int n;
+        int m;
+        int i;
+        int j;
+        char s_i;
+        char t_j;
+        int cost;
+        
+        n = first.length();
+        m = second.length();
+        
+        if (n == 0) {return m; }
+        if (m == 0) {return n; }
+        
+        d = new int[n+1][m+1];
+        
+        for (i = 0; i < n; i++)
+        {
+            d[i][0] = i;
+        }
+        
+        for (j = 0; j < m; j++)
+        {
+            d[0][j] = j;
+        }
+        
+        for (i = 1; i<=n; i++)
+        {
+            s_i =  first.charAt(i - 1);
+            
+            for (j = 1; j <= m; j++)
+            {
+                t_j = second.charAt(j - 1);
+                
+                if (s_i == t_j)
+                {
+                    cost = 0;
+                }
+                else
+                {
+                    cost = 1;
+                }
+                
+                d[i][j] = min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1] + cost);
+            }
+        }
+        
+        return d[n][m];
+        
+    }
+    
+    private int min(int a, int b, int c)
+    {
+        int min = a;
+        
+        if (b < min)
+        {
+            min = b; 
+        }
+        if (c < min)
+        {
+            min = c;
+        }
+        
+        return min;
     }
 
 }

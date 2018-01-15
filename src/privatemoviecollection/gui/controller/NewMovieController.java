@@ -1,12 +1,16 @@
 package privatemoviecollection.gui.controller;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -101,7 +105,7 @@ public class NewMovieController implements Initializable {
      * Attempts to save the new movie to the database and closes the window
      */
     @FXML
-    private void saveClicked(ActionEvent event) {
+    private void saveClicked(ActionEvent event) {        
         saveMovie();
         closeStage();
     }
@@ -148,6 +152,7 @@ public class NewMovieController implements Initializable {
      * and saves it to the database
      */
     private void saveMovie() {
+        
         try {
             newmovie.setName(titleField.getText());
             newmovie.setImdbRating(Float.parseFloat(imdbField.getText()));
@@ -156,7 +161,11 @@ public class NewMovieController implements Initializable {
             newmovie.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
             newmovie.setImagePath(txtFieldImage.getText().isEmpty()? "None" : txtFieldImage.getText());
             newmovie.createImage();
-            model.saveMovie(newmovie);
+            
+            if (checkForSimilarMovies(newmovie))
+            {
+                model.saveMovie(newmovie);   
+            }            
         }
         catch (ModelException ex) {
             newAlert(ex);
@@ -176,5 +185,43 @@ public class NewMovieController implements Initializable {
     private void closeStage() {
         Stage stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
+    }
+
+    /**
+     * Check for similar movies, and if there are, ask the user if they want to save anyway 
+     * @param newmovie The movie that will be checked against the already saved movies
+     * @return True if the user wants to save the movie, or if there are no similar movie, False otherwise
+     */
+    private boolean checkForSimilarMovies(Movie newmovie)
+    {
+        if (!model.checkSimilarities(newmovie).isEmpty())
+        {          
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "There is atleast one movie with a similar name. Save anyway? (Click Apply to see the similar movies)", ButtonType.YES, ButtonType.NO, ButtonType.APPLY);
+            confirmation.showAndWait();  
+            
+            while(confirmation.getResult() == ButtonType.APPLY)
+            {
+                try
+                {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/SimilarMoviesList.fxml"));
+                    Parent root = (Parent) loader.load();
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Similar movies");
+                    stage.showAndWait();
+                } catch (IOException ex)
+                {
+                    newAlert(ex);
+                }
+                
+                confirmation.showAndWait();
+            }
+            
+            return confirmation.getResult() == ButtonType.YES;
+        }
+        
+        return true;
+        
     }
 }

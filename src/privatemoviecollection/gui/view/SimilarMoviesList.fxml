@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="308.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="privatemoviecollection.gui.controller.SimilarMoviesListController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Movies with similar titles: ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableViewSimilarMovies" layoutX="14.0" layoutY="74.0" prefHeight="200.0" prefWidth="558.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <columns>
+          <TableColumn fx:id="colTitle" prefWidth="75.0" text="Title" />
+          <TableColumn fx:id="colImdbRating" prefWidth="75.0" text="IMDb rating" />
+            <TableColumn fx:id="colPersonalRating" prefWidth="75.0" text="Personal rating" />
+            <TableColumn fx:id="colCategories" prefWidth="75.0" text="Categories" />
+            <TableColumn fx:id="colLastView" prefWidth="75.0" text="Last view" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</AnchorPane>

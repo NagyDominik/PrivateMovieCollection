@@ -53,7 +53,7 @@ public class OldMovieListController implements Initializable {
         model = Model.getInstance();
         setUpLabel();
         setUpCellValueFatories();
-        tableViewOldMovies.setItems(model.getOldMovies());
+        tableViewOldMovies.setItems(model.getUtilityList());
     }
 
     /**
@@ -72,7 +72,7 @@ public class OldMovieListController implements Initializable {
      * Set the text of the label based on how many old movies there are
      */
     private void setUpLabel() {
-        String text = model.getOldMovies().size() == 1 ? "There is only one old movie.." : String.format("There are %d old movies.", model.getOldMovies().size());
+        String text = model.getUtilityList().size() == 1 ? "There is only one old movie.." : String.format("There are %d old movies.", model.getUtilityList().size());
         lblTitle.setText(text);
     }
 
@@ -89,7 +89,7 @@ public class OldMovieListController implements Initializable {
             }
 
             model.removeMovie(selected);
-            model.getOldMovies().remove(selected);
+            model.getUtilityList().remove(selected);
             setUpLabel();
         }
         catch (Exception ex) {
@@ -103,11 +103,11 @@ public class OldMovieListController implements Initializable {
     @FXML
     private void btnDeleteAllClick(ActionEvent event) {
         try {
-            for (Movie movie : model.getOldMovies()) {
+            for (Movie movie : model.getUtilityList()) {
                 model.removeMovie(movie);
             }
 
-            model.getOldMovies().clear();
+            model.getUtilityList().clear();
         }
         catch (ModelException ex) {
             newAlert(ex);
