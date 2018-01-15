@@ -1,6 +1,5 @@
 package privatemoviecollection.gui.controller;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
@@ -53,38 +52,46 @@ public class PlayerController implements Initializable {
 
     }
 
+    /**
+     * Sets the seek bar's max property to the length of the movie and plays it
+     */
     @FXML
-    private void playClick(MouseEvent event) throws MalformedURLException, ModelException {
-        if (!isPlaying) {
-            double d = media.getDuration().toSeconds();
-            slider.setMax(d);
-            isPlaying = true;
-        }
-        model.playBuiltIn();
-    }
-
-    public void valueChanger() {
-        MediaPlayer player = model.getPlayer();
-        media = player.getMedia();
-        player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                slider.setValue(newValue.toSeconds());
-                timeLbl.setText(formatTime(player.getCurrentTime().toMillis()) + " / " + formatTime(media.getDuration().toMillis()));
+    private void playClick(MouseEvent event) {
+        try {
+            if (!isPlaying) {
+                double d = media.getDuration().toSeconds();
+                slider.setMax(d);
+                isPlaying = true;
             }
-        });
+            model.playBuiltIn();
+        }
+        catch (ModelException ex) {
+            Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    /**
+     * Pauses the player 
+     */
     @FXML
     private void pauseClick(MouseEvent event) {
         model.pauseBuiltIn();
     }
 
+    /**
+     * Goes to the sliders position in the movie
+     */
     @FXML
     private void changedPosition(MouseEvent event) {
         model.seekBuiltIn(slider.getValue());
     }
 
+    /**
+     * Formats time given time in milliseconds to HH:mm:ss formated string
+     * 
+     * @param time Time in milliseconds to be formated
+     * @return Formated string
+     */
     private String formatTime(double time) {
         long ms = (long) time;
         String timestring = String.format("%02d:%02d:%02d",
@@ -102,6 +109,21 @@ public class PlayerController implements Initializable {
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
+    }
+
+    /**
+     * Sets up a ChangeListener that sets the slider's value to the movie's position.
+     */
+    public void valueChanger() {
+        MediaPlayer player = model.getPlayer();
+        media = player.getMedia();
+        player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                slider.setValue(newValue.toSeconds());
+                timeLbl.setText(formatTime(player.getCurrentTime().toMillis()) + " / " + formatTime(media.getDuration().toMillis()));
+            }
+        });
     }
 
 }

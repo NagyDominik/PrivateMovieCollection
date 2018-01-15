@@ -47,6 +47,10 @@ public class MoviePlayer {
         player.seek(Duration.seconds(value));
     }
 
+    public void stopBuiltIn() {
+        player.stop();
+    }
+
     public static void playSysDef(Movie selected) throws BLLException {
         try {
             String path = selected.getPath().replace("file:/", "").replace("/", "\\");
@@ -61,8 +65,5 @@ public class MoviePlayer {
             throw new BLLException(ex);
         }
     }
-
-    public void stopBuiltIn() {
-        player.stop();
-    }
+    
 }

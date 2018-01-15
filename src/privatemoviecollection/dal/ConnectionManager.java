@@ -6,9 +6,11 @@ import java.sql.Connection;
 
 /**
  * This class handles the connection to the database
+ *
  * @author sebok
  */
 public class ConnectionManager {
+
     private SQLServerDataSource source = new SQLServerDataSource();
 
     /**
@@ -21,13 +23,14 @@ public class ConnectionManager {
         source.setPortNumber(1433);
         source.setServerName("10.176.111.31");
     }
-    
+
     /**
      * Returns a Connection object that can be used to connect to the database
+     *
      * @return A connection object that can be used to connect to the database
      * @throws SQLServerException If an error occurs during connection
      */
-    public Connection getConnection() throws SQLServerException{
+    public Connection getConnection() throws SQLServerException {
         return source.getConnection();
     }
 }
