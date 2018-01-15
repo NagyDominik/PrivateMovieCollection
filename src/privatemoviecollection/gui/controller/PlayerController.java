@@ -1,5 +1,6 @@
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -33,7 +35,7 @@ public class PlayerController implements Initializable {
     @FXML
     private Slider slider;
     @FXML
-    private Button playClick;
+    private JFXButton playClick;
     @FXML
     private MediaView mediaView;
     @FXML
@@ -42,6 +44,8 @@ public class PlayerController implements Initializable {
     private Model model;
     private Media media;
     private boolean isPlaying = false;
+    @FXML
+    private AnchorPane moviePane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,6 +53,11 @@ public class PlayerController implements Initializable {
         model.setupPlayer(model.getSelectedMovie());
         mediaView.setMediaPlayer(model.getPlayer());
         valueChanger();
+        
+        mediaView.fitHeightProperty().bind(moviePane.heightProperty());
+        mediaView.fitWidthProperty().bind(moviePane.widthProperty());
+        
+        
 
     }
 

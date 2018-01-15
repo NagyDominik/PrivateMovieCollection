@@ -5,6 +5,7 @@
  */
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -30,13 +31,13 @@ public class NewCategoryController implements Initializable {
     @FXML
     private TextField nameField;
     @FXML
-    private Button okBtn;
+    private JFXButton okBtn;
     @FXML
     private ListView<Category> categoryList;
     @FXML
-    private Button addBtn;
+    private JFXButton addBtn;
     @FXML
-    private Button deleteBtn;
+    private JFXButton deleteBtn;
     
     private Model model;
 

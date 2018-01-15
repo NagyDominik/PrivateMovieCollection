@@ -5,6 +5,7 @@
  */
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -37,11 +38,11 @@ public class EditCategoriesController implements Initializable {
     @FXML
     private ListView<Category> lstViewMovieCategories;
     @FXML
-    private Button btnAddCategory;
+    private JFXButton btnAddCategory;
     @FXML
-    private Button btnRemoveCategory;
+    private JFXButton btnRemoveCategory;
     @FXML
-    private Button btnCancel;
+    private JFXButton btnCancel;
 
     private Model model = Model.getInstance();
     private Movie selectedMovie;

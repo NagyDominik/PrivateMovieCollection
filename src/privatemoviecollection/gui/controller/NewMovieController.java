@@ -35,7 +35,7 @@ public class NewMovieController implements Initializable {
     @FXML
     private TextField pratingField;
     @FXML
-    private Button cancelBtn;
+    private JFXButton cancelBtn;
     @FXML
     private TextField pathField;
     @FXML
@@ -43,20 +43,19 @@ public class NewMovieController implements Initializable {
     @FXML
     private ListView<Category> allCetegories;
     @FXML
-    private Button fileBtn;
+    private JFXButton fileBtn;
     @FXML
-    private Button saveBtn;
+    private JFXButton saveBtn;
     @FXML
-    private Button addCatToMovie;
+    private JFXButton addCatToMovie;
     @FXML
-    private Button removeCatFromMovie;
+    private JFXButton removeCatFromMovie;
     @FXML
     private TextField txtFieldImage;
-    
-    private Model model;
-    private Movie newmovie = new Movie();
     @FXML
     private JFXButton imgBtn;
+    private Model model;
+    private Movie newmovie = new Movie();
 
     /**
      * Initializes the controller class.
@@ -123,13 +122,12 @@ public class NewMovieController implements Initializable {
         Category selected = movieCategories.getSelectionModel().getSelectedItem();
         newmovie.removeCategory(selected);
     }
-    
+
     /**
      * Select an optional image for the movie
      */
     @FXML
-    private void btnImageFIleChooserClicked(ActionEvent event)
-    {
+    private void btnImageFIleChooserClicked(ActionEvent event) {
         try {
             FileChooser filech = new FileChooser();
             URI path = filech.showOpenDialog(new ContextMenu()).toURI();
@@ -155,7 +153,7 @@ public class NewMovieController implements Initializable {
             newmovie.setPersonalRating(Float.parseFloat(pratingField.getText()));
             newmovie.setPath(pathField.getText());
             newmovie.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
-            newmovie.setImagePath(txtFieldImage.getText().isEmpty()? "None" : txtFieldImage.getText());
+            newmovie.setImagePath(txtFieldImage.getText().isEmpty() ? "None" : txtFieldImage.getText());
             newmovie.createImage();
             model.saveMovie(newmovie);
         }

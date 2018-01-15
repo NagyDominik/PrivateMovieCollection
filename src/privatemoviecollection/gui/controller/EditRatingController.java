@@ -5,6 +5,7 @@
  */
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -33,7 +34,7 @@ public class EditRatingController implements Initializable {
     @FXML
     private TextField txtFieldNewRating;
     @FXML
-    private Button btnExit;
+    private JFXButton btnExit;
 
     private Model model = Model.getInstance();
     private Movie selectedMovie;
