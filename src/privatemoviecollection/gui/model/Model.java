@@ -131,6 +131,15 @@ public class Model {
      */
     public void saveMovie(Movie newmovie) throws ModelException {
         try {
+            //Check if a movie is already in the database
+            for (Movie movie : movieList)
+            {
+                if (newmovie.getName().equals(movie.getName()))
+                {
+                    throw new ModelException("Movie is already in the database!");
+                }
+            }
+            
             movieList.add(newmovie);
             bllm.saveMovie(newmovie);
         }
@@ -323,7 +332,6 @@ public class Model {
     public Boolean checkMovies()
     {
         Calendar checkDate = Calendar.getInstance();
-       // checkDate.add(Calendar.MINUTE, -1);
         checkDate.add(Calendar.YEAR, -2);
         
         for (Movie movie: movieList)
