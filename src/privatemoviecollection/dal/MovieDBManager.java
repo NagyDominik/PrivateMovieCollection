@@ -20,7 +20,7 @@ public class MovieDBManager {
     private ConnectionManager cm = new ConnectionManager();
 
     /**
-     * Return a the list of movies stored in the database
+     * Returns a the list of movies stored in the database
      *
      * @return A list of movies stored in the database
      * @throws DAException If an error occurs during database access
@@ -65,7 +65,7 @@ public class MovieDBManager {
     }
 
     /**
-     * Save the given movie to the database
+     * Saves the given movie to the database
      *
      * @param movie The move that will be saved to the database
      * @throws DAException If an error occurs during database access
@@ -131,7 +131,7 @@ public class MovieDBManager {
     }
 
     /**
-     * Add a category to a move
+     * Adds a category to a move
      *
      * @param movie The movie that will be updated with a new category
      * @param newCategory The new category, that will be added to the movie
@@ -153,7 +153,7 @@ public class MovieDBManager {
     }
 
     /**
-     * Delete the specified movie from the database
+     * Deletes the specified movie from the database
      *
      * @param movie The movie that will be deleted
      * @throws DAException If an error occurs during database access
@@ -183,7 +183,7 @@ public class MovieDBManager {
     }
 
     /**
-     * Remove the given category from the given movie
+     * Removes the given category from the given movie
      *
      * @param selectedMovie The selected movie
      * @param selectedCat The selected category, that will be removed from the

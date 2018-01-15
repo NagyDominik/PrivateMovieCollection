@@ -22,6 +22,25 @@ public class BLLManager {
     private MoviePlayer player = new MoviePlayer();
 
     /**
+     * Database methods*********************************************************
+     */
+    /**
+     * Calls the method in the DALManager that loads the movies from the
+     * database
+     *
+     * @return
+     * @throws BLLException
+     */
+    public List<Movie> loadMovies() throws BLLException {
+        try {
+            return dalm.getMovies();
+        }
+        catch (DAException ex) {
+            throw new BLLException(ex);
+        }
+    }
+
+    /**
      * Calls the method in the DALManager that saves the movie to the database
      *
      * @param newmovie A new movie to be saved
@@ -37,6 +56,13 @@ public class BLLManager {
         }
     }
 
+    /**
+     * Calls the method in the DALManager that deletes the selected movie from
+     * the database
+     *
+     * @param selected The selected movie
+     * @throws BLLException
+     */
     public void deleteMovie(Movie selected) throws BLLException {
         try {
             dalm.deleteMovie(selected);
@@ -46,9 +72,15 @@ public class BLLManager {
         }
     }
 
-    public List<Movie> loadMovies() throws BLLException {
+    /**
+     * Attempt to update the given movie in the database
+     *
+     * @param selectedMovie The move that will be updated
+     * @throws BLLException If an error occurs during database access
+     */
+    public void updateMovie(Movie selectedMovie) throws BLLException {
         try {
-            return dalm.getMovies();
+            dalm.editMovie(selectedMovie);
         }
         catch (DAException ex) {
             throw new BLLException(ex);
@@ -56,13 +88,18 @@ public class BLLManager {
     }
 
     /**
-     * Plays the selected movie with the system default video player
+     * Loads the list of categories from the database
      *
-     * @param selected The selected movie
-     * @throws BLLException If error occurs
+     * @return The list of categories from the database
+     * @throws BLLException If an error occurs during database access
      */
-    public void playSysDef(Movie selected) throws BLLException {
-        player.playSysDef(selected);
+    public List<Category> loadCategories() throws BLLException {
+        try {
+            return dalm.getCategories();
+        }
+        catch (DAException ex) {
+            throw new BLLException(ex);
+        }
     }
 
     /**
@@ -81,14 +118,14 @@ public class BLLManager {
     }
 
     /**
-     * Loads the list of categories from the database
+     * Deletes the selected category from the database
      *
-     * @return The list of categories from the database
-     * @throws BLLException If an error occurs during database access
+     * @param cat The selected category
+     * @throws BLLException
      */
-    public List<Category> loadCategories() throws BLLException {
+    public void removeCategory(Category cat) throws BLLException {
         try {
-            return dalm.getCategories();
+            dalm.deleteCategory(cat);
         }
         catch (DAException ex) {
             throw new BLLException(ex);
@@ -129,18 +166,16 @@ public class BLLManager {
     }
 
     /**
-     * Attempt to update the given movie in the database
-     *
-     * @param selectedMovie The move that will be updated
-     * @throws BLLException If an error occurs during database access
+     * Movie player methods*****************************************************
      */
-    public void updateMovie(Movie selectedMovie) throws BLLException {
-        try {
-            dalm.editMovie(selectedMovie);
-        }
-        catch (DAException ex) {
-            throw new BLLException(ex);
-        }
+    /**
+     * Plays the selected movie with the system default video player
+     *
+     * @param selected The selected movie
+     * @throws BLLException If error occurs
+     */
+    public void playSysDef(Movie selected) throws BLLException {
+        player.playSysDef(selected);
     }
 
     public void setupPlayer(Movie selected) {
@@ -167,12 +202,4 @@ public class BLLManager {
         player.stopBuiltIn();
     }
 
-    public void removeCategory(Category cat) throws BLLException {
-        try {
-            dalm.deleteCategory(cat);
-        }
-        catch (DAException ex) {
-            throw new BLLException(ex);
-        }
-    }
 }

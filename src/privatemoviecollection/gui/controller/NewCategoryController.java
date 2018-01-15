@@ -49,6 +49,9 @@ public class NewCategoryController implements Initializable {
         categoryList.setItems(model.getCategoriesFromList());
     }
     
+    /**
+     * Attempts to save the new category to the database
+     */
     private void btnSaveClick(ActionEvent event) {
         try {
             Category newcat = new Category();
@@ -66,6 +69,9 @@ public class NewCategoryController implements Initializable {
         closeStage();
     }
     
+    /**
+     * Attempts to save a new movie to the database
+     */
     @FXML
     private void addCategory(ActionEvent event) {
         try {
@@ -78,6 +84,9 @@ public class NewCategoryController implements Initializable {
         }
     }
     
+    /**
+     * Attempts to delete a selected category from the database
+     */
     @FXML
     private void deleteCategory(ActionEvent event) {
         Category selected = categoryList.getSelectionModel().getSelectedItem();
@@ -99,6 +108,11 @@ public class NewCategoryController implements Initializable {
         stage.close();
     }
     
+    /**
+     * Display a new alert window, to notify the user of some error
+     *
+     * @param ex The exception that carries the error message
+     */
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
         a.show();

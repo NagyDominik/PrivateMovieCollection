@@ -7,8 +7,6 @@ package privatemoviecollection.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,8 +26,7 @@ import privatemoviecollection.gui.model.ModelException;
  *
  * @author sebok
  */
-public class OldMovieListController implements Initializable
-{
+public class OldMovieListController implements Initializable {
 
     @FXML
     private Label lblTitle;
@@ -45,83 +42,74 @@ public class OldMovieListController implements Initializable
     private TableColumn<Movie, String> colLastView;
     @FXML
     private TableView<Movie> tableViewOldMovies;
-    
+
     private Model model;
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         setUpLabel();
         setUpCellValueFatories();
         tableViewOldMovies.setItems(model.getOldMovies());
-    }    
+    }
 
     /**
-     * Set up the cell value factories, to display the correct information in the columns
+     * Set up the cell value factories, to display the correct information in
+     * the columns
      */
-    private void setUpCellValueFatories()
-    {
+    private void setUpCellValueFatories() {
         colName.setCellValueFactory(new PropertyValueFactory("name"));
         colImdbRating.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         colPersonalRating.setCellValueFactory(new PropertyValueFactory("personalRating"));
         colCategories.setCellValueFactory(new PropertyValueFactory("categoriesAsString"));
         colLastView.setCellValueFactory(new PropertyValueFactory("fileAccessDate"));
     }
-    
+
     /**
      * Set the text of the label based on how many old movies there are
      */
-    private void setUpLabel()
-    {
-        String text = model.getOldMovies().size() == 1? "There is only one old movie.." : String.format("There are %d old movies.", model.getOldMovies().size());
+    private void setUpLabel() {
+        String text = model.getOldMovies().size() == 1 ? "There is only one old movie.." : String.format("There are %d old movies.", model.getOldMovies().size());
         lblTitle.setText(text);
     }
 
     /**
-     * Delete the selected movie. 
+     * Delete the selected movie.
      */
     @FXML
-    private void btnDeleteClick(ActionEvent event)
-    {
+    private void btnDeleteClick(ActionEvent event) {
         Movie selected = tableViewOldMovies.getSelectionModel().getSelectedItem();
-        
-        try
-        {
-            if (selected == null)
-            {
+
+        try {
+            if (selected == null) {
                 throw new Exception("Please selecte a movie!");
             }
-            
+
             model.removeMovie(selected);
             model.getOldMovies().remove(selected);
             setUpLabel();
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             newAlert(ex);
-        }        
+        }
     }
-    
+
     /**
      * Delete all old movies.
      */
     @FXML
-    private void btnDeleteAllClick(ActionEvent event)
-    {
-        try
-        {
-            for (Movie movie : model.getOldMovies())
-            {
+    private void btnDeleteAllClick(ActionEvent event) {
+        try {
+            for (Movie movie : model.getOldMovies()) {
                 model.removeMovie(movie);
             }
-            
+
             model.getOldMovies().clear();
         }
-        catch(Exception ex)
-        {
+        catch (ModelException ex) {
             newAlert(ex);
         }
     }
@@ -130,23 +118,21 @@ public class OldMovieListController implements Initializable
      * Close the window.
      */
     @FXML
-    private void btnCancelClickk(ActionEvent event)
-    {
-        
+    private void btnCancelClickk(ActionEvent event) {
+
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to close this window?", ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
-        if (confirmation.getResult() == ButtonType.NO)
-        {
+        if (confirmation.getResult() == ButtonType.NO) {
             return;
         }
-        
+
         Stage stage = (Stage) tableViewOldMovies.getScene().getWindow();
         stage.close();
     }
-    
-    
-      /**
-     * Display a new alert window, using the message from an exception, to notify the user of some error
+
+    /**
+     * Display a new alert window, using the message from an exception, to
+     * notify the user of some error
      *
      * @param ex The exception that carries the error message
      */
@@ -154,5 +140,5 @@ public class OldMovieListController implements Initializable
         Alert a = new Alert(Alert.AlertType.ERROR, "Error: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
-    
+
 }

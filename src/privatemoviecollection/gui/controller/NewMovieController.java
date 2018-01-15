@@ -55,6 +55,9 @@ public class NewMovieController implements Initializable {
         movieCategories.setItems(newmovie.getCategories());
     }
 
+    /**
+     * Opens a FileChooser where we can select the movie we want to add
+     */
     @FXML
     private void fileChooseClicked(ActionEvent event) {
         try {
@@ -71,6 +74,9 @@ public class NewMovieController implements Initializable {
         }
     }
 
+    /**
+     * Adds the selected category to the movie
+     */
     @FXML
     private void addCatToMovie(ActionEvent event) {
         Category selected = allCetegories.getSelectionModel().getSelectedItem();
@@ -79,23 +85,36 @@ public class NewMovieController implements Initializable {
         }
     }
 
+    /**
+     * Attempts to save the new movie to the database and closes the window
+     */
     @FXML
     private void saveClicked(ActionEvent event) {
         saveMovie();
         closeStage();
     }
 
+    /**
+     * Closes the window without saving
+     */
     @FXML
     private void cancelClicked(ActionEvent event) {
         closeStage();
     }
 
+    /**
+     * Removes the selected category from the movie
+     */
     @FXML
     private void removeCatFromMovie(ActionEvent event) {
         Category selected = movieCategories.getSelectionModel().getSelectedItem();
         newmovie.removeCategory(selected);
     }
 
+    /**
+     * Creates a temporary Movie class, fills it with the data the user provided
+     * and saves it to the database
+     */
     private void saveMovie() {
         try {
             newmovie.setName(titleField.getText());
@@ -111,6 +130,11 @@ public class NewMovieController implements Initializable {
         }
     }
 
+    /**
+     * Display a new alert window, to notify the user of some error
+     *
+     * @param ex The exception that carries the error message
+     */
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();

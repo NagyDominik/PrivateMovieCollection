@@ -47,6 +47,13 @@ public class MoviePlayer {
         player.stop();
     }
 
+    /**
+     * Creates a patch to the movie file and opens it with the system default
+     * media player
+     *
+     * @param selected The selected movie
+     * @throws BLLException
+     */
     public static void playSysDef(Movie selected) throws BLLException {
         try {
             String path = selected.getPath().replace("file:/", "").replace("/", "\\");
@@ -57,5 +64,5 @@ public class MoviePlayer {
             throw new BLLException(ex);
         }
     }
-    
+
 }

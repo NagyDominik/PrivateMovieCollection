@@ -100,8 +100,7 @@ public class Model {
     }
 
     /**
-     * Database
-     * Methods**************************************************************
+     * Database Methods*********************************************************
      */
     /**
      * Loads the list of movies and categories from the database
@@ -246,8 +245,7 @@ public class Model {
     }
 
     /**
-     * Movie player
-     * methods**********************************************************
+     * Movie player methods*****************************************************
      */
     /**
      * Attempts to play the selected movie with the default media player
@@ -319,8 +317,7 @@ public class Model {
     }
 
     /**
-     * Other
-     * methods*****************************************************************
+     * Other methods************************************************************
      */
     /**
      * Looks for a given character sequence in the movie titles, categories,

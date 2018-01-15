@@ -96,7 +96,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Create cell value factories to properly display the values
+     * Creates cell value factories to properly display the values
      */
     private void createCellValueFactories() {
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
@@ -107,7 +107,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Open a new window where the user can add a new movie to the database
+     * Opens a new window where the user can add a new movie to the database
      */
     @FXML
     private void addClicked(ActionEvent event) {
@@ -128,7 +128,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Attempt to remove a movie from the list and the database
+     * Attempts to remove a movie from the list and the database
      */
     @FXML
     private void removeClicked(ActionEvent event) {
@@ -146,7 +146,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Open a new window, where the user can assign or delete categories to and
+     * Opens a new window, where the user can assign or delete categories to and
      * from a movie
      */
     @FXML
@@ -173,7 +173,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Open a new window where the user can edit the personal rating of a movie
+     * Opens a new window where the user can edit the personal rating of a movie
      */
     @FXML
     private void editPRatingClicked(ActionEvent event) {
@@ -198,7 +198,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Search through the database for the movies that satisfy the search
+     * Searches through the database for the movies that satisfy the search
      * parameters
      */
     @FXML
@@ -221,7 +221,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Attempt to play the selected movie with the default media player
+     * Attempts to play the selected movie with the default media player
      */
     @FXML
     private void playSysDef(ActionEvent event) {
@@ -241,7 +241,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Attempt to play the selected movie within the program
+     * Attempts to play the selected movie within the program
      */
     @FXML
     private void playHere(ActionEvent event) {
@@ -297,7 +297,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Load the movies from the database
+     * Loads the movies from the database
      */
     private void loadMovies() {
         try {
@@ -310,7 +310,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Add a listener to the movie table, so the labels can be updated when the
+     * Adds a listener to the movie table, so the labels can be updated when the
      * selection changes
      */
     private void addListenersAndHandlers() {
@@ -325,7 +325,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Set the labels do display the info of the selected movie
+     * Sets the labels do display the info of the selected movie
      */
     private void setLabels() {
         Movie tempmovie = movieTable.getSelectionModel().getSelectedItem();
@@ -339,7 +339,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Set the label displaying the last access to a given movie to the actual
+     * Sets the label displaying the last access to a given movie to the actual
      * value. Used to refresh the UI.
      *
      * @param movie
@@ -349,7 +349,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Use the model to look for movies that haven't been accesses for more than
+     * Uses the model to look for movies that haven't been accesses for more than
      * 2 years, and have a personal rating lower than 6. Ask the user if they
      * should be deleted.
      */
@@ -377,7 +377,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Display a new alert window, to notify the user of some error
+     * Displays a new alert window, to notify the user of some error
      *
      * @param ex The exception that carries the error message
      */
@@ -387,7 +387,7 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Show a confirmation dialog with the specified prompt.
+     * Shows a confirmation dialog with the specified prompt.
      *
      * @param prompt The text that will be shown to the user
      * @return True, if the user selected the "Yes" button, false otherwise

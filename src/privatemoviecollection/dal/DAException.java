@@ -9,7 +9,7 @@ package privatemoviecollection.dal;
 public class DAException extends Exception {
 
     /**
-     * Construct a new exception using the parameter as the message
+     * Constructs a new exception using the parameter as the message
      *
      * @param message The message of the exception
      */
@@ -18,7 +18,7 @@ public class DAException extends Exception {
     }
 
     /**
-     * Construct a new DAException using a message from another exception
+     * Constructs a new DAException using a message from another exception
      *
      * @param ex The exception from which the message will be retrieved
      */
@@ -27,7 +27,7 @@ public class DAException extends Exception {
     }
 
     /**
-     * Get the message of the exception
+     * Gets the message of the exception
      *
      * @return The message of the exception
      */
