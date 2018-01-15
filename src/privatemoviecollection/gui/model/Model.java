@@ -8,10 +8,7 @@ package privatemoviecollection.gui.model;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.MediaPlayer;
@@ -34,11 +31,10 @@ public class Model {
     private ObservableList<Movie> searchedList = FXCollections.observableArrayList();
 
     public Model() {
-
     }
 
     /**
-     * Return an instance of the Model
+     * Returns an instance of the Model
      *
      * @return An instance of the Model
      */
@@ -50,7 +46,7 @@ public class Model {
     }
 
     /**
-     * Return the selected movie
+     * Returns the selected movie
      *
      * @return The selected movie
      */
@@ -69,7 +65,7 @@ public class Model {
     }
 
     /**
-     * Return a list of movies
+     * Returns a list of movies
      *
      * @return A list of movies
      */
@@ -78,7 +74,16 @@ public class Model {
     }
 
     /**
-     * Return a list of categories
+     * Returns a list of movies we searched for
+     * 
+     * @return A filtered list of movies
+     */
+    public ObservableList<Movie> getSearchedMovies() {
+        return searchedList;
+    }
+
+    /**
+     * Returns a list of categories
      *
      * @return A list of categories
      */
@@ -87,7 +92,11 @@ public class Model {
     }
 
     /**
-     * Load the list of movies and categories from the database
+     * Database Methods**************************************************************
+     */
+    
+    /**
+     * Loads the list of movies and categories from the database
      *
      * @throws ModelException If an error occurs during database access
      */
@@ -102,7 +111,7 @@ public class Model {
     }
 
     /**
-     * Remove the selected movie from the list and from the database
+     * Removes the selected movie from the list and from the database
      *
      * @param selected The movie that will be removed
      * @throws ModelException If an error occurs during database access
@@ -123,7 +132,7 @@ public class Model {
     }
 
     /**
-     * Save a new movie to the list and to the database
+     * Saves a new movie to the list and to the database
      *
      * @param newmovie The movie that will be saved
      * @throws ModelException If an error occurs during database access
@@ -139,26 +148,9 @@ public class Model {
     }
 
     /**
-     * Attempt to play the selected movie with the default media player
+     * Attempts to add a new category to the database and the list
      *
-     * @param selected The selected movie that will be played
-     * @throws ModelException If an error occurs
-     */
-    public void playSysDef(Movie selected) throws ModelException {
-        try {
-            selected.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
-            updateMovie(selected);
-            bllm.playSysDef(selected);
-        }
-        catch (BLLException ex) {
-            throw new ModelException(ex);
-        }
-    }
-
-    /**
-     * Attempt to
-     *
-     * @param cat
+     * @param cat The new category to be added
      * @throws ModelException
      */
     public void addCategory(Category cat) throws ModelException {
@@ -174,17 +166,24 @@ public class Model {
             throw new ModelException("The category already exists");
         }
     }
-    
-    public void removeCategory(Category cat) throws ModelException{
+
+    /**
+     * Attempts to remove a selected category from the database
+     *
+     * @param cat The selected category
+     * @throws ModelException
+     */
+    public void removeCategory(Category cat) throws ModelException {
         try {
             bllm.removeCategory(cat);
-        } catch (BLLException ex) {
-             throw new ModelException(ex);
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
         }
     }
 
     /**
-     * Associate a category with a movie
+     * Associates a category with a movie
      *
      * @param selectedMovie The movie that will be updated
      * @param selectedCat The category that will be added to the movie
@@ -200,7 +199,7 @@ public class Model {
     }
 
     /**
-     * Remove the given category from the given movie
+     * Removes the given category from the given movie
      *
      * @param selectedMo The selected movie
      * @param selectedCat The selected category, that will be removed from the
@@ -217,7 +216,7 @@ public class Model {
     }
 
     /**
-     * Attempt to update the given movie in the database
+     * Attempts to update the given movie in the database
      *
      * @param selectedMovie The move that will be updated
      * @throws ModelException If an error occurs during database access
@@ -230,9 +229,30 @@ public class Model {
             throw new ModelException(ex);
         }
     }
+    
+    /**
+     * Movie player methods**********************************************************
+     */
+    
+    /**
+     * Attempts to play the selected movie with the default media player
+     *
+     * @param selected The selected movie that will be played
+     * @throws ModelException If an error occurs
+     */
+    public void playSysDef(Movie selected) throws ModelException {
+        try {
+            selected.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
+            updateMovie(selected);
+            bllm.playSysDef(selected);
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
+    }
 
     /**
-     * Set up a player to play the movie in the program
+     * Sets up a player to play the movie in the program
      *
      * @param selected The movie that will be played
      */
@@ -241,7 +261,7 @@ public class Model {
     }
 
     /**
-     * Return a media player object
+     * Returns a MediaPlayer object
      *
      * @return A media player object
      */
@@ -250,7 +270,9 @@ public class Model {
     }
 
     /**
-     * Use the built-in player
+     * Uses the built-in player
+     *
+     * @throws ModelException
      */
     public void playBuiltIn() throws ModelException {
         selectedMovie.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
@@ -259,14 +281,14 @@ public class Model {
     }
 
     /**
-     * Pause the play back
+     * Pauses the built-in player
      */
     public void pauseBuiltIn() {
         bllm.pauseBuiltIn();
     }
 
     /**
-     * Move to a different location during play
+     * Goes to the given position in the movie
      *
      * @param value The new location
      */
@@ -274,14 +296,25 @@ public class Model {
         bllm.seekBuiltIn(value);
     }
 
+    /**
+     * Stops the built-in player
+     */
+    public void stopBuiltIn() {
+        bllm.stopBuiltIn();
+    }
+
+    /**
+     * Other methods*****************************************************************
+     */
+    
+    /**
+     * Looks for a given character sequence in the movie titles, categories,
+     * imdb and personal ratings
+     *
+     * @param searchString The character sequence we are looking for
+     * @throws ModelException
+     */
     public void search(String searchString) throws ModelException {
-        /*try {
-            searchedList.clear();
-            searchedList.addAll(bllm.search(searchString));
-        }
-        catch (BLLException ex) {
-            throw new ModelException(ex);
-        }*/
         searchedList.clear();
         for (Movie movie : movieList) {
             boolean isAdded = false;
@@ -295,7 +328,7 @@ public class Model {
                     searchedList.add(movie);
                 }
             }
-            catch (Exception e) {
+            catch (NumberFormatException e) {
             }
             for (Category category : movie.getCategories()) {
                 if (category.getName().toLowerCase().contains(searchString) && !isAdded) {
@@ -306,37 +339,26 @@ public class Model {
         }
     }
 
-    public ObservableList<Movie> getSearchedMovies() {
-        return searchedList;
-    }
-    public void stopBuiltIn() {
-        bllm.stopBuiltIn();
-
-    }    
-
-    
     /**
-     * Filter out movies that haven't been accessed for more than two years and have a lower personal rating than 6.
+     * Filter out movies that haven't been accessed for more than two years and
+     * have a lower personal rating than 6.
+     *
      * @return The list of movies that match the above criteria.
      */
-    public List<Movie> checkMovies()
-    {
+    public List<Movie> checkMovies() {
         List<Movie> oldMovies = new ArrayList<>();
         Calendar checkDate = Calendar.getInstance();
         checkDate.add(Calendar.MINUTE, -1);
         // checkDate.add(Calendar.YEAR, -2);
-        
-        for (Movie movie: movieList)
-        {
-            if (movie.getPersonalRating() < 10.0f)
-            {
-                if (movie.getTimeStamp().before(checkDate.getTime()))
-                {
+
+        for (Movie movie : movieList) {
+            if (movie.getPersonalRating() < 10.0f) {
+                if (movie.getTimeStamp().before(checkDate.getTime())) {
                     oldMovies.add(movie);
                 }
             }
         }
-        
         return oldMovies;
     }
+
 }

@@ -8,12 +8,10 @@ import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -36,7 +34,7 @@ import privatemoviecollection.gui.model.ModelException;
  * @author Bence
  */
 public class MainWindowController implements Initializable {
-    
+
     @FXML
     private Button addBtn;
     @FXML
@@ -77,7 +75,7 @@ public class MainWindowController implements Initializable {
     private TableView<Movie> movieTable;
     @FXML
     private Button addDeleteCategories;
-    
+
     private Model model;
     private boolean isSearching = false;
 
@@ -116,7 +114,7 @@ public class MainWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/NewMovie.fxml"));
             Parent root = (Parent) loader.load();
-            
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Add Movie");
@@ -135,7 +133,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void removeClicked(ActionEvent event) {
         try {
-            if (showConfirmationDialog("Are you sure you want to delete this movie?")) {
+            if (!showConfirmationDialog("Are you sure you want to delete this movie?")) {
                 return;
             }
             Movie selected = (Movie) movieTable.getSelectionModel().getSelectedItem();
@@ -161,7 +159,7 @@ public class MainWindowController implements Initializable {
             model.setSelectedMovie(selectedMovie);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/EditCategories.fxml"));
             Parent root = (Parent) loader.load();
-            
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Edit categories");
@@ -187,7 +185,7 @@ public class MainWindowController implements Initializable {
             model.setSelectedMovie(selectedMovie);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/EditRating.fxml"));
             Parent root = (Parent) loader.load();
-            
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Edit categories");
@@ -229,8 +227,7 @@ public class MainWindowController implements Initializable {
     private void playSysDef(ActionEvent event) {
         try {
             Movie movie = movieTable.getSelectionModel().getSelectedItem();
-            if (movie == null)
-            {
+            if (movie == null) {
                 newAlert(new Exception("Please select a movie"));
                 return;
             }
@@ -248,13 +245,13 @@ public class MainWindowController implements Initializable {
      */
     @FXML
     private void playHere(ActionEvent event) {
-        try {        
+        try {
             Movie movie = movieTable.getSelectionModel().getSelectedItem();
             if (movie != null) {
                 model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
                 Parent root = (Parent) loader.load();
-                
+
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Built-In Media Player Beta_v2");
@@ -263,7 +260,7 @@ public class MainWindowController implements Initializable {
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
                     public void handle(WindowEvent event) {
-                        model.stopBuiltIn();            
+                        model.stopBuiltIn();
                         movieTable.refresh();
                         setLastViewLabel(movie);
                     }
@@ -274,7 +271,28 @@ public class MainWindowController implements Initializable {
         }
         catch (IOException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
-             newAlert(ex);
+            newAlert(ex);
+        }
+    }
+
+    /**
+     * Shows a new window where we can Add and Delete categories from the
+     * database
+     */
+    @FXML
+    private void btnAddDeleteCategoriesClicked(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/NewCategory.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Add / delete category");
+            stage.setResizable(false);
+            stage.show();
+        }
+        catch (IOException ex) {
+            newAlert(ex);
         }
     }
 
@@ -311,36 +329,35 @@ public class MainWindowController implements Initializable {
      */
     private void setLabels() {
         Movie tempmovie = movieTable.getSelectionModel().getSelectedItem();
-        if (tempmovie != null)
-        {
+        if (tempmovie != null) {
             nameLbl.setText(tempmovie.getName());
             imdbLbl.setText("IMDb Rating: " + tempmovie.getImdbRating());
             personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
             categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
             setLastViewLabel(tempmovie);
         }
-    }    
-    /**
-     * Set the label displaying the last access to a given movie to the actual value. Used to refresh the UI.
-     * @param movie 
-     */
-    private void setLastViewLabel(Movie movie)
-    {
-            lastViewLbl.setText("Last Viewed: " + movie.getFileAccessDate());
     }
-    
+
     /**
-     * Use the model to look for movies that haven't been accesses for more than 2 years, and have a personal rating lower than 6. Ask the user if they should be deleted.
+     * Set the label displaying the last access to a given movie to the actual
+     * value. Used to refresh the UI.
+     *
+     * @param movie
      */
-    private void checkMovies()
-    {
-        if (!model.checkMovies().isEmpty())
-        {
+    private void setLastViewLabel(Movie movie) {
+        lastViewLbl.setText("Last Viewed: " + movie.getFileAccessDate());
+    }
+
+    /**
+     * Use the model to look for movies that haven't been accesses for more than
+     * 2 years, and have a personal rating lower than 6. Ask the user if they
+     * should be deleted.
+     */
+    private void checkMovies() {
+        if (!model.checkMovies().isEmpty()) {
             Boolean answer = showConfirmationDialog("We foiund some old movies with personal rating lower than 6. Would you like to see a list of these movies?");
-            if (answer)
-            {
-                try
-                {
+            if (answer) {
+                try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/OldMovieList.fxml"));
                     Parent root = (Parent) loader.load();
 
@@ -349,8 +366,7 @@ public class MainWindowController implements Initializable {
                     stage.setTitle("Old movies");
                     stage.showAndWait();
                 }
-                catch (IOException ex)
-                {
+                catch (IOException ex) {
                     newAlert(ex);
                 }
             }
@@ -378,23 +394,5 @@ public class MainWindowController implements Initializable {
         confirmation.showAndWait();
         return confirmation.getResult() == ButtonType.YES;
     }
-    
-    /**
-     * Shows a new window where we can Add and Delete categories from the database 
-     */
-    @FXML
-    private void btnAddDeleteCategoriesClicked(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/NewCategory.fxml"));
-            Parent root = (Parent) loader.load();
-            
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Add / delete category");
-            stage.setResizable(false);
-            stage.show();
-        } catch (IOException ex) {
-            newAlert(ex);
-        }
-    }
+
 }

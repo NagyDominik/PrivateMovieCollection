@@ -57,21 +57,16 @@ public class NewMovieController implements Initializable {
 
     @FXML
     private void fileChooseClicked(ActionEvent event) {
-        try
-        {
+        try {
             FileChooser filech = new FileChooser();
             URI path = filech.showOpenDialog(new ContextMenu()).toURI();
-            if (path.toString().endsWith(".mp4") || path.toString().endsWith("mpeg4")) // Only allow .mp4 and .mpeg4 files
-            {
-                pathField.setText(path.toString());   
-            }
-            else
-            {
+            if (path.toString().endsWith(".mp4") || path.toString().endsWith("mpeg4")) { // Only allow .mp4 and .mpeg4 files
+                pathField.setText(path.toString());
+            } else {
                 throw new Exception("Only .mp4 and .mpeg4 files allowed");
             }
         }
-        catch (Exception ex) 
-        {
+        catch (Exception ex) {
             newAlert(ex);
         }
     }
@@ -101,11 +96,6 @@ public class NewMovieController implements Initializable {
         newmovie.removeCategory(selected);
     }
 
-    private void closeStage() {
-        Stage stage = (Stage) cancelBtn.getScene().getWindow();
-        stage.close();
-    }
-
     private void saveMovie() {
         try {
             newmovie.setName(titleField.getText());
@@ -113,7 +103,7 @@ public class NewMovieController implements Initializable {
             newmovie.setPersonalRating(Float.parseFloat(pratingField.getText()));
             newmovie.setPath(pathField.getText());
             newmovie.setFileAccessDate(new Timestamp(System.currentTimeMillis()));
-            
+
             model.saveMovie(newmovie);
         }
         catch (ModelException ex) {
@@ -124,6 +114,11 @@ public class NewMovieController implements Initializable {
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
+    }
+
+    private void closeStage() {
+        Stage stage = (Stage) cancelBtn.getScene().getWindow();
+        stage.close();
     }
 
 }

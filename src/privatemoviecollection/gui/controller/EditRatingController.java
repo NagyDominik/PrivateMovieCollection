@@ -18,15 +18,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
-import privatemoviecollection.gui.model.ModelException;
 
 /**
  * FXML Controller class
  *
  * @author sebok
  */
-public class EditRatingController implements Initializable
-{
+public class EditRatingController implements Initializable {
 
     @FXML
     private Label lblTitle;
@@ -36,66 +34,54 @@ public class EditRatingController implements Initializable
     private TextField txtFieldNewRating;
     @FXML
     private Button btnExit;
-    
+
     private Model model = Model.getInstance();
     private Movie selectedMovie;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         selectedMovie = model.getSelectedMovie();
         lblTitle.setText(selectedMovie.getName());
         lblCurrentRating.setText(Float.toString(selectedMovie.getPersonalRating()));
-    }    
+    }
 
     /**
-     * Try to parse the number given by the user, and save it as the new personal rating, if successful 
+     * Try to parse the number given by the user, and save it as the new
+     * personal rating, if successful
      */
     @FXML
-    private void btnSaveClick(ActionEvent event)
-    {
-        try
-        {
+    private void btnSaveClick(ActionEvent event) {
+        try {
             float rating = Float.parseFloat(txtFieldNewRating.getText());
-            if (rating < 0 || rating > 10)
-            {
+            if (rating < 0 || rating > 10) {
                 throw new Exception("Rating must be between 0.0 and 10.0!");
             }
             selectedMovie.setPersonalRating(rating);
             model.updateMovie(selectedMovie);
         }
-        catch(NumberFormatException ex)
-        {
-            newAlert(ex);
-        }
-        catch(ModelException ex)
-        {
-            newAlert(ex);
-        }
-        catch(Exception ex)
-        {
+        catch (Exception ex) {
             newAlert(ex);
         }
     }
 
     @FXML
-    private void btnExitClick(ActionEvent event)
-    {
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are yous oure you want to exit?", ButtonType.YES, ButtonType.NO);
+    private void btnExitClick(ActionEvent event) {
+        /*Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are yous oure you want to exit?", ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
-        if (confirmation.getResult() == ButtonType.YES)
-        {
-            Stage current = (Stage) btnExit.getScene().getWindow(); 
+        if (confirmation.getResult() == ButtonType.YES) {
+            Stage current = (Stage) btnExit.getScene().getWindow();
             current.close();
-        }
+        }*/
+        Stage current = (Stage) btnExit.getScene().getWindow();
+        current.close();
     }
-    
+
     private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }
-    
+
 }

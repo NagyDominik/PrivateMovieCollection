@@ -28,8 +28,8 @@ import privatemoviecollection.gui.model.ModelException;
  *
  * @author sebok
  */
-public class EditCategoriesController implements Initializable
-{
+public class EditCategoriesController implements Initializable {
+
     @FXML
     private Label lblMovieTitle;
     @FXML
@@ -42,93 +42,75 @@ public class EditCategoriesController implements Initializable
     private Button btnRemoveCategory;
     @FXML
     private Button btnCancel;
-    
+
     private Model model = Model.getInstance();
     private Movie selectedMovie;
 
-    
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         selectedMovie = model.getSelectedMovie();
         lblMovieTitle.setText(selectedMovie.getName());
         lstViewCategories.setItems(model.getCategoriesFromList());
         lstViewMovieCategories.setItems(selectedMovie.getCategories());
-    }    
-    
+    }
+
     /**
      * Add the selected category to the movie
      */
     @FXML
-    private void btnAddCategoryClicked(ActionEvent event)
-    {
+    private void btnAddCategoryClicked(ActionEvent event) {
         Category selectedCat = lstViewCategories.getSelectionModel().getSelectedItem();
-        
         //Do nothing, if no category has been selected
-        if (selectedCat == null)
-        {
+        if (selectedCat == null) {
             return;
         }
-        
         //Do nothing, if the movie already contains the selected 
-        if (selectedMovie.hasCategory(selectedCat))
-        {
+        if (selectedMovie.hasCategory(selectedCat)) {
             return;
         }
-        
         selectedMovie.addCategory(selectedCat);
-        try
-        {
+        try {
             model.addCategoryToMovie(selectedMovie, selectedCat);
-        } catch (ModelException ex)
-        {
+        }
+        catch (ModelException ex) {
             Logger.getLogger(EditCategoriesController.class.getName()).log(Level.SEVERE, null, ex);
             newAlert(ex);
         }
     }
-    
+
     /**
-     * Remove a category from a movie 
+     * Remove a category from a movie
      */
     @FXML
-    private void btnRemoveCategoryClicked(ActionEvent event)
-    {
+    private void btnRemoveCategoryClicked(ActionEvent event) {
         Category selectedCat = lstViewMovieCategories.getSelectionModel().getSelectedItem();
-        
         //Do nothing if no category has been selected
-        if (selectedCat == null)
-        {
+        if (selectedCat == null) {
             return;
         }
-        
         lstViewMovieCategories.getItems().remove(selectedCat);
         selectedMovie.removeCategory(selectedCat);
-        
-        try
-        {
+        try {
             model.removeCategoryFromMovie(selectedMovie, selectedCat);
         }
-        catch(ModelException ex)
-        {
+        catch (ModelException ex) {
             newAlert(ex);
         }
     }
 
-
     @FXML
-    private void btnCancelClicked(ActionEvent event)
-    {
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to exit?", ButtonType.YES, ButtonType.NO);
+    private void btnCancelClicked(ActionEvent event) {
+        /*Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to exit?", ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
-        
-        if (confirmation.resultProperty().get() == ButtonType.YES)
-        {
+        if (confirmation.resultProperty().get() == ButtonType.YES) {
             Stage thisStage = (Stage) btnCancel.getScene().getWindow();
             thisStage.close();
-        }
+        }*/
+        Stage thisStage = (Stage) btnCancel.getScene().getWindow();
+        thisStage.close();
     }
-    
-     private void newAlert(Exception ex) {
+
+    private void newAlert(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
         a.show();
     }

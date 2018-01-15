@@ -26,7 +26,7 @@ import privatemoviecollection.gui.model.ModelException;
  * @author Dominik
  */
 public class NewCategoryController implements Initializable {
-
+    
     @FXML
     private TextField nameField;
     @FXML
@@ -48,7 +48,7 @@ public class NewCategoryController implements Initializable {
         model = Model.getInstance();
         categoryList.setItems(model.getCategoriesFromList());
     }
-
+    
     private void btnSaveClick(ActionEvent event) {
         try {
             Category newcat = new Category();
@@ -57,53 +57,50 @@ public class NewCategoryController implements Initializable {
             closeStage();
         }
         catch (ModelException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
-            a.show();
+            newAlert(ex);
         }
     }
-
-
-    private void closeStage() {
-        Stage stage = (Stage) okBtn.getScene().getWindow();
-        stage.close();
-    }
-
+    
     @FXML
     private void btnOkClick(ActionEvent event) {
-       closeStage();
+        closeStage();
     }
-
+    
     @FXML
     private void addCategory(ActionEvent event) {
         try {
             Category category = new Category();
             category.setName(nameField.getText());
             model.addCategory(category);
-        } catch (ModelException ex) {
-             Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
-             a.show();
         }
-     }
+        catch (ModelException ex) {
+            newAlert(ex);
+        }
+    }
     
-
     @FXML
     private void deleteCategory(ActionEvent event) {
         Category selected = categoryList.getSelectionModel().getSelectedItem();
         
-        if(selected != null)
-        {
+        if (selected != null) {
             try {
                 model.removeCategory(selected);
-            } catch (ModelException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
-            a.show();
             }
+            catch (ModelException ex) {
+                newAlert(ex);
+            }
+        } else {
+            newAlert(new Exception("No selected category!"));
         }
-        else{
-             Alert a = new Alert(Alert.AlertType.ERROR,"No selected category " , ButtonType.OK);
-             a.show();           
-        }
-        
     }
-
+    
+    private void closeStage() {
+        Stage stage = (Stage) okBtn.getScene().getWindow();
+        stage.close();
+    }
+    
+    private void newAlert(Exception ex) {
+        Alert a = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
+        a.show();
+    }
 }
