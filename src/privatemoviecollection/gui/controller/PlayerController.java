@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -46,6 +48,9 @@ public class PlayerController implements Initializable {
     private boolean isPlaying = false;
     @FXML
     private AnchorPane moviePane;
+    private boolean isPaused = false;
+    @FXML
+    private ImageView playIV;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,7 +77,18 @@ public class PlayerController implements Initializable {
                 slider.setMax(d);
                 isPlaying = true;
             }
-            model.playBuiltIn();
+            if(!isPaused)
+            {
+             playIV.setImage(new Image("/img/pause.png"));
+             model.playBuiltIn();
+             isPaused = true;
+            }
+            else
+            {
+            playIV.setImage(new Image("/img/play.png"));
+            model.pauseBuiltIn();
+            isPaused = false;
+            }
         }
         catch (ModelException ex) {
             Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, ex);

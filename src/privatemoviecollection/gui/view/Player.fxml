@@ -19,7 +19,7 @@
          </font></Label>
       <JFXButton fx:id="playClick" buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="458.0" onMouseClicked="#playClick" prefHeight="25.0" prefWidth="25.0" ripplerFill="TRANSPARENT">
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="35.0">
+            <ImageView fx:id="playIV" fitHeight="35.0" fitWidth="35.0">
                <image>
                   <Image url="@../../../img/play.png" />
                </image>
