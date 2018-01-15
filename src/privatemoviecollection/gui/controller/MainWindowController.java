@@ -101,7 +101,7 @@ public class MainWindowController implements Initializable {
         createCellValueFactories();
         checkMovies();
         movieTable.setItems(model.getMoviesFromList());
-        imgViewMovieImage.setImage(new Image("/img/no_cover.png"));
+        //imgViewMovieImage.setImage(new Image("/img/no_cover.png"));
     }
 
     /**
@@ -354,7 +354,6 @@ public class MainWindowController implements Initializable {
             personalLbl.setText("Personal Rating: " + tempmovie.getPersonalRating());
             categoriesLbl.setText("Categories: " + tempmovie.getCategoriesAsString());
             setLastViewLabel(tempmovie);
-            
             imgViewMovieImage.setImage(tempmovie.getImage());
         }
     }

@@ -1,5 +1,6 @@
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URI;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -50,12 +51,12 @@ public class NewMovieController implements Initializable {
     @FXML
     private Button removeCatFromMovie;
     @FXML
-    private Button imageBtn;
-    @FXML
     private TextField txtFieldImage;
     
     private Model model;
     private Movie newmovie = new Movie();
+    @FXML
+    private JFXButton imgBtn;
 
     /**
      * Initializes the controller class.
