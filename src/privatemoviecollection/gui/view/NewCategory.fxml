@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="396.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.NewCategoryController">
+<AnchorPane id="AnchorPane" prefHeight="396.0" prefWidth="475.0" style="-fx-background-color: #95b5c0;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.NewCategoryController">
    <children>
       <Label layoutX="161.0" layoutY="14.0" text="Add / Delete category">
          <font>
-            <Font size="30.0" />
+            <Font name="Arial Black" size="30.0" />
          </font>
       </Label>
       <Separator layoutY="57.0" prefHeight="4.0" prefWidth="600.0" />
-      <Label layoutX="174.0" layoutY="83.0" text="Name:" />
+      <Label layoutX="188.0" layoutY="80.0" text="Name:">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font></Label>
       <TextField fx:id="nameField" layoutX="240.0" layoutY="78.0" prefHeight="25.0" />
-      <Button fx:id="okBtn" layoutX="269.0" layoutY="129.0" mnemonicParsing="false" onAction="#btnOkClick" prefHeight="25.0" prefWidth="75.0" text="OK" AnchorPane.bottomAnchor="20.0" />
-      <ListView fx:id="categoryList" layoutX="188.0" layoutY="114.0" prefHeight="200.0" prefWidth="253.0" />
-      <Button fx:id="deleteBtn" layoutX="458.0" layoutY="114.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="25.0" prefWidth="75.0" text="Delete" />
-      <Button fx:id="addBtn" layoutX="406.0" layoutY="78.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="25.0" prefWidth="75.0" text="Add" />
+      <ListView fx:id="categoryList" layoutX="188.0" layoutY="125.0" prefHeight="200.0" prefWidth="253.0" />
+      <JFXButton fx:id="deleteBtn" buttonType="RAISED" ellipsisString="" layoutX="457.0" layoutY="125.0" onAction="#deleteCategory" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../img/delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="addBtn" buttonType="RAISED" ellipsisString="" layoutX="398.0" layoutY="72.0" onAction="#addCategory" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT" text="Button">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../img/add.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="okBtn" buttonType="RAISED" ellipsisString="" layoutX="290.0" layoutY="333.0" onAction="#btnOkClick" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../img/OK.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

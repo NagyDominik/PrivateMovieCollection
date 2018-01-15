@@ -1,17 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="505.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PlayerController">
+<AnchorPane id="AnchorPane" fx:id="moviePane" prefHeight="505.0" prefWidth="750.0" style="-fx-background-color: #dfe6ec;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PlayerController">
    <children>
-      <Button fx:id="playClick" layoutX="14.0" layoutY="464.0" mnemonicParsing="false" onMouseClicked="#playClick" prefHeight="25.0" prefWidth="50.0" text="Play" />
-      <Slider fx:id="slider" blockIncrement="5.0" layoutX="145.0" layoutY="470.0" majorTickUnit="5.0" onMouseClicked="#changedPosition" onMouseDragged="#changedPosition" onMousePressed="#pauseClick" onMouseReleased="#playClick" prefHeight="14.0" prefWidth="547.0" />
-      <MediaView fx:id="mediaView" fitHeight="450.0" fitWidth="800.0" layoutX="7.0" />
-      <Button layoutX="77.0" layoutY="464.0" mnemonicParsing="false" onMouseClicked="#pauseClick" prefHeight="25.0" prefWidth="50.0" text="Pause" />
-      <Label fx:id="timeLbl" layoutX="695.0" layoutY="467.0" />
+      <Slider fx:id="slider" blockIncrement="5.0" layoutX="14.0" layoutY="435.0" majorTickUnit="5.0" minWidth="569.0" onMouseClicked="#changedPosition" onMouseDragged="#changedPosition" onMousePressed="#pauseClick" onMouseReleased="#playClick" prefHeight="14.0" prefWidth="604.0" />
+      <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="800.0" layoutX="7.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label fx:id="timeLbl" layoutX="583.0" layoutY="432.0" AnchorPane.rightAnchor="5.0">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font></Label>
+      <JFXButton fx:id="playClick" buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="458.0" onMouseClicked="#playClick" prefHeight="25.0" prefWidth="25.0" ripplerFill="TRANSPARENT">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../../../img/play.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="63.0" layoutY="458.0" onMouseClicked="#pauseClick" prefHeight="35.0" prefWidth="35.0" ripplerFill="TRANSPARENT">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../../../img/pause.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="111.0" layoutY="458.0" prefHeight="35.0" prefWidth="35.0" ripplerFill="TRANSPARENT" text="Button">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../../../img/stop.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>
