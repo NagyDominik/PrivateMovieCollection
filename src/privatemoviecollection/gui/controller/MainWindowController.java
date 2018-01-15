@@ -1,6 +1,7 @@
 package privatemoviecollection.gui.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -60,9 +61,9 @@ public class MainWindowController implements Initializable {
     @FXML
     private Label categoriesLbl;
     @FXML
-    private TextField searchBar;
+    private JFXTextField searchBar;
     @FXML
-    private JFXButton searchBtn;
+    private Button searchBtn;
     @FXML
     private Label lastViewLbl;
     @FXML
@@ -90,6 +91,8 @@ public class MainWindowController implements Initializable {
     
     private Model model;
     private boolean isSearching = false;
+    @FXML
+    private ImageView searchIV;
 
     /**
      * Initializes the controller class.
@@ -220,11 +223,11 @@ public class MainWindowController implements Initializable {
             if (!isSearching) {
                 movieTable.setItems(model.getSearchedMovies());
                 model.search(searchBar.getText());
-                searchBtn.setText("Cancel");
+                searchIV.setImage(new Image("/img/exit.png"));
                 isSearching = true;
             } else {
                 movieTable.setItems(model.getMoviesFromList());
-                searchBtn.setText("Search");
+                searchIV.setImage(new Image("/img/search.png")); 
                 isSearching = false;
             }
         }

@@ -94,7 +94,7 @@
             <Font name="Arial Black" size="14.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0">
+            <ImageView fx:id="searchIV" fitHeight="30.0" fitWidth="30.0">
                <image>
                   <Image url="@../../../img/search.png" />
                </image>
