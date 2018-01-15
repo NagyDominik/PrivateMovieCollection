@@ -40,6 +40,7 @@ public class MovieDBManager {
                 tmp.setPath(rs.getString("filelink"));
                 tmp.setFileAccessDate(rs.getTimestamp("lastview"));
                 tmp.setImagePath(rs.getString("imagefilelink"));
+                tmp.createImage();
                 movies.add(tmp);
             }
 
