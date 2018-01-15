@@ -1,5 +1,6 @@
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URI;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -34,7 +35,7 @@ public class NewMovieController implements Initializable {
     @FXML
     private TextField pratingField;
     @FXML
-    private Button cancelBtn;
+    private JFXButton cancelBtn;
     @FXML
     private TextField pathField;
     @FXML
@@ -42,15 +43,15 @@ public class NewMovieController implements Initializable {
     @FXML
     private ListView<Category> allCetegories;
     @FXML
-    private Button fileBtn;
+    private JFXButton fileBtn;
     @FXML
-    private Button saveBtn;
+    private JFXButton saveBtn;
     @FXML
-    private Button addCatToMovie;
+    private JFXButton addCatToMovie;
     @FXML
-    private Button removeCatFromMovie;
+    private JFXButton removeCatFromMovie;
     @FXML
-    private Button imageBtn;
+    private JFXButton imageBtn;
     @FXML
     private TextField txtFieldImage;
     

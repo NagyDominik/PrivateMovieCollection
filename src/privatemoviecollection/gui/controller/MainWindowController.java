@@ -1,5 +1,6 @@
 package privatemoviecollection.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -42,13 +43,13 @@ import privatemoviecollection.gui.model.ModelException;
 public class MainWindowController implements Initializable {
 
     @FXML
-    private Button addBtn;
+    private JFXButton addBtn;
     @FXML
-    private Button removeBtn;
+    private JFXButton removeBtn;
     @FXML
-    private Button categoriesBtn;
+    private JFXButton categoriesBtn;
     @FXML
-    private Button ratingBtn;
+    private JFXButton ratingBtn;
     @FXML
     private Label imdbLbl;
     @FXML
@@ -60,7 +61,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextField searchBar;
     @FXML
-    private Button searchBtn;
+    private JFXButton searchBtn;
     @FXML
     private Label lastViewLbl;
     @FXML
@@ -74,13 +75,13 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<Movie, String> lastViewedCol;
     @FXML
-    private Button sysdefBtn;
+    private JFXButton sysdefBtn;
     @FXML
-    private Button playhereBtn;
+    private JFXButton playhereBtn;
     @FXML
     private TableView<Movie> movieTable;
     @FXML
-    private Button addDeleteCategories;
+    private JFXButton addDeleteCategories;
 
     private Model model;
     private boolean isSearching = false;
