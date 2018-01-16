@@ -2,6 +2,8 @@ package privatemoviecollection.gui.model;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.MediaPlayer;
@@ -294,9 +296,15 @@ public class Model {
      * Sets up a player to play the movie in the program
      *
      * @param selected The movie that will be played
+     * @throws privatemoviecollection.gui.model.ModelException
      */
-    public void setupPlayer(Movie selected) {
-        bllm.setupPlayer(selected);
+    public void setupPlayer(Movie selected) throws ModelException {
+        try {
+            bllm.setupPlayer(selected);
+        }
+        catch (BLLException ex) {
+            throw new ModelException(ex);
+        }
     }
 
     /**

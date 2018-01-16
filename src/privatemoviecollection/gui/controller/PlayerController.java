@@ -57,12 +57,17 @@ public class PlayerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        model = Model.getInstance();
-        model.setupPlayer(model.getSelectedMovie());
-        mediaView.setMediaPlayer(model.getPlayer());
-        setListeners();
-        mediaView.fitHeightProperty().bind(moviePane.heightProperty());
-        mediaView.fitWidthProperty().bind(moviePane.widthProperty());
+        try {
+            model = Model.getInstance();
+            model.setupPlayer(model.getSelectedMovie());
+            mediaView.setMediaPlayer(model.getPlayer());
+            setListeners();
+            mediaView.fitHeightProperty().bind(moviePane.heightProperty());
+            mediaView.fitWidthProperty().bind(moviePane.widthProperty());
+        }
+        catch (ModelException ex) {
+            newAlert(ex);
+        }
     }
 
     /**

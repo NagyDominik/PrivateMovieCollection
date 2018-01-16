@@ -178,8 +178,9 @@ public class BLLManager {
     /**
      * Set up the video player using a Movie object.
      * @param selected The selected Movie object.
+     * @throws privatemoviecollection.bll.BLLException
      */
-    public void setupPlayer(Movie selected) {
+    public void setupPlayer(Movie selected) throws BLLException {
         player.setupPlayer(selected);
     }
 

@@ -3,10 +3,6 @@ package privatemoviecollection.bll;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -106,6 +102,7 @@ public class MoviePlayer {
 
     private static String correctPath(String path) {
         String corrected = path.replace("file:/", "").replace("/", "\\").replace("%20", " ");
+        
         return corrected;
     }
 
