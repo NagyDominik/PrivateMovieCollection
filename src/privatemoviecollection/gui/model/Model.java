@@ -205,6 +205,14 @@ public class Model {
      */
     public void removeCategory(Category cat) throws ModelException {
         try {
+            for (Movie movie : movieList)
+            {
+                if (movie.hasCategory(cat))
+                {
+                    throw new ModelException("Category is used by at least one movie, and thus cannot be deleted!");
+                }
+            }
+            
             bllm.removeCategory(cat);
         }
         catch (BLLException ex) {
