@@ -101,8 +101,8 @@ public class MoviePlayer {
     }
 
     private static String correctPath(String path) {
-        String corrected = path.replace("file:/", "").replace("/", "\\").replace("%20", " ");
-        
+        String corrected = path.replace("file:/", "").replace("/", "\\").replace("%20", " ")
+                .replace("%25", "%").replace("%23", "#").replace("%5B", "[").replace("%5D", "]");
         return corrected;
     }
 
