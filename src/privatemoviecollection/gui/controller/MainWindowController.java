@@ -252,7 +252,7 @@ public class MainWindowController implements Initializable {
                 Path p = Paths.get(path);
                 if (!Files.exists(p, LinkOption.NOFOLLOW_LINKS))
                 {
-                    throw new Exception("File not found!");
+                    throw new Exception("File cannot be found! It might have been added on a different computer.");
                 }
                 
                 model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());

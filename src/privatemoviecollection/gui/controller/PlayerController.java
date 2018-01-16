@@ -43,7 +43,7 @@ public class PlayerController implements Initializable {
     private AnchorPane moviePane;
     private Model model;
     private Media media;
-    private boolean isPlaying = false;  // True is playback is started.
+    private boolean isStarted = false;  //True when the playback is started
     private boolean isPaused = false;   // True when the palyback is paused (but not stopped)
 
     @Override
@@ -63,10 +63,10 @@ public class PlayerController implements Initializable {
     @FXML
     private void playClick(MouseEvent event) {
         try {
-            if (!isPlaying) {
+            if (!isStarted) {
                 double d = media.getDuration().toSeconds();
                 slider.setMax(d);
-                isPlaying = true;
+                isStarted = true;
             }
             if (!isPaused) {
                 playIV.setImage(new Image("/img/pause.png"));
