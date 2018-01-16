@@ -21,18 +21,17 @@ import javafx.scene.media.Media;
  */
 public class Movie {
 
-    private final IntegerProperty id = new SimpleIntegerProperty();
-    private final StringProperty name = new SimpleStringProperty();
+    private final IntegerProperty id = new SimpleIntegerProperty(); // The uniqui identifier of the movie. Used for storing/retrieving movies from the database
+    private final StringProperty name = new SimpleStringProperty(); // The name (title) of the movie
     private final FloatProperty imdbRating = new SimpleFloatProperty();
     private final FloatProperty personalRating = new SimpleFloatProperty();
-    private final StringProperty path = new SimpleStringProperty();
-    private final StringProperty imagePath = new SimpleStringProperty();
-    private Image image;
-    private Timestamp fileAccessDate;
-    private ObservableList<Category> categories = FXCollections.observableArrayList();
-    private String categoriesAsString;
-    private Media media;
-
+    private final StringProperty path = new SimpleStringProperty(); // The location of the .mp4 or .mpeg4 file on the harddrive
+    private final StringProperty imagePath = new SimpleStringProperty();    // The location of the image file (such as a cover) associted with aóthe movie.
+    private Image image;    // An image object created using the imagePath property.
+    private Timestamp fileAccessDate;   // The last time this move was played from within the program.
+    private ObservableList<Category> categories = FXCollections.observableArrayList();  //The categories associated with the movie.
+    private String categoriesAsString;  // A string representation of the categories associated with the movie, created using the categories observable list.
+    
     public Movie() {
     }
 
@@ -42,108 +41,142 @@ public class Movie {
         this.imdbRating.set(imdbRating);
         this.personalRating.set(personalRating);
         this.path.set(path);
-        this.media = media;
     }
 
-    public Media getMedia() {
-        return media;
-    }
-
-    public void setMedia(Media media) {
-        this.media = media;
-    }
-
+    /**
+     * Return the path of the .mp4 or .mpeg4 file that is represented by this Movie object.
+     * @return The path of the .mp4 or .mpeg4 file that is represented by this Movie object.
+     */
     public String getPath() {
         return path.get();
     }
 
+    /**
+     * Set the path of the move (the place it is found on the hard drive)
+     * @param value The path of the .mp4 or .mpeg4 file that is represented by this Movie object.
+     */
     public void setPath(String value) {
         path.set(value);
     }
 
-    public StringProperty pathProperty() {
-        return path;
-    }
-
+    /**
+     * Return the personal rating of the movie.
+     * @return The personal rating of the movie.
+     */
     public float getPersonalRating() {
         return personalRating.get();
     }
 
+    /**
+     * Set the personal rating of the movie.
+     * @param value The personal rating of the movie.
+     */
     public void setPersonalRating(float value) {
         personalRating.set(value);
     }
 
-    public FloatProperty personalRatingProperty() {
-        return personalRating;
-    }
-
+    /**
+     * Return the IMDb rating of the movie.
+     * @return The IMDb rating of the movie.
+     */
     public float getImdbRating() {
         return imdbRating.get();
     }
 
+    /**
+     * Set the IMDb rating of the movie to the specified value.
+     * @param value The specified IMDb rating.
+     */
     public void setImdbRating(float value) {
         imdbRating.set(value);
     }
 
-    public FloatProperty imdbRatingProperty() {
-        return imdbRating;
-    }
-
+    /**
+     * Return the name (title) of the movie.
+     * @return The name (title) of the movie.
+     */
     public String getName() {
         return name.get();
     }
 
+    /**
+     * Set the name (title) of the movie to the given values.
+     * @param value The name (title) that will be set.
+     */
     public void setName(String value) {
         name.set(value);
     }
-
-    public StringProperty nameProperty() {
-        return name;
-    }
-
+    
+    /**
+     * Retrieve the ID of the movie.
+     * @return The ID of the movie.
+     */
     public int getId() {
         return id.get();
     }
 
+    /**
+     * Set the ID of the movie to the specified value. Used when saving/retrieving movies from the database.
+     * @param value The value of the ID.
+     */
     public void setId(int value) {
         id.set(value);
     }
 
-    public IntegerProperty idProperty() {
-        return id;
-    }
-
+    /**
+     * Retrieve the list of categories associated with the movie.
+     * @return The list of categories associated with the movie.
+     */
     public ObservableList<Category> getCategories() {
         return this.categories;
     }
 
+    /**
+     * Associate a new category with this movie.
+     * @param category The new category, that will be associated with the movie.
+     */
     public void addCategory(Category category) {
         this.categories.add(category);
     }
 
+    /**
+     * Update the last time this movie was played from within the program.
+     * @param fileAccessDate A Timestamp object indicating the last time this movie was played.
+     */
     public void setFileAccessDate(Timestamp fileAccessDate) {
         this.fileAccessDate = fileAccessDate;
     }
 
+    /**
+     * Get the last time the movie was played from within the program.
+     * @return A Timestamp object indicating the last time this movie was played from within the program.
+     */
     public Timestamp getTimeStamp() {
         return this.fileAccessDate;
     }
     
+    /**
+     * Return the path of the cover image.
+     * @return The path of the cover image.
+     */
     public String getImagePath()
     {
         return imagePath.get();
     }
 
+    /**
+     * Set the path of the cover image.
+     * @param value The path of the cover image.
+     */
     public void setImagePath(String value)
     {
         imagePath.set(value);
     }
-
-    public StringProperty imagePathProperty()
-    {
-        return imagePath;
-    }
     
+    /**
+     * Return the cover image of the movie.
+     * @return The cover image associated with the movie. 
+     */
     public Image getImage()
     {
         return this.image;
