@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.model;
 
 import java.sql.Timestamp;
@@ -16,7 +11,7 @@ import privatemoviecollection.bll.BLLException;
 import privatemoviecollection.bll.BLLManager;
 
 /**
- *
+ * Model class, responsible for separating the data from the display
  * @author Dominik
  */
 public class Model {
@@ -210,7 +205,16 @@ public class Model {
      */
     public void removeCategory(Category cat) throws ModelException {
         try {
+            for (Movie movie : movieList)
+            {
+                if (movie.hasCategory(cat)) // Do not attempt to delete the category if it is associated with at least one movie.
+                {
+                    throw new ModelException("Category is used by at least one movie, and thus cannot be deleted!");
+                }
+            }
+            
             bllm.removeCategory(cat);
+            categoryList.remove(cat);
         }
         catch (BLLException ex) {
             throw new ModelException(ex);
@@ -268,6 +272,7 @@ public class Model {
     /**
      * Movie player methods*****************************************************
      */
+    
     /**
      * Attempts to play the selected movie with the default media player
      *
@@ -340,6 +345,7 @@ public class Model {
     /**
      * Other methods************************************************************
      */
+    
     /**
      * Looks for a given character sequence in the movie titles, categories,
      * imdb and personal ratings
@@ -379,14 +385,13 @@ public class Model {
      * @return The list of movies that match the above criteria.
      */
     public Boolean checkMovies() {
+        movieUtilityList.clear();
         Calendar checkDate = Calendar.getInstance();
-        checkDate.add(Calendar.YEAR, -2);
+        checkDate.add(Calendar.YEAR, -2); // 2 years before current date
 
         for (Movie movie : movieList) {
-            if (movie.getPersonalRating() < 6.0f) {
-                if (movie.getTimeStamp().before(checkDate.getTime())) {
+            if (movie.getPersonalRating() < 6.0f && movie.getTimeStamp().before(checkDate.getTime())) {
                     movieUtilityList.add(movie);
-                }
             }
         }
         return !movieUtilityList.isEmpty();
@@ -394,14 +399,9 @@ public class Model {
     }
 
     /**
-<<<<<<< HEAD
-     * Check the distance between two strings (how many steps are needed to transform a string to 
+     * Check the distance between two strings (how many steps needed to transform one string into another)
      * Based on this article: https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
-=======
-     * Check the distance between two strings Based on this article:
-     * https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
      *
->>>>>>> 3e12f690ec3a843516473fdfb83b0f5a55c8c66c
      * @param first The first string
      * @param second The second string
      * @return The distance between the two parameters
@@ -447,8 +447,8 @@ public class Model {
                 } else {
                     cost = 1;  //Otherwise the cost is 1
                 }
-                d[i][j] = min(d[i - 1][j] + 1,  //Deletion 
-                        d[i][j - 1] + 1,  //Insertion
+                d[i][j] = min(d[i - 1][j] + 1, //Deletion 
+                        d[i][j - 1] + 1, //Insertion
                         d[i - 1][j - 1] + cost);  //Substitution
             }
         }

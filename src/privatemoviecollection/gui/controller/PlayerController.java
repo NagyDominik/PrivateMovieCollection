@@ -1,6 +1,6 @@
 package privatemoviecollection.gui.controller;
 
-import com.jfoenix.controls.JFXButton;
+
 import com.jfoenix.controls.JFXSlider;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +29,7 @@ import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
 
 /**
- * FXML Controller class
+ * Controls the video player.
  *
  * @author Bence
  */
@@ -37,8 +37,6 @@ public class PlayerController implements Initializable {
 
     @FXML
     private Slider slider;
-    @FXML
-    private JFXButton playClick;
     @FXML
     private MediaView mediaView;
     @FXML
@@ -49,12 +47,15 @@ public class PlayerController implements Initializable {
     private AnchorPane moviePane;
     private Model model;
     private Media media;
-    private boolean isPlaying = false;
-    private boolean isPaused = false;
     @FXML
-    private Slider volumeSlider; 
+    private JFXSlider volumeSlider; 
     MediaPlayer mp;
     
+
+    private boolean isStarted = false;  //True when the playback is started
+    private boolean isPaused = false;   // True when the palyback is paused (but not stopped)
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
@@ -83,10 +84,10 @@ public class PlayerController implements Initializable {
     @FXML
     private void playClick(MouseEvent event) {
         try {
-            if (!isPlaying) {
+            if (!isStarted) {
                 double d = media.getDuration().toSeconds();
                 slider.setMax(d);
-                isPlaying = true;
+                isStarted = true;
             }
             if (!isPaused) {
                 playIV.setImage(new Image("/img/pause.png"));
@@ -151,16 +152,14 @@ public class PlayerController implements Initializable {
             }
         });
     }
-
     @FXML
     private void stopClick(MouseEvent event) {
       
            model.stopBuiltIn();
-           isPlaying = false;
+           isStarted = false;
            playIV.setImage(new Image ("/img/play.png"));
            isPaused = false;
         
        
     }
-
 }

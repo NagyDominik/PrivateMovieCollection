@@ -26,7 +26,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,20 +37,12 @@ import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
 
 /**
- * FXML Controller class
+ * Controls the MainWindow and handles the events
  *
  * @author Bence
  */
 public class MainWindowController implements Initializable {
 
-    @FXML
-    private JFXButton addBtn;
-    @FXML
-    private JFXButton removeBtn;
-    @FXML
-    private JFXButton categoriesBtn;
-    @FXML
-    private JFXButton ratingBtn;
     @FXML
     private Label imdbLbl;
     @FXML
@@ -62,8 +53,6 @@ public class MainWindowController implements Initializable {
     private Label categoriesLbl;
     @FXML
     private JFXTextField searchBar;
-    @FXML
-    private Button searchBtn;
     @FXML
     private Label lastViewLbl;
     @FXML
@@ -77,17 +66,9 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<Movie, String> lastViewedCol;
     @FXML
-    private JFXButton sysdefBtn;
-    @FXML
-    private JFXButton playhereBtn;
-    @FXML
     private TableView<Movie> movieTable;
     @FXML
-    private JFXButton addDeleteCategories;
-    @FXML
     private ImageView imgViewMovieImage;
-    @FXML
-    private AnchorPane mainPane;
     
     private Model model;
     private boolean isSearching = false;
@@ -206,7 +187,8 @@ public class MainWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle("Edit categories");
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
+            movieTable.refresh();
         }
         catch (Exception ex) {
             newAlert(ex);
@@ -264,14 +246,13 @@ public class MainWindowController implements Initializable {
         try {
             Movie movie = movieTable.getSelectionModel().getSelectedItem();
             
-            
             if (movie != null) {
                 //Check to see if the file is located on the computer
                 String path = movie.getPath().replace("file:/", "").replace("/", "\\");
                 Path p = Paths.get(path);
                 if (!Files.exists(p, LinkOption.NOFOLLOW_LINKS))
                 {
-                    throw new Exception("File not found!");
+                    throw new Exception("File cannot be found! It might have been added on a different computer.");
                 }
                 
                 model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());

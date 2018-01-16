@@ -76,7 +76,7 @@ public class MoviePlayer {
             File movie = new File(path);
             if (!movie.exists())
             {
-                throw new BLLException("File does not exist! It might have been added on a different computer.");
+                throw new BLLException("File cannot be found! It might have been added on a different computer.");
             }
             Desktop.getDesktop().open(movie);
         }

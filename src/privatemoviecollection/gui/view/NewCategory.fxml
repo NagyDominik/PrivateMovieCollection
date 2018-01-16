@@ -40,8 +40,7 @@
                   <Image url="@../../../img/add.png" />
                </image>
             </ImageView>
-         </graphic>
-      </JFXButton>
+         </graphic></JFXButton>
       <JFXButton fx:id="okBtn" buttonType="RAISED" ellipsisString="" layoutX="290.0" layoutY="333.0" onAction="#btnOkClick" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0">
