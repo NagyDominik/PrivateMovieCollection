@@ -399,51 +399,51 @@ public class Model {
      */
     private int levenshtein(String first, String second) {
         int d[][];  //Matrix
-        int n;  //Length of the first string
-        int m;  //Length of the second string
         int i;  //Iterate through the first string  
-        int j;  //Iterate through the second string
-        char s_i;  //ith character of the first string
-        char t_j;  //jth charachter of the second string
+        int j;  //Iterate through the second string                    
+        int firstLength;  //Length of the first string
+        int secondLengt;  //Length of the seconf string
+        char firstIthChar;   //ith character of the first string
+        char secondJthChar;   //jth charachter of the second string
         int cost;
 
-        n = first.length();
-        m = second.length();
+        firstLength = first.length();
+        secondLengt = second.length();
 
-        if (n == 0) {
-            return m;  //If the first string is empty, the number of transformation required is the length of the second string.
+        if (firstLength == 0) {
+            return secondLengt;  //If the first string is empty, the number of transformation required is the length of the second string.
         }
-        if (m == 0) {
-            return n;  //If the second string is empty, the number of transformation required is the length of the first string.
+        if (secondLengt == 0) {
+            return firstLength;  //If the second string is empty, the number of transformation required is the length of the first string.
         }
 
-        d = new int[n + 1][m + 1];  //Create a new matrix with the dimension of the first and second strings
+        d = new int[firstLength + 1][secondLengt + 1];  //Create a new matrix with the dimension of the first and second strings
 
-        for (i = 0; i < n; i++) {  //Set the first row of the matrix to numbers 0 through n
+        for (i = 0; i < firstLength; i++) {  //Set the first row of the matrix to numbers 0 through length_first
             d[i][0] = i;
         }
 
-        for (j = 0; j < m; j++) {  //Set the first column of the matrix to numbers 0 through m
+        for (j = 0; j < secondLengt; j++) {  //Set the first column of the matrix to numbers 0 through length_second
             d[0][j] = j;
         }
 
-        for (i = 1; i <= n; i++) {
-            s_i = first.charAt(i - 1);  //Examine each character of the first string
+        for (i = 1; i <= firstLength; i++) {
+            firstIthChar = first.charAt(i - 1);  //Examine each character of the first string
 
-            for (j = 1; j <= m; j++) {
-                t_j = second.charAt(j - 1);  //Examine each charachter of the second string
+            for (j = 1; j <= secondLengt; j++) {
+                secondJthChar = second.charAt(j - 1);  //Examine each charachter of the second string
 
-                if (s_i == t_j) {
+                if (firstIthChar == secondJthChar) {
                     cost = 0;  //If the two charachters are equal, the cost is 0
                 } else {
                     cost = 1;  //Otherwise the cost is 1
                 }
-                d[i][j] = min(d[i - 1][j] + 1, //Deletion 
+                d[i][j] = min(d[i - 1][j] + 1,  //Deletion 
                         d[i][j - 1] + 1,  //Insertion
                         d[i - 1][j - 1] + cost);  //Substitution
             }
         }
-        return d[n][m];
+        return d[firstLength][secondLengt];
     }
 
     /**
