@@ -69,7 +69,7 @@ public class MainWindowController implements Initializable {
     private TableView<Movie> movieTable;
     @FXML
     private ImageView imgViewMovieImage;
-    
+
     private Model model;
     private boolean isSearching = false;
     @FXML
@@ -209,7 +209,7 @@ public class MainWindowController implements Initializable {
                 isSearching = true;
             } else {
                 movieTable.setItems(model.getMoviesFromList());
-                searchIV.setImage(new Image("/img/search.png")); 
+                searchIV.setImage(new Image("/img/search.png"));
                 isSearching = false;
             }
         }
@@ -245,16 +245,8 @@ public class MainWindowController implements Initializable {
     private void playHere(ActionEvent event) {
         try {
             Movie movie = movieTable.getSelectionModel().getSelectedItem();
-            
+
             if (movie != null) {
-                //Check to see if the file is located on the computer
-                String path = movie.getPath().replace("file:/", "").replace("/", "\\");
-                Path p = Paths.get(path);
-                if (!Files.exists(p, LinkOption.NOFOLLOW_LINKS))
-                {
-                    throw new Exception("File cannot be found! It might have been added on a different computer.");
-                }
-                
                 model.setSelectedMovie(movieTable.getSelectionModel().getSelectedItem());
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Player.fxml"));
                 Parent root = (Parent) loader.load();
@@ -270,13 +262,13 @@ public class MainWindowController implements Initializable {
                         model.stopBuiltIn();
                         movieTable.refresh();
                         setLastViewLabel(movie);
-                  }
+                    }
                 });
             } else {
                 newAlert(new Exception("No movie is selected! Please select a movie to play!"));
             }
         }
-        catch (Exception ex) {
+        catch (IOException ex) {
             Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
             newAlert(ex);
         }
@@ -321,8 +313,7 @@ public class MainWindowController implements Initializable {
      * selection changes
      */
     private void addListenersAndHandlers() {
-        movieTable.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener() {
+        movieTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 setLabelsAndImageView();
@@ -357,14 +348,12 @@ public class MainWindowController implements Initializable {
     }
 
     /**
-     * Uses the model to look for movies that haven't been accesses for more than
-     * 2 years, and have a personal rating lower than 6. Ask the user if they
-     * should be deleted.
+     * Uses the model to look for movies that haven't been accesses for more
+     * than 2 years, and have a personal rating lower than 6. Ask the user if
+     * they should be deleted.
      */
-    private void checkMovies()
-    {
-        if (model.checkMovies())
-        {
+    private void checkMovies() {
+        if (model.checkMovies()) {
             Boolean answer = showConfirmationDialog("We foiund some old movies with personal rating lower than 6. Would you like to see a list of these movies?");
             if (answer) {
                 try {

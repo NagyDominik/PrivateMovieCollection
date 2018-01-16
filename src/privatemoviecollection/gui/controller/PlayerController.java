@@ -1,6 +1,6 @@
 package privatemoviecollection.gui.controller;
 
-
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,36 +46,23 @@ public class PlayerController implements Initializable {
     private ImageView playIV;
     @FXML
     private AnchorPane moviePane;
+    @FXML
+    private JFXSlider volumeSlider;
     private Model model;
     private Media media;
-    @FXML
-    private JFXSlider volumeSlider; 
-    MediaPlayer mp;
-    
-
     private boolean isStarted = false;  //True when the playback is started
     private boolean isPaused = false;   // True when the palyback is paused (but not stopped)
-
+    @FXML
+    private JFXButton playClick;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
         model.setupPlayer(model.getSelectedMovie());
         mediaView.setMediaPlayer(model.getPlayer());
-        valueChanger();
-
+        setListeners();
         mediaView.fitHeightProperty().bind(moviePane.heightProperty());
         mediaView.fitWidthProperty().bind(moviePane.widthProperty());
-        
-        mp = model.getPlayer();
-        volumeSlider.setValue(mp.getVolume()*100);
-        volumeSlider.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                mp.setVolume(volumeSlider.getValue()/100);
-                
-            }
-        } );
     }
 
     /**
@@ -102,6 +89,14 @@ public class PlayerController implements Initializable {
         catch (ModelException ex) {
             Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @FXML
+    private void stopClick(MouseEvent event) {
+        model.stopBuiltIn();
+        isStarted = false;
+        playIV.setImage(new Image("/img/play.png"));
+        isPaused = false;
     }
 
     /**
@@ -141,7 +136,7 @@ public class PlayerController implements Initializable {
      * Sets up a ChangeListener that sets the slider's value to the movie's
      * position.
      */
-    public void valueChanger() {
+    public void setListeners() {
         MediaPlayer player = model.getPlayer();
         media = player.getMedia();
         player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
@@ -151,15 +146,13 @@ public class PlayerController implements Initializable {
                 timeLbl.setText(formatTime(player.getCurrentTime().toMillis()) + " / " + formatTime(media.getDuration().toMillis()));
             }
         });
-    }
-    @FXML
-    private void stopClick(MouseEvent event) {
-      
-           model.stopBuiltIn();
-           isStarted = false;
-           playIV.setImage(new Image ("/img/play.png"));
-           isPaused = false;
         
-       
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                player.setVolume(volumeSlider.getValue() / 100);
+            }
+        });
     }
+
 }

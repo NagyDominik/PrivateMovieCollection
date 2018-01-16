@@ -3,6 +3,10 @@ package privatemoviecollection.bll;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -10,6 +14,7 @@ import privatemoviecollection.be.Movie;
 
 /**
  * THis class is responsible for playing the selected movie.
+ *
  * @author Dominik,Bence
  */
 public class MoviePlayer {
@@ -19,15 +24,25 @@ public class MoviePlayer {
 
     /**
      * Set up the media player using the selected movie.
-     * @param movie The selected movie that will be used to set up the media player.
+     *
+     * @param movie The selected movie that will be used to set up the media
+     * player.
+     * @throws privatemoviecollection.bll.BLLException
      */
-    public void setupPlayer(Movie movie) {
-        this.media = new Media(movie.getPath());
+    public void setupPlayer(Movie movie) throws BLLException {
+        String path = correctPath(movie.getPath());
+        File moviefile = new File(path);
+        this.media = new Media(moviefile.toURI().toString());
+        if (!moviefile.exists()) {
+            throw new BLLException("File cannot be found! It might have been added on a different computer.");
+        }
         player = new MediaPlayer(media);
+        player.setVolume(0.5);
     }
 
     /**
      * Return the media player.
+     *
      * @return The media player.
      */
     public MediaPlayer getPlayer() {
@@ -50,6 +65,7 @@ public class MoviePlayer {
 
     /**
      * Jump to the specified location during playback.
+     *
      * @param value The specified location.
      */
     public void seekBuiltIn(double value) {
@@ -63,6 +79,10 @@ public class MoviePlayer {
         player.stop();
     }
 
+    public void setBuiltInVolume(double value) {
+        player.setVolume(value);
+    }
+
     /**
      * Creates a path to the movie file and opens it with the system default
      * media player
@@ -72,10 +92,9 @@ public class MoviePlayer {
      */
     public static void playSysDef(Movie selected) throws BLLException {
         try {
-            String path = selected.getPath().replace("file:/", "").replace("/", "\\");
+            String path = correctPath(selected.getPath());
             File movie = new File(path);
-            if (!movie.exists())
-            {
+            if (!movie.exists()) {
                 throw new BLLException("File cannot be found! It might have been added on a different computer.");
             }
             Desktop.getDesktop().open(movie);
@@ -85,8 +104,9 @@ public class MoviePlayer {
         }
     }
 
-    void setBuiltInVolume(double value) {
-        player.setVolume(value);
+    private static String correctPath(String path) {
+        String corrected = path.replace("file:/", "").replace("/", "\\").replace("%20", " ");
+        return corrected;
     }
 
 }
