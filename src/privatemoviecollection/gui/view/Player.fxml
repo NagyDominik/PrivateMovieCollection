@@ -36,6 +36,6 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXSlider fx:id="volumeSlider" layoutX="124.0" layoutY="473.0" />
+      <JFXSlider fx:id="volumeSlider" layoutX="618.0" layoutY="480.0" prefHeight="14.0" prefWidth="158.0" />
    </children>
 </AnchorPane>
