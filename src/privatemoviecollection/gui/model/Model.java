@@ -207,7 +207,7 @@ public class Model {
         try {
             for (Movie movie : movieList)
             {
-                if (movie.hasCategory(cat))
+                if (movie.hasCategory(cat)) // Do not attempt to delete the category if it is associated with at least one movie.
                 {
                     throw new ModelException("Category is used by at least one movie, and thus cannot be deleted!");
                 }
@@ -384,14 +384,13 @@ public class Model {
      * @return The list of movies that match the above criteria.
      */
     public Boolean checkMovies() {
+        movieUtilityList.clear();
         Calendar checkDate = Calendar.getInstance();
-        checkDate.add(Calendar.YEAR, -2);
+        checkDate.add(Calendar.YEAR, -2); // 2 years before current date
 
         for (Movie movie : movieList) {
-            if (movie.getPersonalRating() < 6.0f) {
-                if (movie.getTimeStamp().before(checkDate.getTime())) {
+            if (movie.getPersonalRating() < 6.0f && movie.getTimeStamp().before(checkDate.getTime())) {
                     movieUtilityList.add(movie);
-                }
             }
         }
         return !movieUtilityList.isEmpty();
