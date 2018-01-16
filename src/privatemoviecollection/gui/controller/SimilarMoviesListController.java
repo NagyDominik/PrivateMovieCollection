@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.controller;
 
 import java.net.URL;
@@ -16,7 +11,7 @@ import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
 
 /**
- * FXML Controller class
+ * Controls the SimilarMovieList window
  *
  * @author sebok
  */

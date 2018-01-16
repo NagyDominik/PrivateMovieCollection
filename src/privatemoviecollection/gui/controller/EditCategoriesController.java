@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -24,7 +19,7 @@ import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
 
 /**
- * FXML Controller class
+ * Controls the EditCategories window.
  *
  * @author sebok
  */
@@ -37,14 +32,10 @@ public class EditCategoriesController implements Initializable {
     @FXML
     private ListView<Category> lstViewMovieCategories;
     @FXML
-    private JFXButton btnAddCategory;
-    @FXML
-    private JFXButton btnRemoveCategory;
-    @FXML
     private JFXButton btnCancel;
 
     private Model model = Model.getInstance();
-    private Movie selectedMovie;
+    private Movie selectedMovie;    // The movie that will have its categories edited
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,7 +55,7 @@ public class EditCategoriesController implements Initializable {
         if (selectedCat == null) {
             return;
         }
-        //Do nothing, if the movie already contains the selected 
+        //Do nothing, if the movie already contains the selected category
         if (selectedMovie.hasCategory(selectedCat)) {
             return;
         }

@@ -25,7 +25,7 @@ import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
 
 /**
- * FXML Controller class
+ * Controls the NewMovie window.
  *
  * @author Dominik
  */
@@ -46,17 +46,8 @@ public class NewMovieController implements Initializable {
     @FXML
     private ListView<Category> allCetegories;
     @FXML
-    private JFXButton fileBtn;
-    @FXML
-    private JFXButton saveBtn;
-    @FXML
-    private JFXButton addCatToMovie;
-    @FXML
-    private JFXButton removeCatFromMovie;
-    @FXML
     private TextField txtFieldImage;
-    @FXML
-    private JFXButton imgBtn;
+
     private Model model;
     private Movie newmovie = new Movie();
 

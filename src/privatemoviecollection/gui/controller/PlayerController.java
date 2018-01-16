@@ -26,7 +26,7 @@ import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
 
 /**
- * FXML Controller class
+ * Controls the video player.
  *
  * @author Bence
  */
@@ -34,8 +34,6 @@ public class PlayerController implements Initializable {
 
     @FXML
     private Slider slider;
-    @FXML
-    private JFXButton playClick;
     @FXML
     private MediaView mediaView;
     @FXML
@@ -46,8 +44,8 @@ public class PlayerController implements Initializable {
     private AnchorPane moviePane;
     private Model model;
     private Media media;
-    private boolean isPlaying = false;
-    private boolean isPaused = false;
+    private boolean isPlaying = false;  // True is playback is started.
+    private boolean isPaused = false;   // True when the palyback is paused (but not stopped)
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

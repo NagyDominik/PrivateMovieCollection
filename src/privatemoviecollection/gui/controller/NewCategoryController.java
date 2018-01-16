@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -12,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -22,7 +16,7 @@ import privatemoviecollection.gui.model.Model;
 import privatemoviecollection.gui.model.ModelException;
 
 /**
- * FXML Controller class
+ * Controls the NewCategory window.
  *
  * @author Dominik
  */
@@ -34,10 +28,6 @@ public class NewCategoryController implements Initializable {
     private JFXButton okBtn;
     @FXML
     private ListView<Category> categoryList;
-    @FXML
-    private JFXButton addBtn;
-    @FXML
-    private JFXButton deleteBtn;
     
     private Model model;
 
@@ -65,6 +55,9 @@ public class NewCategoryController implements Initializable {
         }
     }
     
+    /**
+     * Close the window.
+     */
     @FXML
     private void btnOkClick(ActionEvent event) {
         closeStage();
