@@ -145,16 +145,14 @@ public class Model {
      * @throws ModelException If an error occurs during database access
      */
     public void saveMovie(Movie newmovie) throws ModelException {
-        try { 
+        try {
             //Do not allow movies with already existing titles
-            for (Movie movie : movieList)
-            {
-                if (movie.getName().equals(newmovie.getName()))
-                {
+            for (Movie movie : movieList) {
+                if (movie.getName().equals(newmovie.getName())) {
                     throw new ModelException("Movie is already in the database!");
                 }
             }
-            
+
             movieList.add(newmovie);
             bllm.saveMovie(newmovie);
         }
@@ -162,10 +160,12 @@ public class Model {
             throw new ModelException(ex);
         }
     }
-    
+
     /**
-     * Check the list of movies for similar titles. 
-     * @param The new movie that will be checked against the already existing movies.
+     * Check the list of movies for similar titles.
+     *
+     * @param newMovie The new movie that will be checked against the already
+     * existing movies.
      * @return The list containing a list of similar movies.
      */
     public ObservableList<Movie> checkSimilarities(Movie newMovie)
@@ -268,8 +268,6 @@ public class Model {
     /**
      * Movie player methods*****************************************************
      */
-    
-    
     /**
      * Attempts to play the selected movie with the default media player
      *
@@ -396,88 +394,84 @@ public class Model {
     }
 
     /**
+<<<<<<< HEAD
      * Check the distance between two strings (how many steps are needed to transform a string to 
      * Based on this article: https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
+=======
+     * Check the distance between two strings Based on this article:
+     * https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
+     *
+>>>>>>> 3e12f690ec3a843516473fdfb83b0f5a55c8c66c
      * @param first The first string
      * @param second The second string
      * @return The distance between the two parameters
      */
-    private int levenshtein(String first, String second)
-    {
+    private int levenshtein(String first, String second) {
         int d[][];  //Matrix
+        int i;  //Iterate through the first string  
+        int j;  //Iterate through the second string                    
         int firstLength;  //Length of the first string
         int secondLengt;  //Length of the seconf string
-        int i;  //Iterate through the first string  
-        int j;  //Iterate through the second string
         char firstIthChar;   //ith character of the first string
         char secondJthChar;   //jth charachter of the second string
         int cost;
-        
+
         firstLength = first.length();
         secondLengt = second.length();
-        
-        if (firstLength == 0) {return secondLengt; }    //If the first string is empty, the number of transformation required is the length of the second string.
-        if (secondLengt == 0) {return firstLength; }    //If the second string is empty, the number of transformation required is the length of the first string.
-        
-        d = new int[firstLength+1][secondLengt+1];  //Create a new matrix with the dimension of the first and second strings
-        
-        for (i = 0; i < firstLength; i++) //Set the first row of the matrix to numbers 0 through length_first
-        {
+
+        if (firstLength == 0) {
+            return secondLengt;  //If the first string is empty, the number of transformation required is the length of the second string.
+        }
+        if (secondLengt == 0) {
+            return firstLength;  //If the second string is empty, the number of transformation required is the length of the first string.
+        }
+
+        d = new int[firstLength + 1][secondLengt + 1];  //Create a new matrix with the dimension of the first and second strings
+
+        for (i = 0; i < firstLength; i++) {  //Set the first row of the matrix to numbers 0 through length_first
             d[i][0] = i;
         }
-        
-        for (j = 0; j < secondLengt; j++) //Set the first column of the matrix to numbers 0 through length_second
-        {
+
+        for (j = 0; j < secondLengt; j++) {  //Set the first column of the matrix to numbers 0 through length_second
             d[0][j] = j;
         }
-        
-        for (i = 1; i<=firstLength; i++)
-        {
-            firstIthChar =  first.charAt(i - 1); //Examine each character of the first string
-            
-            for (j = 1; j <= secondLengt; j++)
-            {
-                secondJthChar = second.charAt(j - 1); //Examine each charachter of the second string
-                
-                if (firstIthChar == secondJthChar)
-                {
-                    cost = 0;   //If the two charachters are equal, the cost is 0
+
+        for (i = 1; i <= firstLength; i++) {
+            firstIthChar = first.charAt(i - 1);  //Examine each character of the first string
+
+            for (j = 1; j <= secondLengt; j++) {
+                secondJthChar = second.charAt(j - 1);  //Examine each charachter of the second string
+
+                if (firstIthChar == secondJthChar) {
+                    cost = 0;  //If the two charachters are equal, the cost is 0
+                } else {
+                    cost = 1;  //Otherwise the cost is 1
                 }
-                else
-                {
-                    cost = 1;   //Otherwise the cost is 1
-                }
-                
-                d[i][j] = min(d[i-1][j]+1, //Deletion
-                        d[i][j-1]+1, //Insertion
-                        d[i-1][j-1] + cost); //Substitution
+                d[i][j] = min(d[i - 1][j] + 1,  //Deletion 
+                        d[i][j - 1] + 1,  //Insertion
+                        d[i - 1][j - 1] + cost);  //Substitution
             }
         }
-        
         return d[firstLength][secondLengt];
-        
     }
-    
+
     /**
      * Return the lowest number from the three parameters
+     *
      * @param a First number
      * @param b Second number
      * @param c Third number
      * @return The lowest number
      */
-    private int min(int a, int b, int c)
-    {
+    private int min(int a, int b, int c) {
         int min = a;
-        
-        if (b < min)
-        {
-            min = b; 
+
+        if (b < min) {
+            min = b;
         }
-        if (c < min)
-        {
+        if (c < min) {
             min = c;
         }
-        
         return min;
     }
 

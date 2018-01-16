@@ -17,6 +17,7 @@ public class DALManager {
     /**
      * Movie database methods***************************************************
      */
+    
     /**
      * Gets the list of movies in the database
      *
@@ -88,6 +89,7 @@ public class DALManager {
     /**
      * Category database methods************************************************
      */
+    
     /**
      * Gets the list of categories from the database
      *
