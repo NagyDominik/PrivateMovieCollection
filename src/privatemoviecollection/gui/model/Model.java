@@ -91,9 +91,8 @@ public class Model {
     }
 
     /**
-     * Return a list of old movies
-     *
-     * @return A list of old movies
+     * Return a list of movies that are selected based on a special criteria (for example: old movies or movies with similar titles as a newly added movie).
+     * @return A list of movies that are selected based on a special criteria.
      */
     public ObservableList<Movie> getUtilityList() {
         return this.movieUtilityList;
@@ -102,6 +101,7 @@ public class Model {
     /**
      * Database Methods*********************************************************
      */
+    
     /**
      * Loads the list of movies and categories from the database
      *
@@ -170,7 +170,8 @@ public class Model {
      */
     public ObservableList<Movie> checkSimilarities(Movie newMovie)
     {
-        //Check if a movie is already in the database
+        movieUtilityList.clear();
+        
         for (Movie movie : movieList)
         {
             if (levenshtein(movie.getName(), newMovie.getName()) < 3 )
@@ -395,7 +396,7 @@ public class Model {
     }
 
     /**
-     * Check the distance between two strings
+     * Check the distance between two strings (how many steps are needed to transform a string to 
      * Based on this article: https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
      * @param first The first string
      * @param second The second string
