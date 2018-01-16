@@ -1,11 +1,14 @@
 package privatemoviecollection.gui.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSlider;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -48,7 +51,10 @@ public class PlayerController implements Initializable {
     private Media media;
     private boolean isPlaying = false;
     private boolean isPaused = false;
-
+    @FXML
+    private Slider volumeSlider; 
+    MediaPlayer mp;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
@@ -58,6 +64,17 @@ public class PlayerController implements Initializable {
 
         mediaView.fitHeightProperty().bind(moviePane.heightProperty());
         mediaView.fitWidthProperty().bind(moviePane.widthProperty());
+        
+        mp = model.getPlayer();
+        volumeSlider.setValue(mp.getVolume()*100);
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                mp.setVolume(volumeSlider.getValue()/100);
+                
+            }
+        } );
+        
     }
 
     /**
@@ -136,7 +153,14 @@ public class PlayerController implements Initializable {
     }
 
     @FXML
-    private void pauseClick(MouseEvent event) {
+    private void stopClick(MouseEvent event) {
+      
+           model.stopBuiltIn();
+           isPlaying = false;
+           playIV.setImage(new Image ("/img/play.png"));
+           isPaused = false;
+        
+       
     }
 
 }

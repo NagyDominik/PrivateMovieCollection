@@ -85,4 +85,8 @@ public class MoviePlayer {
         }
     }
 
+    void setBuiltInVolume(double value) {
+        player.setVolume(value);
+    }
+
 }

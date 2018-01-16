@@ -220,4 +220,8 @@ public class BLLManager {
         player.stopBuiltIn();
     }
 
+    public void setBuiltInVolume(double value) {
+        player.setBuiltInVolume(value);
+    }
+
 }

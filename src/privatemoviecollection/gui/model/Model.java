@@ -475,4 +475,8 @@ public class Model {
         return min;
     }
 
+    public void setVolume(double value) {
+       bllm.setBuiltInVolume(value);
+    }
+
 }
