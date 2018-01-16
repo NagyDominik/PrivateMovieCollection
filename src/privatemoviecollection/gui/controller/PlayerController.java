@@ -135,8 +135,4 @@ public class PlayerController implements Initializable {
         });
     }
 
-    @FXML
-    private void pauseClick(MouseEvent event) {
-    }
-
 }

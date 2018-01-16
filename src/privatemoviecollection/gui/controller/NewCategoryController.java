@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -50,21 +49,6 @@ public class NewCategoryController implements Initializable {
         categoryList.setItems(model.getCategoriesFromList());
     }
     
-    /**
-     * Attempts to save the new category to the database
-     */
-    private void btnSaveClick(ActionEvent event) {
-        try {
-            Category newcat = new Category();
-            newcat.setName(nameField.getText());
-            model.addCategory(newcat);
-            closeStage();
-        }
-        catch (ModelException ex) {
-            newAlert(ex);
-        }
-    }
-    
     @FXML
     private void btnOkClick(ActionEvent event) {
         closeStage();
@@ -79,6 +63,7 @@ public class NewCategoryController implements Initializable {
             Category category = new Category();
             category.setName(nameField.getText());
             model.addCategory(category);
+            categoryList.refresh();
         }
         catch (ModelException ex) {
             newAlert(ex);
@@ -95,6 +80,7 @@ public class NewCategoryController implements Initializable {
         if (selected != null) {
             try {
                 model.removeCategory(selected);
+                categoryList.refresh();
             }
             catch (ModelException ex) {
                 newAlert(ex);
