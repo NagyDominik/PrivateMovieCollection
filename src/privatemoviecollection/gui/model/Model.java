@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.model;
 
 import java.sql.Timestamp;
@@ -16,7 +11,7 @@ import privatemoviecollection.bll.BLLException;
 import privatemoviecollection.bll.BLLManager;
 
 /**
- *
+ * Model class, responsible for separating the data from the display
  * @author Dominik
  */
 public class Model {
@@ -91,9 +86,8 @@ public class Model {
     }
 
     /**
-     * Return a list of old movies
-     *
-     * @return A list of old movies
+     * Return a list of movies that are selected based on a special criteria (for example: old movies or movies with similar titles as a newly added movie).
+     * @return A list of movies that are selected based on a special criteria.
      */
     public ObservableList<Movie> getUtilityList() {
         return this.movieUtilityList;
@@ -102,6 +96,7 @@ public class Model {
     /**
      * Database Methods*********************************************************
      */
+    
     /**
      * Loads the list of movies and categories from the database
      *
@@ -168,10 +163,14 @@ public class Model {
      * existing movies.
      * @return The list containing a list of similar movies.
      */
-    public ObservableList<Movie> checkSimilarities(Movie newMovie) {
-        //Check if a movie is already in the database
-        for (Movie movie : movieList) {
-            if (levenshtein(movie.getName(), newMovie.getName()) < 3) {
+    public ObservableList<Movie> checkSimilarities(Movie newMovie)
+    {
+        movieUtilityList.clear();
+        
+        for (Movie movie : movieList)
+        {
+            if (levenshtein(movie.getName(), newMovie.getName()) < 3 )
+            {
                 movieUtilityList.add(movie);
             }
         }
@@ -206,6 +205,14 @@ public class Model {
      */
     public void removeCategory(Category cat) throws ModelException {
         try {
+            for (Movie movie : movieList)
+            {
+                if (movie.hasCategory(cat))
+                {
+                    throw new ModelException("Category is used by at least one movie, and thus cannot be deleted!");
+                }
+            }
+            
             bllm.removeCategory(cat);
             categoryList.remove(cat);
         }
@@ -265,6 +272,7 @@ public class Model {
     /**
      * Movie player methods*****************************************************
      */
+    
     /**
      * Attempts to play the selected movie with the default media player
      *
@@ -337,6 +345,7 @@ public class Model {
     /**
      * Other methods************************************************************
      */
+    
     /**
      * Looks for a given character sequence in the movie titles, categories,
      * imdb and personal ratings
@@ -391,8 +400,8 @@ public class Model {
     }
 
     /**
-     * Check the distance between two strings Based on this article:
-     * https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
+     * Check the distance between two strings (how many steps needed to transform one string into another)
+     * Based on this article: https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
      *
      * @param first The first string
      * @param second The second string

@@ -33,10 +33,18 @@ public class Category {
         this.name = name;
     }
 
+    /**
+     * Return the ID of the category
+     * @return The ID of the category
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Set the ID of the category. Used for saving retrieving categories from the database.
+     * @param id The Id of the category.
+     */
     public void setId(int id) {
         this.id = id;
     }

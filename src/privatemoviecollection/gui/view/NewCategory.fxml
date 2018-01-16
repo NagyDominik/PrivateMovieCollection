@@ -33,15 +33,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="addBtn" buttonType="RAISED" ellipsisString="" layoutX="398.0" layoutY="72.0" onAction="#addCategory" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT" text="Button">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0">
-               <image>
-                  <Image url="@../../../img/add.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
+      <JFXButton fx:id="addBtn" buttonType="RAISED" ellipsisString="" layoutX="398.0" layoutY="72.0" onAction="#addCategory" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT" text="Button" />
       <JFXButton fx:id="okBtn" buttonType="RAISED" ellipsisString="" layoutX="290.0" layoutY="333.0" onAction="#btnOkClick" prefHeight="30.0" prefWidth="30.0" ripplerFill="TRANSPARENT">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0">
@@ -51,5 +43,10 @@
             </ImageView>
          </graphic>
       </JFXButton>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="427.0" layoutY="78.0">
+         <image>
+            <Image url="@../../../img/add.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

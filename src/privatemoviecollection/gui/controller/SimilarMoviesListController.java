@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -17,7 +11,7 @@ import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
 
 /**
- * FXML Controller class
+ * Controls the SimilarMovieList window
  *
  * @author sebok
  */
@@ -50,6 +44,9 @@ public class SimilarMoviesListController implements Initializable
         tableViewSimilarMovies.setItems(model.getUtilityList());
     }    
 
+    /**
+     * Set the cell value factories to display data correctly.
+     */
     private void setCellValueFactories()
     {
         colTitle.setCellValueFactory(new PropertyValueFactory("name"));

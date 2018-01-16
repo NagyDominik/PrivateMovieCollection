@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -21,7 +16,7 @@ import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.Model;
 
 /**
- * FXML Controller class
+ * Controls the EditRating window
  *
  * @author sebok
  */
@@ -57,7 +52,7 @@ public class EditRatingController implements Initializable {
     private void btnSaveClick(ActionEvent event) {
         try {
             float rating = Float.parseFloat(txtFieldNewRating.getText());
-            if (rating < 0 || rating > 10) {
+            if (rating < 0.0f || rating > 10.0f) {
                 throw new Exception("Rating must be between 0.0 and 10.0!");
             }
             selectedMovie.setPersonalRating(rating);

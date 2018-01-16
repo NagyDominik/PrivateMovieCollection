@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.bll;
 
 import java.util.List;
@@ -13,7 +8,7 @@ import privatemoviecollection.dal.DAException;
 import privatemoviecollection.dal.DALManager;
 
 /**
- *
+ * Connects the Model to the DAL and performs various operations.
  * @author Dominik
  */
 public class BLLManager {
@@ -24,6 +19,7 @@ public class BLLManager {
     /**
      * Database methods*********************************************************
      */
+    
     /**
      * Calls the method in the DALManager that loads the movies from the
      * database
@@ -168,6 +164,7 @@ public class BLLManager {
     /**
      * Movie player methods*****************************************************
      */
+    
     /**
      * Plays the selected movie with the system default video player
      *
@@ -178,26 +175,47 @@ public class BLLManager {
         player.playSysDef(selected);
     }
 
+    /**
+     * Set up the video player using a Movie object.
+     * @param selected The selected Movie object.
+     */
     public void setupPlayer(Movie selected) {
         player.setupPlayer(selected);
     }
 
+    /**
+     * Return the media player.
+     * @return The media player.
+     */
     public MediaPlayer getPlayer() {
         return player.getPlayer();
     }
 
+    /**
+     * Play the selected movie using the built-in player. Must set-up player first.
+     */
     public void playBuiltIn() {
         player.playBuiltIn();
     }
 
+    /**
+     * Pause the playback.
+     */
     public void pauseBuiltIn() {
         player.pauseBuiltIn();
     }
 
+    /**
+     * Jump to a new location in the movie.
+     * @param value The new location.
+     */
     public void seekBuiltIn(double value) {
         player.seekBuiltIn(value);
     }
 
+    /**
+     * Stop the playback.
+     */
     public void stopBuiltIn() {
         player.stopBuiltIn();
     }
