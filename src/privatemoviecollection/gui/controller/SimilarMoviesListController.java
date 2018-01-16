@@ -44,6 +44,9 @@ public class SimilarMoviesListController implements Initializable
         tableViewSimilarMovies.setItems(model.getUtilityList());
     }    
 
+    /**
+     * Set the cell value factories to display data correctly.
+     */
     private void setCellValueFactories()
     {
         colTitle.setCellValueFactory(new PropertyValueFactory("name"));

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package privatemoviecollection.gui.model;
 
 import java.sql.Timestamp;
@@ -16,7 +11,7 @@ import privatemoviecollection.bll.BLLException;
 import privatemoviecollection.bll.BLLManager;
 
 /**
- *
+ * Model class, responsible for separating the data from the display
  * @author Dominik
  */
 public class Model {
@@ -268,6 +263,7 @@ public class Model {
     /**
      * Movie player methods*****************************************************
      */
+    
     /**
      * Attempts to play the selected movie with the default media player
      *
@@ -340,6 +336,7 @@ public class Model {
     /**
      * Other methods************************************************************
      */
+    
     /**
      * Looks for a given character sequence in the movie titles, categories,
      * imdb and personal ratings
@@ -394,14 +391,9 @@ public class Model {
     }
 
     /**
-<<<<<<< HEAD
-     * Check the distance between two strings (how many steps are needed to transform a string to 
+     * Check the distance between two strings (how many steps needed to transform one string into another)
      * Based on this article: https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
-=======
-     * Check the distance between two strings Based on this article:
-     * https://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
      *
->>>>>>> 3e12f690ec3a843516473fdfb83b0f5a55c8c66c
      * @param first The first string
      * @param second The second string
      * @return The distance between the two parameters
