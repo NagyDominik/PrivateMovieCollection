@@ -26,15 +26,6 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="63.0" layoutY="458.0" onMouseClicked="#pauseClick" prefHeight="35.0" prefWidth="35.0" ripplerFill="TRANSPARENT">
-         <graphic>
-            <ImageView fitHeight="35.0" fitWidth="35.0">
-               <image>
-                  <Image url="@../../../img/pause.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
       <JFXButton buttonType="RAISED" ellipsisString="" layoutX="111.0" layoutY="458.0" prefHeight="35.0" prefWidth="35.0" ripplerFill="TRANSPARENT" text="Button">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0">
