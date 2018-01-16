@@ -187,7 +187,8 @@ public class MainWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle("Edit categories");
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
+            movieTable.refresh();
         }
         catch (Exception ex) {
             newAlert(ex);
@@ -244,7 +245,6 @@ public class MainWindowController implements Initializable {
     private void playHere(ActionEvent event) {
         try {
             Movie movie = movieTable.getSelectionModel().getSelectedItem();
-            
             
             if (movie != null) {
                 //Check to see if the file is located on the computer

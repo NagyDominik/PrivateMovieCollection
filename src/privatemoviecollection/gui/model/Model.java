@@ -214,6 +214,7 @@ public class Model {
             }
             
             bllm.removeCategory(cat);
+            categoryList.remove(cat);
         }
         catch (BLLException ex) {
             throw new ModelException(ex);
@@ -446,8 +447,8 @@ public class Model {
                 } else {
                     cost = 1;  //Otherwise the cost is 1
                 }
-                d[i][j] = min(d[i - 1][j] + 1,  //Deletion 
-                        d[i][j - 1] + 1,  //Insertion
+                d[i][j] = min(d[i - 1][j] + 1, //Deletion 
+                        d[i][j - 1] + 1, //Insertion
                         d[i - 1][j - 1] + cost);  //Substitution
             }
         }

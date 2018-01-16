@@ -41,21 +41,6 @@ public class NewCategoryController implements Initializable {
     }
     
     /**
-     * Attempts to save the new category to the database
-     */
-    private void btnSaveClick(ActionEvent event) {
-        try {
-            Category newcat = new Category();
-            newcat.setName(nameField.getText());
-            model.addCategory(newcat);
-            closeStage();
-        }
-        catch (ModelException ex) {
-            newAlert(ex);
-        }
-    }
-    
-    /**
      * Close the window.
      */
     @FXML
@@ -72,6 +57,7 @@ public class NewCategoryController implements Initializable {
             Category category = new Category();
             category.setName(nameField.getText());
             model.addCategory(category);
+            categoryList.refresh();
         }
         catch (ModelException ex) {
             newAlert(ex);
@@ -88,6 +74,7 @@ public class NewCategoryController implements Initializable {
         if (selected != null) {
             try {
                 model.removeCategory(selected);
+                categoryList.refresh();
             }
             catch (ModelException ex) {
                 newAlert(ex);
