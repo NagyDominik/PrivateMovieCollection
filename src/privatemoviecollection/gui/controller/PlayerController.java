@@ -13,6 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -22,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -45,7 +47,7 @@ public class PlayerController implements Initializable {
     @FXML
     private ImageView playIV;
     @FXML
-    private AnchorPane moviePane;
+    private StackPane moviePane;
     @FXML
     private JFXSlider volumeSlider;
     private Model model;
@@ -54,6 +56,8 @@ public class PlayerController implements Initializable {
     private boolean isPaused = false;   // True when the palyback is paused (but not stopped)
     @FXML
     private JFXButton playClick;
+    @FXML
+    private AnchorPane movieAnchorPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,10 +66,14 @@ public class PlayerController implements Initializable {
             model.setupPlayer(model.getSelectedMovie());
             mediaView.setMediaPlayer(model.getPlayer());
             setListeners();
-            mediaView.fitHeightProperty().bind(moviePane.heightProperty());
-            mediaView.fitWidthProperty().bind(moviePane.widthProperty());
-        }
-        catch (ModelException ex) {
+            
+            InvalidationListener resizeMediaView = observable -> {
+                mediaView.setFitWidth(moviePane.getWidth());
+                mediaView.setFitHeight(moviePane.getHeight());
+                 };
+        moviePane.heightProperty().addListener(resizeMediaView);
+        moviePane.widthProperty().addListener(resizeMediaView);
+        } catch (ModelException ex) {
             newAlert(ex);
         }
     }
@@ -90,12 +98,11 @@ public class PlayerController implements Initializable {
                 model.pauseBuiltIn();
                 isPaused = false;
             }
-        }
-        catch (ModelException ex) {
+        } catch (ModelException ex) {
             Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     private void stopClick(MouseEvent event) {
         model.stopBuiltIn();
@@ -151,7 +158,7 @@ public class PlayerController implements Initializable {
                 timeLbl.setText(formatTime(player.getCurrentTime().toMillis()) + " / " + formatTime(media.getDuration().toMillis()));
             }
         });
-        
+
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {

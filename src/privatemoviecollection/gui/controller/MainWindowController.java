@@ -254,7 +254,7 @@ public class MainWindowController implements Initializable {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Built-In Media Player Beta_v2");
-                stage.setResizable(false);
+                stage.setResizable(true);
                 stage.show();
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override

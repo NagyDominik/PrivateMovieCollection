@@ -7,18 +7,23 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="moviePane" prefHeight="505.0" prefWidth="750.0" style="-fx-background-color: #dfe6ec;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PlayerController">
+<AnchorPane id="AnchorPane" fx:id="movieAnchorPane" prefHeight="510.0" prefWidth="800.0" style="-fx-background-color: #dfe6ec;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PlayerController">
    <children>
-      <Slider fx:id="slider" blockIncrement="5.0" layoutX="14.0" layoutY="435.0" majorTickUnit="5.0" minWidth="569.0" onMouseClicked="#changedPosition" onMouseDragged="#changedPosition" onMousePressed="#playClick" onMouseReleased="#playClick" prefHeight="14.0" prefWidth="604.0" />
-      <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="800.0" layoutX="7.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="timeLbl" layoutX="583.0" layoutY="432.0" AnchorPane.rightAnchor="5.0">
+      <Slider fx:id="slider" blockIncrement="5.0" layoutX="14.0" layoutY="435.0" majorTickUnit="5.0" minWidth="570.0" onMouseClicked="#changedPosition" onMouseDragged="#changedPosition" onMousePressed="#playClick" onMouseReleased="#playClick" prefHeight="14.0" prefWidth="630.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="155.0" />
+      <StackPane fx:id="moviePane" prefHeight="423.0" prefWidth="800.0" style="-fx-background-color: BLACK;" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="800.0" />
+         </children>
+      </StackPane>
+      <Label fx:id="timeLbl" layoutX="583.0" layoutY="432.0" AnchorPane.bottomAnchor="58.0" AnchorPane.rightAnchor="15.0">
          <font>
             <Font name="Arial Black" size="13.0" />
          </font></Label>
-      <JFXButton fx:id="playClick" buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="458.0" onMouseClicked="#playClick" prefHeight="25.0" prefWidth="25.0" ripplerFill="TRANSPARENT">
+      <JFXButton fx:id="playClick" buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="458.0" onMouseClicked="#playClick" prefHeight="25.0" prefWidth="25.0" ripplerFill="TRANSPARENT" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
          <graphic>
             <ImageView fx:id="playIV" fitHeight="35.0" fitWidth="35.0">
                <image>
@@ -27,7 +32,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="58.0" layoutY="458.0" onMouseClicked="#stopClick" prefHeight="35.0" prefWidth="35.0" ripplerFill="TRANSPARENT" text="Button">
+      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="58.0" layoutY="458.0" onMouseClicked="#stopClick" prefHeight="35.0" prefWidth="35.0" ripplerFill="TRANSPARENT" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="60.0">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0">
                <image>
@@ -36,6 +41,6 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXSlider fx:id="volumeSlider" layoutX="618.0" layoutY="480.0" prefHeight="14.0" prefWidth="158.0" />
+      <JFXSlider fx:id="volumeSlider" layoutX="618.0" layoutY="480.0" prefHeight="14.0" prefWidth="158.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="25.0" />
    </children>
 </AnchorPane>
