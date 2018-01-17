@@ -13,12 +13,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -65,14 +63,7 @@ public class PlayerController implements Initializable {
             model = Model.getInstance();
             model.setupPlayer(model.getSelectedMovie());
             mediaView.setMediaPlayer(model.getPlayer());
-            setListeners();
-            
-            InvalidationListener resizeMediaView = observable -> {
-                mediaView.setFitWidth(moviePane.getWidth());
-                mediaView.setFitHeight(moviePane.getHeight());
-                 };
-        moviePane.heightProperty().addListener(resizeMediaView);
-        moviePane.widthProperty().addListener(resizeMediaView);
+            setListeners();            
         } catch (ModelException ex) {
             newAlert(ex);
         }
@@ -149,6 +140,7 @@ public class PlayerController implements Initializable {
      * position.
      */
     public void setListeners() {
+        
         MediaPlayer player = model.getPlayer();
         media = player.getMedia();
         player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
@@ -165,6 +157,16 @@ public class PlayerController implements Initializable {
                 player.setVolume(volumeSlider.getValue() / 100);
             }
         });
+        
+        InvalidationListener resizeMediaView = new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                 mediaView.setFitWidth(moviePane.getWidth());
+                mediaView.setFitHeight(moviePane.getHeight());
+            }
+        };
+        moviePane.heightProperty().addListener(resizeMediaView);
+        moviePane.widthProperty().addListener(resizeMediaView);
+        
     }
-
 }
