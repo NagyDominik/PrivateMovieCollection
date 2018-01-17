@@ -171,7 +171,7 @@ public class Model {
         
         for (Movie movie : movieList)
         {
-            if (levenshtein(movie.getName(), newMovie.getName()) < 3 )
+            if (levenshtein(movie.getName(), newMovie.getName()) < 5 )
             {
                 movieUtilityList.add(movie);
             }
@@ -396,7 +396,8 @@ public class Model {
         movieUtilityList.clear();
         Calendar checkDate = Calendar.getInstance();
         checkDate.add(Calendar.YEAR, -2); // 2 years before current date
-
+        //checkDate.add(Calendar.MILLISECOND, -1);
+        
         for (Movie movie : movieList) {
             if (movie.getPersonalRating() < 6.0f && movie.getTimeStamp().before(checkDate.getTime())) {
                     movieUtilityList.add(movie);

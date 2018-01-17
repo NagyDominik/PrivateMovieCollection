@@ -67,7 +67,7 @@ public class OldMovieListController implements Initializable {
      * Set the text of the label based on how many old movies there are
      */
     private void setUpLabel() {
-        String text = model.getUtilityList().size() == 1 ? "There is only one old movie.." : String.format("There are %d old movies.", model.getUtilityList().size());
+        String text = model.getUtilityList().size() == 1 ? "There is only one old movie." : String.format("There are %d old movies.", model.getUtilityList().size());
         lblTitle.setText(text);
     }
 
