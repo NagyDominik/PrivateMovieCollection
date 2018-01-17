@@ -39,7 +39,7 @@
             <Font name="Arial Black" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton ellipsisString="" layoutX="531.0" layoutY="332.0" onAction="#btnCancelClickk" prefHeight="30.0" prefWidth="30.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="15.0">
+      <JFXButton ellipsisString="" layoutX="675.0" layoutY="400.0" onAction="#btnCancelClickk" prefHeight="30.0" prefWidth="30.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0">
                <image>
