@@ -203,6 +203,7 @@ public class MainWindowController implements Initializable {
             } else {
                 movieTable.setItems(model.getMoviesFromList());
                 searchIV.setImage(new Image("/img/search.png"));
+                searchBar.clear();
                 isSearching = false;
             }
         }
