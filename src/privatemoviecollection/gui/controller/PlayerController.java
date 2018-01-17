@@ -48,14 +48,14 @@ public class PlayerController implements Initializable {
     private StackPane moviePane;
     @FXML
     private JFXSlider volumeSlider;
-    private Model model;
-    private Media media;
-    private boolean isStarted = false;  //True when the playback is started
-    private boolean isPaused = false;   // True when the palyback is paused (but not stopped)
     @FXML
     private JFXButton playClick;
     @FXML
     private AnchorPane movieAnchorPane;
+    private Model model;
+    private Media media;
+    private boolean isStarted = false;  //True when the playback is started
+    private boolean isPaused = false;   // True when the palyback is paused (but not stopped)
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -63,8 +63,9 @@ public class PlayerController implements Initializable {
             model = Model.getInstance();
             model.setupPlayer(model.getSelectedMovie());
             mediaView.setMediaPlayer(model.getPlayer());
-            setListeners();            
-        } catch (ModelException ex) {
+            setListeners();
+        }
+        catch (ModelException ex) {
             newAlert(ex);
         }
     }
@@ -89,7 +90,8 @@ public class PlayerController implements Initializable {
                 model.pauseBuiltIn();
                 isPaused = false;
             }
-        } catch (ModelException ex) {
+        }
+        catch (ModelException ex) {
             Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -137,12 +139,14 @@ public class PlayerController implements Initializable {
 
     /**
      * Sets up a ChangeListener that sets the slider's value to the movie's
-     * position.
+     * current position, sets the volume with the volume slider and resizes the
+     * movie player when the window is resized
      */
     public void setListeners() {
-        
         MediaPlayer player = model.getPlayer();
         media = player.getMedia();
+
+        //Listener that sets the slider's value to the movie's current position
         player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
             @Override
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
@@ -151,22 +155,24 @@ public class PlayerController implements Initializable {
             }
         });
 
+        //Listener that sets the movies volume to the volume sliders value
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
                 player.setVolume(volumeSlider.getValue() / 100);
             }
         });
-        
+
+        //Listener that sets the player's width and height to the window's width and height
         InvalidationListener resizeMediaView = new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
-                 mediaView.setFitWidth(moviePane.getWidth());
+                mediaView.setFitWidth(moviePane.getWidth());
                 mediaView.setFitHeight(moviePane.getHeight());
             }
         };
         moviePane.heightProperty().addListener(resizeMediaView);
         moviePane.widthProperty().addListener(resizeMediaView);
-        
+
     }
 }
