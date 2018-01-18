@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import privatemoviecollection.be.Movie;
@@ -83,6 +84,7 @@ public class MainWindowController implements Initializable {
         checkMovies();
         movieTable.setItems(model.getMoviesFromList());
         imgViewMovieImage.setImage(new Image("/img/no_cover.png"));
+        setSearchBarEvent();
     }
 
     /**
@@ -387,6 +389,27 @@ public class MainWindowController implements Initializable {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, prompt, ButtonType.YES, ButtonType.NO);
         confirmation.showAndWait();
         return confirmation.getResult() == ButtonType.YES;
+    }
+
+    /**
+     * Set an event handler that allows us to reset the search when the search bar is empty.
+     */
+    private void setSearchBarEvent()
+    {
+        searchBar.setOnKeyTyped(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if (searchBar.getText().isEmpty())
+                {
+                    movieTable.setItems(model.getMoviesFromList());
+                    searchIV.setImage(new Image("/img/search.png"));
+                    searchBar.clear();
+                    isSearching = false;
+                }
+            }
+        });
     }
 
 }

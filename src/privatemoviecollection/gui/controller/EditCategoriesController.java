@@ -84,7 +84,7 @@ public class EditCategoriesController implements Initializable {
         try {
             model.removeCategoryFromMovie(selectedMovie, selectedCat);
         }
-        catch (ModelException ex) {
+         catch (ModelException ex) {
             newAlert(ex);
         }
     }
