@@ -2,8 +2,6 @@ package privatemoviecollection.gui.model;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.media.MediaPlayer;

@@ -55,6 +55,4 @@ public class SimilarMoviesListController implements Initializable
         colCategories.setCellValueFactory(new PropertyValueFactory("categoriesAsString"));
         colLastView.setCellValueFactory(new PropertyValueFactory("fileAccessDate"));
     }
-
-    
 }

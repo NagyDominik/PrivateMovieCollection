@@ -348,7 +348,7 @@ public class MainWindowController implements Initializable {
      */
     private void checkMovies() {
         if (model.checkMovies()) {
-            Boolean answer = showConfirmationDialog("We foiund some old movies with personal rating lower than 6. Would you like to see a list of these movies?");
+            Boolean answer = showConfirmationDialog("We foiund some old movies with personal rating lower than 6. Would you like to see a list of these movies?");            
             if (answer) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/OldMovieList.fxml"));

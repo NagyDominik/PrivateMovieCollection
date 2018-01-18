@@ -186,8 +186,10 @@ public class NewMovieController implements Initializable {
         if (!model.checkSimilarities(newmovie).isEmpty())
         {          
             ButtonType showList = new ButtonType("Show");
-            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "There is atleast one movie with a similar name. Save anyway? (Click Show to see the similar movies)", 
-                                            ButtonType.YES, ButtonType.NO, showList);
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, 
+                                        "There is atleast one movie with a similar name. Save anyway? (Click Show to see the similar movies)", 
+                                         ButtonType.YES, ButtonType.NO, showList);
+            
             confirmation.showAndWait();  
             
             while(confirmation.getResult() == showList) //Show a list of similar movies
